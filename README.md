@@ -2,5 +2,5 @@
 
 # [Accessible Colors](http://accessible-colors.js.org)
 
-[status-image]: https://img.shields.io/codeship/000-1fe3f0a0-20bb-0133-934f-5ae45cb2c8e5/master.svg
-[status-url]: https://codeship.com/projects/000-95718
+[status-image]: https://img.shields.io/codeship/c8788a20-270e-0133-4d2a-723b2a0a3044/master.svg
+[status-url]: https://codeship.com/projects/97245
