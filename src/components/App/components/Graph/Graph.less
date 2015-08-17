@@ -1,0 +1,145 @@
+@width: 500px;
+@height: 200px;
+@paddingTop: 60px;
+@paddingBottom: 50px;
+@paddingLeft: 50px;
+@paddingRight: 100px;
+@originSize: 6px;
+@axisArrowSize: 3px;
+@axisColor: black;
+@axisNameFontSize: 16px;
+@axisValueFontSize: 12px;
+@dataPointSize: 3px; // should be odd
+@dataPointColor: black;
+
+.container {
+  width: @width;
+  height: @height;
+  padding: @paddingTop @paddingRight @paddingBottom @paddingLeft;
+  background-color: #eee;
+}
+
+.coordinates {
+  position: relative;
+  height: @height;
+  background-color: white;
+}
+
+.notAccessibleArea {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.accessibleArea {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.xAxis {
+  position: absolute;
+  left: -@originSize;
+  bottom: -1px;
+  height: 1px;
+  width: @width + @originSize;
+  background-color: @axisColor;
+}
+
+.xAxisArrow {
+  position: absolute;
+  left: @width;
+  bottom: -@axisArrowSize;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @axisArrowSize 0 @axisArrowSize 3 * @axisArrowSize;
+  border-color: transparent transparent transparent @axisColor;
+}
+
+.xAxisName {
+  position: absolute;
+  left: @width + 6 * @axisArrowSize;
+  bottom: -9px;
+  font-size: @axisNameFontSize;
+}
+
+.xAxisMinValue {
+  position: absolute;
+  bottom: -2 * @axisValueFontSize;
+  left: -4px;
+  font-size: @axisValueFontSize;
+}
+
+.xAxisAccessibleContrast {
+  position: absolute;
+  bottom: -2 * @axisValueFontSize;
+  font-size: @axisValueFontSize;
+}
+
+.xAxisMaxValue {
+  position: absolute;
+  bottom: -2 * @axisValueFontSize;
+  right: -7px;
+  font-size: @axisValueFontSize;
+}
+
+.yAxisArrow {
+  position: absolute;
+  left: -@axisArrowSize;
+  top: -3 * @axisArrowSize;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 @axisArrowSize 3 * @axisArrowSize @axisArrowSize;
+  border-color: transparent transparent @axisColor transparent;
+}
+
+.yAxisName {
+  position: absolute;
+  left: -@originSize;
+  top: -@axisNameFontSize - 6 * @axisArrowSize;
+  font-size: @axisNameFontSize;
+}
+
+.yAxisMinValue {
+  position: absolute;
+  right: @width + 10px;
+  bottom: -7px;
+  font-size: @axisValueFontSize;
+}
+
+.yAxisMaxValue {
+  position: absolute;
+  right: @width + 10px;
+  top: -7px;
+  font-size: @axisValueFontSize;
+}
+
+.yAxis {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  height: @height + @originSize;
+  width: 1px;
+  background-color: @axisColor;
+}
+
+.currentValue {
+  position: absolute;
+  left: -@originSize;
+  height: 1px;
+  width: @width + @originSize;
+}
+
+.dataPoint {
+  position: absolute;
+  width: @dataPointSize;
+  height: @dataPointSize;
+  border-radius: ceil(@dataPointSize / 2);
+  transform: translate(floor(-@dataPointSize / 2), floor(-@dataPointSize / 2));
+  background-color: @dataPointColor;
+}

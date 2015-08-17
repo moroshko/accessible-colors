@@ -1,0 +1,45 @@
+{
+  "name": "accessible-colors",
+  "version": "0.1.0",
+  "description": "Automatically find accessible color combinations",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moroshko/accessible-colors.git"
+  },
+  "author": "Misha Moroshko <michael.moroshko@gmail.com>",
+  "scripts": {
+    "start": "mkdir -p dist && npm run copy-static-files && node server",
+    "lint": "eslint src server.js webpack.dev.config.js webpack.prod.config.js",
+    "test": "mocha --opts mocha.opts",
+    "copy-static-files": "cp src/index.html src/favicon.png dist/",
+    "dist": "rm -rf dist/ && mkdir dist && npm run copy-static-files && webpack --config webpack.prod.config.js",
+    "build": "npm run lint && npm test && npm run dist",
+    "deploy": "./scripts/deploy-to-gh-pages.sh"
+  },
+  "dependencies": {
+    "react": "^0.14.0-beta3",
+    "react-dom": "^0.14.0-beta3",
+    "react-redux": "^0.8.2",
+    "redux": "^1.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^2.0.0",
+    "babel": "^5.8.21",
+    "babel-eslint": "^4.0.10",
+    "babel-loader": "^5.3.2",
+    "chai": "^3.2.0",
+    "css-loader": "^0.16.0",
+    "eslint": "^1.1.0",
+    "eslint-plugin-react": "^3.2.3",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.0",
+    "mocha": "^2.2.5",
+    "node-libs-browser": "^0.5.2",
+    "react-hot-loader": "^1.2.8",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  },
+  "license": "MIT"
+}
