@@ -1,10 +1,9 @@
 ## Todo
 
-* Add hotjar
+* Change the GitHub button not to blink
+* Tweet button
 * "No solution" message
 * "Already accessible" message
-* Add footer with links to profiles
-* Tweet button & GitHub star button
 * Mobile view
 * Update URL when input values change (bookmarkable URLs)
 * Test accessibility: ARIA attributes, keyboard navigation
