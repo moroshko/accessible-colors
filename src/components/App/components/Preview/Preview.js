@@ -77,7 +77,7 @@ class Preview extends Component {
             }
             { !newBackgroundColor &&
                 <div className={styles.previewContent}>
-                  No accessible combination found by changing backgorund lightness.
+                  No accessible combination found by changing background lightness.
                 </div>
             }
           </div>
