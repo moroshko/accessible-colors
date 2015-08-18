@@ -6,6 +6,7 @@ import Header from 'Header/Header';
 import UserInput from 'UserInput/UserInput';
 import UserInputError from 'UserInputError/UserInputError';
 import Preview from 'Preview/Preview';
+import Footer from 'Footer/Footer';
 
 function mapStateToProps(state) {
   return {
@@ -34,6 +35,7 @@ class App extends Component {
         <Header />
         <UserInput />
         {this.isUserInputValid() ? <Preview /> : <UserInputError />}
+        <Footer />
       </div>
     );
   }

@@ -1,11 +1,11 @@
 import styles from './Header.less';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 export default class Header extends Component {
   render() {
     return (
-      <div className={styles.container}>
+      <header className={styles.container}>
         <div className={styles.innerContainer}>
           <h1 className={styles.header}>
             ACCESSIBLE COLORS
@@ -25,7 +25,7 @@ export default class Header extends Component {
             </a>
           </p>
         </div>
-      </div>
+      </header>
     );
   }
 }
