@@ -40,7 +40,8 @@ const initialState = {
     isLightnessValid: true,
     lightness: initialBackgroundColorHSL.l.toString()
   },
-  accessibilityLevel: 'AA'
+  accessibilityLevel: 'AA',
+  isInputChanged: false
 };
 
 export default function(state = initialState, action) {
@@ -52,7 +53,8 @@ export default function(state = initialState, action) {
           type: UPDATE_COLOR,
           field: action.field,
           value: action.value
-        })
+        }),
+        isInputChanged: true
       };
 
     case UPDATE_FONT_SIZE:
@@ -61,13 +63,15 @@ export default function(state = initialState, action) {
         fontSize: {
           isValid: numberUtils.isIntegerInRange(action.value, 8, 50),
           value: action.value
-        }
+        },
+        isInputChanged: true
       };
 
     case TOGGLE_IS_FONT_BOLD:
       return {
         ...state,
-        isFontBold: !state.isFontBold
+        isFontBold: !state.isFontBold,
+        isInputChanged: true
       };
 
     case UPDATE_BACKGROUND_COLOR:
@@ -77,13 +81,15 @@ export default function(state = initialState, action) {
           type: UPDATE_COLOR,
           field: action.field,
           value: action.value
-        })
+        }),
+        isInputChanged: true
       };
 
     case UPDATE_ACCESSIBILITY_LEVEL:
       return {
         ...state,
-        accessibilityLevel: action.value
+        accessibilityLevel: action.value,
+        isInputChanged: true
       };
 
     default:

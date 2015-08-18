@@ -11,7 +11,8 @@ function mapStateToProps(state) {
     fontSize: state.fontSize,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor,
-    accessibilityLevel: state.accessibilityLevel
+    accessibilityLevel: state.accessibilityLevel,
+    isInputChanged: state.isInputChanged
   };
 }
 
@@ -21,7 +22,8 @@ class Preview extends Component {
     fontSize: PropTypes.object.isRequired,
     isFontBold: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.object.isRequired,
-    accessibilityLevel: PropTypes.string.isRequired
+    accessibilityLevel: PropTypes.string.isRequired,
+    isInputChanged: PropTypes.bool.isRequired
   };
 
   contrast(color1, color2) {
@@ -30,7 +32,7 @@ class Preview extends Component {
 
   render() {
     const { textColor, fontSize, isFontBold,
-            backgroundColor, accessibilityLevel } = this.props;
+            backgroundColor, accessibilityLevel, isInputChanged } = this.props;
     const contrastRatio =
       accessibleContrast(accessibilityLevel, parseInt(fontSize.value, 10), isFontBold);
     const containerStyle = {
@@ -59,18 +61,35 @@ class Preview extends Component {
         <div className={styles.innerContainer}>
           <div className={styles.previewContainer}>
             <h2 className={styles.previewTitle}>
+              {isInputChanged ? 'Your' : 'Initial'} design
+            </h2>
+            <div className={styles.previewContent} style={originalStyle}>
+              <p className={styles.previewParagraph}>
+                {originalStyle.color} text
+              </p>
+              <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
+                {originalStyle.backgroundColor} background
+              </p>
+              <p className={styles.previewParagraph}>
+                Contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
+              </p>
+            </div>
+          </div>
+          <div className={styles.previewContainer}>
+            <h2 className={styles.previewTitle}>
               New background
             </h2>
             {
               newBackgroundColor &&
                 <div className={styles.previewContent} style={newBackgroundStyle}>
-                  <p className={styles.previewNewColor}>
-                    &nbsp;
+                  <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
+                     aria-hidden="true">
+                    {originalStyle.color} text
                   </p>
-                  <p className={styles.previewNewColor}>
+                  <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
                     {newBackgroundStyle.backgroundColor} background
                   </p>
-                  <p className={styles.previewContrast}>
+                  <p className={styles.previewParagraph}>
                     Contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
                   </p>
                 </div>
@@ -83,34 +102,19 @@ class Preview extends Component {
           </div>
           <div className={styles.previewContainer}>
             <h2 className={styles.previewTitle}>
-              Your design
-            </h2>
-            <div className={styles.previewContent} style={originalStyle}>
-              <p className={styles.previewNewColor}>
-                {originalStyle.color} text
-              </p>
-              <p className={styles.previewNewColor}>
-                {originalStyle.backgroundColor} background
-              </p>
-              <p className={styles.previewContrast}>
-                Contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
-              </p>
-            </div>
-          </div>
-          <div className={styles.previewContainer}>
-            <h2 className={styles.previewTitle}>
               New text color
             </h2>
             {
               newTextColor &&
                 <div className={styles.previewContent} style={newTextStyle}>
-                  <p className={styles.previewNewColor}>
+                  <p className={styles.previewParagraph}>
                     {newTextStyle.color} text
                   </p>
-                  <p className={styles.previewNewColor}>
-                    &nbsp;
+                  <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph + ' ' + styles.previewBackground}
+                     aria-hidden="true">
+                    {originalStyle.backgroundColor} background
                   </p>
-                  <p className={styles.previewContrast}>
+                  <p className={styles.previewParagraph}>
                     Contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
                   </p>
                 </div>
