@@ -1,6 +1,6 @@
 import styles from './UserInputError.less';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 export default class UserInputError extends Component {
   render() {

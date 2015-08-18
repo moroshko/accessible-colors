@@ -329,7 +329,7 @@ function findClosestAccessibleColor(adjustableColor, otherColor, contrastRatio) 
     return closestDarkerColor.color;
   }
 
-  const { h, s, l } = str2hsl(adjustableColor);
+  const { l } = str2hsl(adjustableColor);
 
   if (closestLighterColor.lightness - l < l - closestDarkerColor.lightness) {
     return closestLighterColor.color;
