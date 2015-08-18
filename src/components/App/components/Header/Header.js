@@ -16,7 +16,6 @@ export default class Header extends Component {
           <p>
             <a className="github-button"
                href="https://github.com/moroshko/accessible-colors"
-               data-icon="octicon-star"
                data-style="mega"
                data-count-href="/moroshko/accessible-colors/stargazers"
                data-count-api="/repos/moroshko/accessible-colors#stargazers_count"
