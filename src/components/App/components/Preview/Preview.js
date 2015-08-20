@@ -2,7 +2,6 @@ import styles from './Preview.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { findClosestAccessibleColor, contrast } from 'utils/color/color';
 
 function mapStateToProps(state) {
@@ -11,7 +10,6 @@ function mapStateToProps(state) {
     fontSize: state.fontSize,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor,
-    accessibilityLevel: state.accessibilityLevel,
     isInputChanged: state.isInputChanged
   };
 }
@@ -22,8 +20,8 @@ class Preview extends Component {
     fontSize: PropTypes.object.isRequired,
     isFontBold: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.object.isRequired,
-    accessibilityLevel: PropTypes.string.isRequired,
-    isInputChanged: PropTypes.bool.isRequired
+    isInputChanged: PropTypes.bool.isRequired,
+    accessibleContrast: PropTypes.number.isRequired
   };
 
   contrast(color1, color2) {
@@ -31,10 +29,8 @@ class Preview extends Component {
   }
 
   render() {
-    const { textColor, fontSize, isFontBold,
-            backgroundColor, accessibilityLevel, isInputChanged } = this.props;
-    const contrastRatio =
-      accessibleContrast(accessibilityLevel, parseInt(fontSize.value, 10), isFontBold);
+    const { textColor, fontSize, isFontBold, backgroundColor,
+            isInputChanged, accessibleContrast } = this.props;
     const containerStyle = {
       fontSize: fontSize.value,
       fontWeight: isFontBold ? 'bold' : 'normal'
@@ -44,9 +40,9 @@ class Preview extends Component {
       backgroundColor: backgroundColor.value
     };
     const newBackgroundColor =
-      findClosestAccessibleColor(backgroundColor.value, textColor.value, contrastRatio);
+      findClosestAccessibleColor(backgroundColor.value, textColor.value, accessibleContrast);
     const newTextColor =
-      findClosestAccessibleColor(textColor.value, backgroundColor.value, contrastRatio);
+      findClosestAccessibleColor(textColor.value, backgroundColor.value, accessibleContrast);
     const newBackgroundStyle = {
       color: textColor.value,
       backgroundColor: newBackgroundColor

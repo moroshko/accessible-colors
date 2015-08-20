@@ -14,11 +14,14 @@
   &:focus {
     background-color: #c9d6df;
     border: 0;
-    border-bottom: 2px solid #00bd00;
     outline: 0;
+  }
+}
 
-    &.invalid {
-      border-bottom: 2px solid #ff0000;
-    }
+.invalid {
+  border-bottom: 2px solid #ff0000;
+
+  &:focus {
+    border-bottom: 2px solid #ff0000;
   }
 }
