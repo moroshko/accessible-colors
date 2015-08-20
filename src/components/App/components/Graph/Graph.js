@@ -1,7 +1,7 @@
 import styles from './Graph.less';
 
 import React, { Component, PropTypes } from 'react';
-import colorUtils from 'utils/color/color';
+import { str2sixDigitHex, hsl2str, contrast } from 'utils/color/color';
 
 export default class Color extends Component {
   static propTypes = {
@@ -17,7 +17,7 @@ export default class Color extends Component {
 
     newColor[colorChannel] = colorChannelValue;
 
-    return colorUtils.hsl2str({
+    return hsl2str({
       h: newColor.hue,
       s: newColor.saturation,
       l: newColor.lightness
@@ -38,7 +38,7 @@ export default class Color extends Component {
 
     for (let y = 0; y <= yMaxValue; y++) {
       data.push({
-        x: colorUtils.contrast(this.replaceChannel(color, colorChannel, y), otherColor.value),
+        x: contrast(this.replaceChannel(color, colorChannel, y), otherColor.value),
         y
       });
     }
@@ -65,7 +65,7 @@ export default class Color extends Component {
           <div className={styles.yAxisMaxValue}>{yMaxValue}</div>
           <div className={styles.currentValue}
                style={{ top: 100 * (1 - yValue / yMaxValue) + '%',
-                        backgroundColor: color.value }} />
+                        backgroundColor: str2sixDigitHex(color.value) }} />
           {
             data.map(({ x, y }) =>
               <div className={styles.dataPoint}

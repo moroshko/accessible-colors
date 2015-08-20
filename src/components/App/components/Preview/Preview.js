@@ -3,7 +3,7 @@ import styles from './Preview.less';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MAX_FONT_SIZE } from 'flux/constants/config';
-import { findClosestAccessibleColor, contrast } from 'utils/color/color';
+import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
 
 function mapStateToProps(state) {
   return {
@@ -37,21 +37,23 @@ class Preview extends Component {
       fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
       fontWeight: isFontBold ? 'bold' : 'normal'
     };
+    const originalTextColor = str2sixDigitHex(textColor.value);
+    const originalBackgroundColor = str2sixDigitHex(backgroundColor.value);
     const originalStyle = {
-      color: textColor.value,
-      backgroundColor: backgroundColor.value
+      color: originalTextColor,
+      backgroundColor: originalBackgroundColor
     };
     const newBackgroundColor =
       findClosestAccessibleColor(backgroundColor.value, textColor.value, accessibleContrast);
     const newTextColor =
       findClosestAccessibleColor(textColor.value, backgroundColor.value, accessibleContrast);
     const newBackgroundStyle = {
-      color: textColor.value,
+      color: originalTextColor,
       backgroundColor: newBackgroundColor
     };
     const newTextStyle = {
       color: newTextColor,
-      backgroundColor: backgroundColor.value
+      backgroundColor: originalBackgroundColor
     };
 
     return (
@@ -87,7 +89,7 @@ class Preview extends Component {
                         {originalStyle.color} text
                       </p>
                       <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
-                        {newBackgroundStyle.backgroundColor} background
+                        {newBackgroundStyle.backgroundColor.toUpperCase()} background
                       </p>
                       <p className={styles.previewParagraph}>
                         Contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
@@ -111,7 +113,7 @@ class Preview extends Component {
                   newTextColor &&
                     <div className={styles.previewContent} style={newTextStyle}>
                       <p className={styles.previewParagraph}>
-                        {newTextStyle.color} text
+                        {newTextStyle.color.toUpperCase()} text
                       </p>
                       <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph + ' ' + styles.previewBackground}
                          aria-hidden="true">

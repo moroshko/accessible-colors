@@ -1,6 +1,8 @@
 const FLOAT_REGEX = /^\d+(\.\d+)?$/;
-const THREE_DIGIT_HEX_COLOR_REGEX = /^#[0-9a-fA-F]{3}$/;
-const SIX_DIGIT_HEX_COLOR_REGEX = /^#[0-9a-fA-F]{6}$/;
+const THREE_DIGIT_HEX_COLOR_REGEX = /^[0-9a-fA-F]{3}$/;
+const THREE_DIGIT_HEX_COLOR_WITH_HASH_REGEX = /^#[0-9a-fA-F]{3}$/;
+const SIX_DIGIT_HEX_COLOR_REGEX = /^[0-9a-fA-F]{6}$/;
+const SIX_DIGIT_HEX_COLOR_WITH_HASH_REGEX = /^#[0-9a-fA-F]{6}$/;
 
 function isFloatInRange(str, min, max) {
   if (!FLOAT_REGEX.test(str)) {
@@ -13,12 +15,20 @@ function isFloatInRange(str, min, max) {
 }
 
 function str2sixDigitHex(str) {
-  if (SIX_DIGIT_HEX_COLOR_REGEX.test(str)) {
+  if (SIX_DIGIT_HEX_COLOR_WITH_HASH_REGEX.test(str)) {
     return str;
   }
 
-  if (THREE_DIGIT_HEX_COLOR_REGEX.test(str)) {
+  if (SIX_DIGIT_HEX_COLOR_REGEX.test(str)) {
+    return '#' + str;
+  }
+
+  if (THREE_DIGIT_HEX_COLOR_WITH_HASH_REGEX.test(str)) {
     return '#' + str[1] + str[1] + str[2] + str[2] + str[3] + str[3];
+  }
+
+  if (THREE_DIGIT_HEX_COLOR_REGEX.test(str)) {
+    return '#' + str[0] + str[0] + str[1] + str[1] + str[2] + str[2];
   }
 
   return null;
@@ -347,6 +357,7 @@ function randomColor() {
 }
 
 export default {
+  str2sixDigitHex,
   isValueValid,
   isHueValid,
   isSaturationValid,
