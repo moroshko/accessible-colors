@@ -20,6 +20,7 @@ export default class Editable extends Component {
 
   onFocus(event) {
     this.valueBeforeEdit = event.target.value;
+    setTimeout(() => this.refs.input.select());
   }
 
   onKeyUp(event) {
@@ -43,7 +44,7 @@ export default class Editable extends Component {
 
     return (
       <input className={styles.input + ' ' + (isValid ? '' : styles.invalid)}
-             type="text" value={value} aria-invalid={!isValid}
+             type="text" value={value} ref="input" aria-invalid={!isValid}
              onFocus={this.onFocus} onKeyUp={this.onKeyUp}
              onChange={event => onChange(event.target.value)} />
     );
