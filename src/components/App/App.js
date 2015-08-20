@@ -33,8 +33,9 @@ class App extends Component {
   render() {
     const { textColor, fontSize, isFontBold,
             backgroundColor, accessibilityLevel } = this.props;
-    const isUserInputValid =
-      textColor.isValueValid && fontSize.isValid && backgroundColor.isValueValid;
+    const areColorsValid = textColor.isValueValid && backgroundColor.isValueValid;
+    const isFontSizeValid = fontSize.isValid;
+    const isUserInputValid = areColorsValid && isFontSizeValid;
     const accessibleContrastRatio = isUserInputValid ?
       accessibleContrast(accessibilityLevel, parseInt(fontSize.value, 10), isFontBold) : null;
     const isAccessible = isUserInputValid ?
@@ -45,8 +46,10 @@ class App extends Component {
         <Header />
         <UserInput />
         {isUserInputValid && <AccessibilityIndicator isAccessible={isAccessible} />}
-        {isUserInputValid && <Preview accessibleContrast={accessibleContrastRatio} />}
-        {!isUserInputValid && <UserInputError />}
+        {isUserInputValid && <Preview accessibleContrast={accessibleContrastRatio}
+                                      isAccessible={isAccessible} />}
+        {!isUserInputValid && <UserInputError areColorsValid={areColorsValid}
+                                              isFontSizeValid={isFontSizeValid} />}
         <Footer />
       </div>
     );

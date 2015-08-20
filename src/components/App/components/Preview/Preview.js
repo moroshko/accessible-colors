@@ -21,7 +21,8 @@ class Preview extends Component {
     isFontBold: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.object.isRequired,
     isInputChanged: PropTypes.bool.isRequired,
-    accessibleContrast: PropTypes.number.isRequired
+    accessibleContrast: PropTypes.number.isRequired,
+    isAccessible: PropTypes.bool.isRequired
   };
 
   contrast(color1, color2) {
@@ -30,7 +31,7 @@ class Preview extends Component {
 
   render() {
     const { textColor, fontSize, isFontBold, backgroundColor,
-            isInputChanged, accessibleContrast } = this.props;
+            isInputChanged, accessibleContrast, isAccessible } = this.props;
     const containerStyle = {
       fontSize: fontSize.value,
       fontWeight: isFontBold ? 'bold' : 'normal'
@@ -71,57 +72,63 @@ class Preview extends Component {
               </p>
             </div>
           </div>
-          <div className={styles.previewContainer}>
-            <h2 className={styles.previewTitle}>
-              New background
-            </h2>
-            {
-              newBackgroundColor &&
-                <div className={styles.previewContent} style={newBackgroundStyle}>
-                  <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
-                     aria-hidden="true">
-                    {originalStyle.color} text
-                  </p>
-                  <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
-                    {newBackgroundStyle.backgroundColor} background
-                  </p>
-                  <p className={styles.previewParagraph}>
-                    Contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
-                  </p>
-                </div>
-            }
-            { !newBackgroundColor &&
-                <div className={styles.previewContent}>
-                  No accessible combination found by changing background lightness.
-                </div>
-            }
-          </div>
-          <div className={styles.previewContainer}>
-            <h2 className={styles.previewTitle}>
-              New text color
-            </h2>
-            {
-              newTextColor &&
-                <div className={styles.previewContent} style={newTextStyle}>
-                  <p className={styles.previewParagraph}>
-                    {newTextStyle.color} text
-                  </p>
-                  <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph + ' ' + styles.previewBackground}
-                     aria-hidden="true">
-                    {originalStyle.backgroundColor} background
-                  </p>
-                  <p className={styles.previewParagraph}>
-                    Contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
-                  </p>
-                </div>
-            }
-            {
-              !newTextColor &&
-                <div className={styles.previewContent}>
-                  No accessible combination found by changing text lightness.
-                </div>
-            }
-          </div>
+          {
+            !isAccessible &&
+              <div className={styles.previewContainer}>
+                <h2 className={styles.previewTitle}>
+                  New background
+                </h2>
+                {
+                  newBackgroundColor &&
+                    <div className={styles.previewContent} style={newBackgroundStyle}>
+                      <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
+                         aria-hidden="true">
+                        {originalStyle.color} text
+                      </p>
+                      <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
+                        {newBackgroundStyle.backgroundColor} background
+                      </p>
+                      <p className={styles.previewParagraph}>
+                        Contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
+                      </p>
+                    </div>
+                }
+                { !newBackgroundColor &&
+                    <div className={styles.previewContent}>
+                      No accessible combination found by changing background lightness.
+                    </div>
+                }
+              </div>
+          }
+          {
+            !isAccessible &&
+              <div className={styles.previewContainer}>
+                <h2 className={styles.previewTitle}>
+                  New text color
+                </h2>
+                {
+                  newTextColor &&
+                    <div className={styles.previewContent} style={newTextStyle}>
+                      <p className={styles.previewParagraph}>
+                        {newTextStyle.color} text
+                      </p>
+                      <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph + ' ' + styles.previewBackground}
+                         aria-hidden="true">
+                        {originalStyle.backgroundColor} background
+                      </p>
+                      <p className={styles.previewParagraph}>
+                        Contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
+                      </p>
+                    </div>
+                }
+                {
+                  !newTextColor &&
+                    <div className={styles.previewContent}>
+                      No accessible combination found by changing text lightness.
+                    </div>
+                }
+              </div>
+          }
         </div>
       </div>
     );

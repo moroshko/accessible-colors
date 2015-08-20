@@ -61,7 +61,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         fontSize: {
-          isValid: numberUtils.isIntegerInRange(action.value, 8, 50),
+          isValid: numberUtils.isIntegerInRange(action.value, 8, 42),
           value: action.value
         },
         isInputChanged: true
