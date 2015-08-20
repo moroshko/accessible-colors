@@ -4,7 +4,7 @@ function isInteger(str) {
   return INTEGER_REGEX.test(str);
 }
 
-function isIntegerInRange(str, min, max) {
+function isIntegerInRange(str, min, max = Number.MAX_SAFE_INTEGER) {
   if (!isInteger(str)) {
     return false;
   }

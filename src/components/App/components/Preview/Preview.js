@@ -2,6 +2,7 @@ import styles from './Preview.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { MAX_FONT_SIZE } from 'flux/constants/config';
 import { findClosestAccessibleColor, contrast } from 'utils/color/color';
 
 function mapStateToProps(state) {
@@ -33,7 +34,7 @@ class Preview extends Component {
     const { textColor, fontSize, isFontBold, backgroundColor,
             isInputChanged, accessibleContrast, isAccessible } = this.props;
     const containerStyle = {
-      fontSize: fontSize.value,
+      fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
       fontWeight: isFontBold ? 'bold' : 'normal'
     };
     const originalStyle = {

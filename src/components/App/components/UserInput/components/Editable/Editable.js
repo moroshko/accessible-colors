@@ -43,7 +43,7 @@ export default class Editable extends Component {
 
     return (
       <input className={styles.input + ' ' + (isValid ? '' : styles.invalid)}
-             type="text" value={value}
+             type="text" value={value} aria-invalid={!isValid}
              onFocus={this.onFocus} onKeyUp={this.onKeyUp}
              onChange={event => onChange(event.target.value)} />
     );

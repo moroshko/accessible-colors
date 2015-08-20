@@ -1,3 +1,4 @@
+import { MIN_FONT_SIZE } from 'flux/constants/config';
 import colorUtils from 'utils/color/color';
 import numberUtils from 'utils/number/number';
 import {
@@ -61,7 +62,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         fontSize: {
-          isValid: numberUtils.isIntegerInRange(action.value, 8, 42),
+          isValid: numberUtils.isIntegerInRange(action.value, MIN_FONT_SIZE),
           value: action.value
         },
         isInputChanged: true

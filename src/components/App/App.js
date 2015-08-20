@@ -2,11 +2,13 @@ import styles from './App.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { MAX_FONT_SIZE } from 'flux/constants/config';
 import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { contrast } from 'utils/color/color';
 import Header from 'Header/Header';
 import UserInput from 'UserInput/UserInput';
 import AccessibilityIndicator from 'AccessibilityIndicator/AccessibilityIndicator';
+import FontSizeTooBig from 'FontSizeTooBig/FontSizeTooBig';
 import UserInputError from 'UserInputError/UserInputError';
 import Preview from 'Preview/Preview';
 import Footer from 'Footer/Footer';
@@ -36,8 +38,9 @@ class App extends Component {
     const areColorsValid = textColor.isValueValid && backgroundColor.isValueValid;
     const isFontSizeValid = fontSize.isValid;
     const isUserInputValid = areColorsValid && isFontSizeValid;
+    const fontSizeValue = parseInt(fontSize.value, 10);
     const accessibleContrastRatio = isUserInputValid ?
-      accessibleContrast(accessibilityLevel, parseInt(fontSize.value, 10), isFontBold) : null;
+      accessibleContrast(accessibilityLevel, fontSizeValue, isFontBold) : null;
     const isAccessible = isUserInputValid ?
       (contrast(textColor.value, backgroundColor.value) >= accessibleContrastRatio) : null;
 
@@ -48,6 +51,7 @@ class App extends Component {
         {isUserInputValid && <AccessibilityIndicator isAccessible={isAccessible} />}
         {isUserInputValid && <Preview accessibleContrast={accessibleContrastRatio}
                                       isAccessible={isAccessible} />}
+        {isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}
         {!isUserInputValid && <UserInputError areColorsValid={areColorsValid}
                                               isFontSizeValid={isFontSizeValid} />}
         <Footer />

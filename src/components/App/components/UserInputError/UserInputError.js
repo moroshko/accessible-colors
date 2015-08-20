@@ -1,6 +1,7 @@
 import styles from './UserInputError.less';
 
 import React, { Component, PropTypes } from 'react';
+import { MIN_FONT_SIZE, MAX_FONT_SIZE } from 'flux/constants/config';
 
 export default class UserInputError extends Component {
   static propTypes = {
@@ -23,7 +24,8 @@ export default class UserInputError extends Component {
           {
             !isFontSizeValid &&
               <p>
-                Please enter a font size between 8px and 42px
+                Please enter a font size between {MIN_FONT_SIZE}px
+                and {MAX_FONT_SIZE}px
               </p>
           }
         </div>
