@@ -1,27 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import appReducer from 'flux/reducers/app';
 import App from 'App/App';
 
-class AccessibleColors extends Component {
-  constructor() {
-    super();
+let store, debugPanel;
 
-    this.store = createStore(appReducer);
-  }
+if (__DEVTOOLS__) {
+  const { compose } = require('redux');
+  const { devTools } = require('redux-devtools');
+  const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
+  const DiffMonitor = require('redux-devtools-diff-monitor');
 
-  render() {
-    return (
-      <Provider store={this.store}>
-        {() => <App />}
-      </Provider>
-    );
-  }
+  store = compose(devTools(), createStore)(appReducer);
+
+  debugPanel = (
+    <DebugPanel top left bottom>
+      <DevTools store={store} monitor={DiffMonitor} />
+    </DebugPanel>
+  );
+} else {
+  store = createStore(appReducer);
 }
 
 ReactDOM.render(
-  <AccessibleColors />,
+  <div>
+    <Provider store={store}>
+      {() => <App />}
+    </Provider>
+    {debugPanel}
+  </div>,
   document.getElementById('accessible-colors')
 );
