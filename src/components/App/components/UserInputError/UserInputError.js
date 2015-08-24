@@ -17,13 +17,15 @@ export default class UserInputError extends Component {
         <div className={styles.innerContainer}>
           {
             !areColorsValid &&
-              <p>
+              <p className={styles.paragraph}>
+                <span className={styles.icon + ' icon-attention'} />
                 Please enter a valid hexadecimal color
               </p>
           }
           {
             !isFontSizeValid &&
-              <p>
+              <p className={styles.paragraph}>
+                <span className={styles.icon + ' icon-attention'} />
                 Please enter a font size of {MIN_FONT_SIZE}px or above
               </p>
           }

@@ -11,7 +11,7 @@
     "start": "mkdir -p dist && npm run copy-static-files && node server",
     "lint": "eslint src server.js webpack.dev.config.js webpack.prod.config.js",
     "test": "mocha --opts mocha.opts",
-    "copy-static-files": "cp src/index.html src/favicon.png dist/",
+    "copy-static-files": "cp src/index.html src/favicon.png src/icons.css dist/ && cp -r src/fonts dist/",
     "dist": "rm -rf dist/ && mkdir dist && npm run copy-static-files && webpack --config webpack.prod.config.js",
     "build": "npm run lint && npm test && npm run dist",
     "deploy": "./scripts/deploy-to-gh-pages.sh"
