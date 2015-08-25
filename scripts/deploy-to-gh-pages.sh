@@ -24,11 +24,15 @@ git merge master --no-edit
 printf "${MAGENTA}Building the app\n${NORMAL}"
 npm run build
 
+printf "${MAGENTA}Deleting old app files from the root directory\n${NORMAL}"
+rm index.html app.css icons.css index.js favicon.png
+rm -rf fonts
+
 printf "${MAGENTA}Copying the app to the root directory\n${NORMAL}"
 cp -r dist/* .
 
 printf "${MAGENTA}Adding files to commit\n${NORMAL}"
-git add index.html app.css icons.css index.js favicon.png fonts/AccessibleColor.eot fonts/AccessibleColor.svg fonts/AccessibleColor.ttf fonts/AccessibleColor.woff
+git add index.html app.css icons.css index.js favicon.png fonts/AccessibleColors.eot fonts/AccessibleColors.svg fonts/AccessibleColors.ttf fonts/AccessibleColors.woff
 
 printf "${MAGENTA}Committing\n${NORMAL}"
 git commit -m 'Update gh-pages files'
