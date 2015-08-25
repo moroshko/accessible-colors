@@ -74,6 +74,9 @@ export default (state = initialState, action) => {
         isInputChanged: true
       };
 
+    case CORRECT_FONT_SIZE:
+      return state;
+
     case TOGGLE_FONT_WEIGHT:
       return {
         ...state,
@@ -110,4 +113,4 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

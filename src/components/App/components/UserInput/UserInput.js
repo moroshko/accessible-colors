@@ -21,12 +21,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateTextColor: value => dispatch(updateTextColor('value', value)),
-    correctTextColor: value => dispatch(correctTextColor()),
+    correctTextColor: () => dispatch(correctTextColor()),
     updateFontSize: value => dispatch(updateFontSize(value)),
-    correctFontSize: value => dispatch(correctFontSize(value)),
+    correctFontSize: () => dispatch(correctFontSize()),
     toggleFontWeight: () => dispatch(toggleFontWeight()),
     updateBackgroundColor: value => dispatch(updateBackgroundColor('value', value)),
-    correctBackgroundColor: value => dispatch(correctBackgroundColor()),
+    correctBackgroundColor: () => dispatch(correctBackgroundColor()),
     updateAccessibilityLevel: value => dispatch(updateAccessibilityLevel(value))
   };
 }
