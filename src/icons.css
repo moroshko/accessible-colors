@@ -1,16 +1,16 @@
 @font-face {
-  font-family: 'AccessibleColor';
-  src:url('fonts/AccessibleColor.eot?bakhx9');
-  src:url('fonts/AccessibleColor.eot?#iefixbakhx9') format('embedded-opentype'),
-    url('fonts/AccessibleColor.ttf?bakhx9') format('truetype'),
-    url('fonts/AccessibleColor.woff?bakhx9') format('woff'),
-    url('fonts/AccessibleColor.svg?bakhx9#AccessibleColor') format('svg');
+  font-family: 'AccessibleColors';
+  src:url('fonts/AccessibleColors.eot?klhuq2');
+  src:url('fonts/AccessibleColors.eot?#iefixklhuq2') format('embedded-opentype'),
+    url('fonts/AccessibleColors.ttf?klhuq2') format('truetype'),
+    url('fonts/AccessibleColors.woff?klhuq2') format('woff'),
+    url('fonts/AccessibleColors.svg?klhuq2#AccessibleColors') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-  font-family: 'AccessibleColor';
+  font-family: 'AccessibleColors';
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -19,15 +19,18 @@
   line-height: 1;
 }
 
-.icon-cross:before {
-  content: "\e601";
-}
-.icon-tick:before {
+.icon-circle-attention:before {
   content: "\e600";
 }
-.icon-attention:before {
+.icon-circle-cross:before {
+  content: "\e601";
+}
+.icon-circle-tick:before {
   content: "\e602";
 }
-.icon-crossincircle:before {
+.icon-cross:before {
   content: "\e603";
+}
+.icon-icon-tick:before {
+  content: "\e604";
 }

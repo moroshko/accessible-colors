@@ -21,7 +21,7 @@ class AccessibilityIndicator extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.innerContainer}>
-          <span className={styles.icon + (isAccessible ? ' icon-tick' : ' icon-crossincircle')} />
+          <span className={styles.icon + (isAccessible ? ' icon-circle-tick' : ' icon-circle-cross')} />
           {isInputChanged ? 'Your text' : 'Text'} &amp; background combination
           is {!isAccessible && 'not'} accessible
         </div>
