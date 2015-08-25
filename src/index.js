@@ -27,7 +27,7 @@ if (__DEVTOOLS__) {
 ReactDOM.render(
   <div>
     <Provider store={store}>
-      {() => <App />}
+      <App />
     </Provider>
     {debugPanel}
   </div>,

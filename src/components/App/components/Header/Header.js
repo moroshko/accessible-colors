@@ -8,7 +8,7 @@ export default class Header extends Component {
       <header className={styles.container}>
         <div className={styles.innerContainer}>
           <h1 className={styles.header}>
-            ACCESSIBLE COLORS
+            Accessible colors
           </h1>
           <p className={styles.subHeader}>
             Make any color combination accessible

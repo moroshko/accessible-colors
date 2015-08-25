@@ -35,7 +35,7 @@ class Preview extends Component {
             isInputChanged, accessibleContrast, isAccessible } = this.props;
     const containerStyle = {
       fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
-      fontWeight: isFontBold ? 'bold' : 'normal'
+      fontWeight: isFontBold ? '500' : '300'
     };
     const originalTextColor = str2sixDigitHex(textColor.value);
     const originalBackgroundColor = str2sixDigitHex(backgroundColor.value);
