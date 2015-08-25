@@ -1,11 +1,17 @@
 const INTEGER_REGEX = /^\d+$/;
 
-function isInteger(str) {
+function isStringInteger(str) {
   return INTEGER_REGEX.test(str);
 }
 
 function isIntegerInRange(str, min, max = Number.MAX_SAFE_INTEGER) {
-  if (!isInteger(str)) {
+  if (typeof str !== 'string') {
+    return false;
+  }
+
+  str = str.trim();
+
+  if (!isStringInteger(str)) {
     return false;
   }
 

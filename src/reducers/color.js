@@ -92,7 +92,7 @@ function handleUpdateColor(state, action) {
   }
 }
 
-export default function(state, action) {
+export default (state, action) => {
   switch (action.type) {
     case UPDATE_COLOR:
       return handleUpdateColor(state, action);

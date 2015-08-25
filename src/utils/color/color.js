@@ -15,6 +15,8 @@ function isFloatInRange(str, min, max) {
 }
 
 function str2sixDigitHex(str) {
+  str = str.trim();
+
   if (SIX_DIGIT_HEX_COLOR_WITH_HASH_REGEX.test(str)) {
     return str;
   }

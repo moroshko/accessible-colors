@@ -43,7 +43,7 @@ const initialState = {
   isInputChanged: false
 };
 
-export default function(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_TEXT_COLOR:
       return {
