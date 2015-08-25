@@ -2,7 +2,7 @@ import styles from './Preview.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { MAX_FONT_SIZE } from 'flux/constants/config';
+import { MAX_FONT_SIZE } from 'constants';
 import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
 
 function mapStateToProps(state) {

@@ -1,15 +1,13 @@
-import { MIN_FONT_SIZE } from 'flux/constants/config';
+import { MIN_FONT_SIZE } from 'constants';
 import colorUtils from 'utils/color/color';
 import numberUtils from 'utils/number/number';
-import {
-  UPDATE_TEXT_COLOR,
-  UPDATE_FONT_SIZE,
-  TOGGLE_IS_FONT_BOLD,
-  UPDATE_BACKGROUND_COLOR,
-  UPDATE_ACCESSIBILITY_LEVEL
-} from 'flux/constants/actionTypes/app';
-import { UPDATE_COLOR } from 'flux/constants/actionTypes/color';
-import colorReducer from 'flux/reducers/color';
+import { UPDATE_TEXT_COLOR, CORRECT_TEXT_COLOR,
+         UPDATE_FONT_SIZE, CORRECT_FONT_SIZE,
+         TOGGLE_FONT_WEIGHT,
+         UPDATE_BACKGROUND_COLOR, CORRECT_BACKGROUND_COLOR,
+         UPDATE_ACCESSIBILITY_LEVEL } from 'actions/app';
+import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
+import colorReducer from 'reducers/color';
 
 const initialBackgroundColor = '#EEEEEE';
 const initialTextColor = '#747474';
@@ -58,6 +56,14 @@ export default function(state = initialState, action) {
         isInputChanged: true
       };
 
+    case CORRECT_TEXT_COLOR:
+      return {
+        ...state,
+        textColor: colorReducer(state.textColor, {
+          type: CORRECT_COLOR
+        })
+      };
+
     case UPDATE_FONT_SIZE:
       return {
         ...state,
@@ -68,7 +74,7 @@ export default function(state = initialState, action) {
         isInputChanged: true
       };
 
-    case TOGGLE_IS_FONT_BOLD:
+    case TOGGLE_FONT_WEIGHT:
       return {
         ...state,
         isFontBold: !state.isFontBold,
@@ -84,6 +90,14 @@ export default function(state = initialState, action) {
           value: action.value
         }),
         isInputChanged: true
+      };
+
+    case CORRECT_BACKGROUND_COLOR:
+      return {
+        ...state,
+        textColor: colorReducer(state.backgroundColor, {
+          type: CORRECT_COLOR
+        })
       };
 
     case UPDATE_ACCESSIBILITY_LEVEL:

@@ -1,7 +1,7 @@
 import styles from './UserInputError.less';
 
 import React, { Component, PropTypes } from 'react';
-import { MIN_FONT_SIZE } from 'flux/constants/config';
+import { MIN_FONT_SIZE } from 'constants';
 
 export default class UserInputError extends Component {
   static propTypes = {

@@ -1,7 +1,7 @@
 import styles from './FontSizeTooBig.less';
 
 import React, { Component } from 'react';
-import { MAX_FONT_SIZE } from 'flux/constants/config';
+import { MAX_FONT_SIZE } from 'constants';
 
 export default class FontSizeTooBig extends Component {
   render() {

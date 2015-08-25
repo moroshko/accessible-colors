@@ -2,8 +2,9 @@ import styles from './UserInput.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { updateTextColor, updateFontSize, toggleIsFontBold,
-         updateBackgroundColor, updateAccessibilityLevel } from 'flux/actionCreators/app';
+import { updateTextColor, correctTextColor, updateFontSize, correctFontSize,
+         toggleFontWeight, updateBackgroundColor, correctBackgroundColor,
+         updateAccessibilityLevel } from 'actions/app';
 import Editable from 'Editable/Editable';
 import Toggle from 'Toggle/Toggle';
 
@@ -20,9 +21,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateTextColor: value => dispatch(updateTextColor('value', value)),
+    correctTextColor: value => dispatch(correctTextColor()),
     updateFontSize: value => dispatch(updateFontSize(value)),
-    toggleIsFontBold: () => dispatch(toggleIsFontBold()),
+    correctFontSize: value => dispatch(correctFontSize(value)),
+    toggleFontWeight: () => dispatch(toggleFontWeight()),
     updateBackgroundColor: value => dispatch(updateBackgroundColor('value', value)),
+    correctBackgroundColor: value => dispatch(correctBackgroundColor()),
     updateAccessibilityLevel: value => dispatch(updateAccessibilityLevel(value))
   };
 }
@@ -31,21 +35,24 @@ class UserInput extends Component {
   static propTypes = {
     textColor: PropTypes.object.isRequired,
     updateTextColor: PropTypes.func.isRequired,
+    correctTextColor: PropTypes.func.isRequired,
     fontSize: PropTypes.object.isRequired,
     updateFontSize: PropTypes.func.isRequired,
+    correctFontSize: PropTypes.func.isRequired,
     isFontBold: PropTypes.bool.isRequired,
-    toggleIsFontBold: PropTypes.func.isRequired,
+    toggleFontWeight: PropTypes.func.isRequired,
     backgroundColor: PropTypes.object.isRequired,
     updateBackgroundColor: PropTypes.func.isRequired,
+    correctBackgroundColor: PropTypes.func.isRequired,
     accessibilityLevel: PropTypes.string.isRequired,
     updateAccessibilityLevel: PropTypes.func.isRequired
   };
 
   render() {
-    const { textColor, updateTextColor,
-            fontSize, updateFontSize,
-            isFontBold, toggleIsFontBold,
-            backgroundColor, updateBackgroundColor,
+    const { textColor, updateTextColor, correctTextColor,
+            fontSize, updateFontSize, correctFontSize,
+            isFontBold, toggleFontWeight,
+            backgroundColor, updateBackgroundColor, correctBackgroundColor,
             accessibilityLevel, updateAccessibilityLevel } = this.props;
 
     return (
@@ -56,19 +63,21 @@ class UserInput extends Component {
             <span className={styles.colorContainer}>
               <Editable isValid={textColor.isValueValid}
                         value={textColor.value}
-                        onChange={updateTextColor} />
+                        onChange={updateTextColor}
+                        onBlur={correctTextColor} />
             </span>
             <span> at </span>
             <span className={styles.fontSizeContainer}>
               <Editable isValid={fontSize.isValid}
                         value={fontSize.value}
-                        onChange={updateFontSize} />
+                        onChange={updateFontSize}
+                        onBlur={correctFontSize} />
             </span>
             px and
             <span className={styles.fontWeightContainer}>
               <Toggle values={['regular', 'bold']}
                       currentValue={isFontBold ? 'bold' : 'regular'}
-                      onChange={toggleIsFontBold} />
+                      onChange={toggleFontWeight} />
             </span>
             weight
           </div>
@@ -77,7 +86,8 @@ class UserInput extends Component {
             <span className={styles.colorContainer}>
               <Editable isValid={backgroundColor.isValueValid}
                         value={backgroundColor.value}
-                        onChange={updateBackgroundColor} />
+                        onChange={updateBackgroundColor}
+                        onBlur={correctBackgroundColor} />
             </span>
           </div>
           <div>

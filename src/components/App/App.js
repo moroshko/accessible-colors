@@ -2,7 +2,7 @@ import styles from './App.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { MAX_FONT_SIZE } from 'flux/constants/config';
+import { MAX_FONT_SIZE } from 'constants';
 import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { contrast } from 'utils/color/color';
 import Header from 'Header/Header';
