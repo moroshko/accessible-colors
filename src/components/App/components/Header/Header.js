@@ -11,7 +11,7 @@ export default class Header extends Component {
             Accessible colors
           </h1>
           <p className={styles.subHeader}>
-            Make any color combination accessible
+            Make any color combination accessible.
           </p>
           <p>
             <a className="github-button"
