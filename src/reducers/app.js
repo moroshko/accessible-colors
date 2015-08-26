@@ -98,7 +98,7 @@ export default (state = initialState, action) => {
     case CORRECT_BACKGROUND_COLOR:
       return {
         ...state,
-        textColor: colorReducer(state.backgroundColor, {
+        backgroundColor: colorReducer(state.backgroundColor, {
           type: CORRECT_COLOR
         })
       };
