@@ -98,7 +98,10 @@ export default (state, action) => {
       return handleUpdateColor(state, action);
 
     case CORRECT_COLOR:
-      return state;
+      return state.isValueValid ? {
+        ...state,
+        value: colorUtils.correctValue(state.value)
+      } : state;
 
     default:
       return state;

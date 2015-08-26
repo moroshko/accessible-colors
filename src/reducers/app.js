@@ -75,7 +75,13 @@ export default (state = initialState, action) => {
       };
 
     case CORRECT_FONT_SIZE:
-      return state;
+      return state.fontSize.isValid ? {
+        ...state,
+        fontSize: {
+          ...state.fontSize,
+          value: numberUtils.correctInteger(state.fontSize.value)
+        }
+      } : state;
 
     case TOGGLE_FONT_WEIGHT:
       return {

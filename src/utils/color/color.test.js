@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isValueValid, findClosestAccessibleColor } from './color';
+import { isValueValid, correctValue, findClosestAccessibleColor } from './color';
 
 describe('Color Utils', () => {
   describe('isValueValid()', () => {
@@ -33,6 +33,17 @@ describe('Color Utils', () => {
         expect(isValueValid('1234')).to.equal(false);
         expect(isValueValid('hello')).to.equal(false);
       });
+    });
+  });
+
+  describe('correctValue()', () => {
+    it('should trim whitespaces', () => {
+      expect(correctValue(' \t#123  \n')).to.equal('#123');
+    });
+
+    it('should prepend a "#" if it is missing', () => {
+      expect(correctValue('123')).to.equal('#123');
+      expect(correctValue('efefef')).to.equal('#efefef');
     });
   });
 

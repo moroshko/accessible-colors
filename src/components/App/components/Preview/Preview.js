@@ -65,10 +65,10 @@ class Preview extends Component {
             </h2>
             <div className={styles.previewContent} style={originalStyle}>
               <p className={styles.previewParagraph}>
-                {originalStyle.color} text
+                {originalStyle.color.toUpperCase()} text
               </p>
               <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
-                {originalStyle.backgroundColor} background
+                {originalStyle.backgroundColor.toUpperCase()} background
               </p>
               <p className={styles.previewParagraph}>
                 Contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
@@ -98,7 +98,7 @@ class Preview extends Component {
                 }
                 { !newBackgroundColor &&
                     <div className={styles.previewContent}>
-                      No accessible combination found by changing background lightness.
+                      No accessible combination found by changing background lightness
                     </div>
                 }
               </div>
@@ -127,7 +127,7 @@ class Preview extends Component {
                 {
                   !newTextColor &&
                     <div className={styles.previewContent}>
-                      No accessible combination found by changing text lightness.
+                      No accessible combination found by changing text lightness
                     </div>
                 }
               </div>

@@ -20,6 +20,11 @@ function isIntegerInRange(str, min, max = Number.MAX_SAFE_INTEGER) {
   return integer >= min && integer <= max;
 }
 
+function correctInteger(str) {
+  return parseInt(str.trim(), 10).toString();
+}
+
 export default {
-  isIntegerInRange
+  isIntegerInRange,
+  correctInteger
 };

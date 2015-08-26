@@ -10,7 +10,7 @@ export default class Footer extends Component {
           <p className={styles.broughtToYou}>
             Brought to you by
           </p>
-          <p>
+          <p className={styles.nameContainer}>
             <a className={styles.link} target="_blank"
                href="https://twitter.com/moroshko">
               <img className={styles.image}
@@ -18,7 +18,7 @@ export default class Footer extends Component {
               <span className={styles.name}>Misha Moroshko</span>
             </a>
           </p>
-          <p>
+          <p className={styles.nameContainer}>
             <a className={styles.link} target="_blank"
                href="https://twitter.com/thatbalduxguy">
               <img className={styles.image}

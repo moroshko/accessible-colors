@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isIntegerInRange } from './number';
+import { isIntegerInRange, correctInteger } from './number';
 
 describe('Number Utils', () => {
   describe('isIntegerInRange()', () => {
@@ -34,6 +34,17 @@ describe('Number Utils', () => {
         expect(isIntegerInRange(5, 3, 7)).to.equal(false);
         expect(isIntegerInRange(3, 3)).to.equal(false);
       });
+    });
+  });
+
+  describe('correctInteger()', () => {
+    it('should trim whitespaces', () => {
+      expect(correctInteger('  19\t\n')).to.equal('19');
+    });
+
+    it('should remove leading zeros', () => {
+      expect(correctInteger('016')).to.equal('16');
+      expect(correctInteger('0000090')).to.equal('90');
     });
   });
 });

@@ -60,6 +60,12 @@ function isValueValid(str) {
   return str2sixDigitHex(str) !== null;
 }
 
+function correctValue(str) {
+  str = str.trim();
+
+  return str[0] === '#' ? str : `#${str}`;
+}
+
 function isHueValid(str) {
   return isFloatInRange(str, 0, 360);
 }
@@ -350,14 +356,6 @@ function findClosestAccessibleColor(adjustableColor, otherColor, contrastRatio) 
   return closestDarkerColor.color;
 }
 
-function randomColor() {
-  return rgb2sixDigitHex({
-    r: Math.floor(Math.random() * 256),
-    g: Math.floor(Math.random() * 256),
-    b: Math.floor(Math.random() * 256)
-  });
-}
-
 export default {
   str2sixDigitHex,
   isValueValid,
@@ -368,5 +366,5 @@ export default {
   str2hsl,
   hsl2str,
   findClosestAccessibleColor,
-  randomColor
+  correctValue
 };
