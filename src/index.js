@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import appReducer from 'reducers/app';
 import App from 'App/App';
@@ -13,7 +14,7 @@ if (__DEVTOOLS__) {
   const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
   const DiffMonitor = require('redux-devtools-diff-monitor');
 
-  store = compose(devTools(), createStore)(appReducer);
+  store = compose(applyMiddleware(thunk), devTools(), createStore)(appReducer);
 
   debugPanel = (
     <DebugPanel top left bottom>
@@ -21,7 +22,7 @@ if (__DEVTOOLS__) {
     </DebugPanel>
   );
 } else {
-  store = createStore(appReducer);
+  store = compose(applyMiddleware(thunk), createStore)(appReducer);
 }
 
 ReactDOM.render(

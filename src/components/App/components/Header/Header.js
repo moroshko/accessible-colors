@@ -1,9 +1,37 @@
 import styles from './Header.less';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { REPO } from 'constants';
+import { loadGithubStars } from 'actions/app';
 
-export default class Header extends Component {
+function mapStateToProps(state) {
+  return {
+    githubStars: state.githubStars
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    loadGithubStars: () => dispatch(loadGithubStars())
+  };
+}
+
+class Header extends Component {
+  static propTypes = {
+    githubStars: PropTypes.string.isRequired,
+    loadGithubStars: PropTypes.func.isRequired
+  };
+
+  componentDidMount() {
+    const { loadGithubStars } = this.props;
+
+    loadGithubStars();
+  }
+
   render() {
+    const { githubStars } = this.props;
+
     return (
       <header className={styles.container}>
         <div className={styles.innerContainer}>
@@ -14,14 +42,10 @@ export default class Header extends Component {
             Automatically find closest accessible color combination
           </p>
           <p>
-            <a className="github-button"
-               href="https://github.com/moroshko/accessible-colors"
-               data-style="mega"
-               data-count-href="/moroshko/accessible-colors/stargazers"
-               data-count-api="/repos/moroshko/accessible-colors#stargazers_count"
-               data-count-aria-label="# stargazers on GitHub"
-               aria-label="Star moroshko/accessible-colors on GitHub">
-              Star
+            <a className={styles.link} target="_blank"
+               href={`https://github.com/${REPO}`}>
+              <span className={styles.icon + ' icon-circle-github'} />
+              <span className={styles.count}>{githubStars}</span>
             </a>
           </p>
         </div>
@@ -29,3 +53,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

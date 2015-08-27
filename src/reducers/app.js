@@ -5,7 +5,8 @@ import { UPDATE_TEXT_COLOR, CORRECT_TEXT_COLOR,
          UPDATE_FONT_SIZE, CORRECT_FONT_SIZE,
          TOGGLE_FONT_WEIGHT,
          UPDATE_BACKGROUND_COLOR, CORRECT_BACKGROUND_COLOR,
-         UPDATE_ACCESSIBILITY_LEVEL } from 'actions/app';
+         UPDATE_ACCESSIBILITY_LEVEL,
+         LOAD_GITHUB_STARS_SUCCESS } from 'actions/app';
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
 import colorReducer from 'reducers/color';
 
@@ -40,7 +41,8 @@ const initialState = {
     lightness: initialBackgroundColorHSL.l.toString()
   },
   accessibilityLevel: 'AA',
-  isInputChanged: false
+  isInputChanged: false,
+  githubStars: ''
 };
 
 export default (state = initialState, action) => {
@@ -114,6 +116,12 @@ export default (state = initialState, action) => {
         ...state,
         accessibilityLevel: action.value,
         isInputChanged: true
+      };
+
+    case LOAD_GITHUB_STARS_SUCCESS:
+      return {
+        ...state,
+        githubStars: action.starsCount
       };
 
     default:

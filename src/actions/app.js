@@ -6,6 +6,11 @@ export const TOGGLE_FONT_WEIGHT = 'TOGGLE_FONT_WEIGHT';
 export const UPDATE_BACKGROUND_COLOR = 'UPDATE_BACKGROUND_COLOR';
 export const CORRECT_BACKGROUND_COLOR = 'CORRECT_BACKGROUND_COLOR';
 export const UPDATE_ACCESSIBILITY_LEVEL = 'UPDATE_ACCESSIBILITY_LEVEL';
+export const LOAD_GITHUB_STARS_SUCCESS = 'LOAD_GITHUB_STARS_SUCCESS';
+
+import fetch from 'isomorphic-fetch';
+import addCommas from 'add-commas';
+import { REPO } from 'constants';
 
 export function updateTextColor(field, value) {
   return {
@@ -58,5 +63,18 @@ export function updateAccessibilityLevel(value) {
   return {
     type: UPDATE_ACCESSIBILITY_LEVEL,
     value
+  };
+}
+
+export function loadGithubStars() {
+  return dispatch => {
+    fetch(`https://api.github.com/repos/${REPO}`)
+      .then(response => response.json())
+      .then(response => {
+        dispatch({
+          type: LOAD_GITHUB_STARS_SUCCESS,
+          starsCount: addCommas(response.stargazers_count)
+        });
+      });
   };
 }

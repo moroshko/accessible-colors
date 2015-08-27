@@ -21,3 +21,73 @@
   font-size: 28px;
   font-weight: 100;
 }
+
+.link {
+  color: #000;
+  text-decoration: none;
+}
+
+@github-color: #4078c0;
+@transition: 0.2s ease;
+
+.icon {
+  font-size: 36px;
+  transition: color @transition;
+
+  .link:hover & {
+    color: @github-color;
+  }
+}
+
+@header-color: #c9d6df;
+@border-color: #212121;
+
+.count {
+  position: relative;
+  top: 4px;
+  left: 10px;
+  display: inline-block;
+  height: 26px;
+  line-height: 26px;
+  min-width: 20px;
+  padding: 0 5px;
+  background-color: @header-color;
+  border: 1px solid @border-color;
+  transition: border-color @transition, color @transition;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: top;
+
+  .link:hover & {
+    border: 1px solid @github-color;
+    color: @github-color;
+  }
+}
+
+.count:after, .count:before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.count:after {
+  border-right-color: @header-color;
+  border-width: 4px;
+  margin-top: -4px;
+}
+
+.count:before {
+  border-right-color: @border-color;
+  transition: border-right-color @transition;
+  border-width: 5px;
+  margin-top: -5px;
+
+  .link:hover & {
+    border-right-color: @github-color;
+  }
+}
