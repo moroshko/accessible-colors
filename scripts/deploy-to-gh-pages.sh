@@ -43,6 +43,9 @@ git push origin gh-pages
 printf "${MAGENTA}Switching back to master\n${NORMAL}"
 git checkout master
 
+printf "${MAGENTA}Deleting the empty fonts directory\n${NORMAL}"
+rm -rf fonts
+
 printf "${GREEN}--------------------------\n"
 printf "${GREEN}   Deployment succeeded\n"
 printf "${GREEN}--------------------------\n${NORMAL}"
