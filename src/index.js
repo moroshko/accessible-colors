@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { applyMiddleware, createStore } from 'redux';
+import { compose, applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import appReducer from 'reducers/app';
@@ -9,7 +9,6 @@ import App from 'App/App';
 let store, debugPanel;
 
 if (__DEVTOOLS__) {
-  const { compose } = require('redux');
   const { devTools } = require('redux-devtools');
   const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
   const DiffMonitor = require('redux-devtools-diff-monitor');
