@@ -1,0 +1,58 @@
+@color: #212121;
+@hover-color: #4078c0;
+@background-color: #c9d6df;
+@transition: 0.2s ease;
+
+.container {
+  color: @color;
+  text-decoration: none;
+  transition: color @transition;
+
+  &:hover {
+    color: @hover-color;
+  }
+}
+
+.icon {
+  font-size: 36px;
+}
+
+.count {
+  position: relative;
+  top: 4px;
+  left: 10px;
+  display: inline-block;
+  height: 26px;
+  line-height: 26px;
+  min-width: 20px;
+  padding: 0 5px;
+  background-color: @background-color;
+  border: 1px solid currentColor;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: top;
+
+  &:after, &:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:after {
+    border-right-color: @background-color;
+    border-width: 4px;
+    margin-top: -4px;
+  }
+
+  &:before {
+    border-right-color: currentColor;
+    transition: border-right-color @transition;
+    border-width: 5px;
+    margin-top: -5px;
+  }
+}
