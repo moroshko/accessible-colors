@@ -67,6 +67,12 @@ export function updateAccessibilityLevel(value) {
 }
 
 export function loadGithubStars() {
+  fetch('https://cdn.api.twitter.com/1/urls/count.json?url=' + window.location.origin)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+    });
+
   return dispatch => {
     fetch(`https://api.github.com/repos/${REPO}`)
       .then(response => response.json())
