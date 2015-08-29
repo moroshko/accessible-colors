@@ -7,8 +7,10 @@ export const UPDATE_BACKGROUND_COLOR = 'UPDATE_BACKGROUND_COLOR';
 export const CORRECT_BACKGROUND_COLOR = 'CORRECT_BACKGROUND_COLOR';
 export const UPDATE_ACCESSIBILITY_LEVEL = 'UPDATE_ACCESSIBILITY_LEVEL';
 export const LOAD_GITHUB_STARS_SUCCESS = 'LOAD_GITHUB_STARS_SUCCESS';
+export const LOAD_TWITTER_COUNT_SUCCESS = 'LOAD_TWITTER_COUNT_SUCCESS';
 
 import fetch from 'isomorphic-fetch';
+import jsonp from 'jsonp';
 import addCommas from 'add-commas';
 import { REPO } from 'constants';
 
@@ -66,8 +68,9 @@ export function updateAccessibilityLevel(value) {
   };
 }
 
-export function loadGithubStars() {
+export function loadSocialCounts() {
   return dispatch => {
+    // Github
     fetch(`https://api.github.com/repos/${REPO}`)
       .then(response => response.json())
       .then(response => {
@@ -76,5 +79,15 @@ export function loadGithubStars() {
           starsCount: addCommas(response.stargazers_count)
         });
       });
+
+    // Twitter
+    window.dispatchTwitterCount = data => {
+      dispatch({
+        type: LOAD_TWITTER_COUNT_SUCCESS,
+        count: addCommas(data.count)
+      });
+    };
+
+    jsonp('https://cdn.api.twitter.com/1/urls/count.json?callback=dispatchTwitterCount&url=http://accessible-colors.js.org');
   };
 }

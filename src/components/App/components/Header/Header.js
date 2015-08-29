@@ -2,35 +2,46 @@ import styles from './Header.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { loadGithubStars } from 'actions/app';
+import { loadSocialCounts } from 'actions/app';
+import { REPO } from 'constants';
 import SocialButton from 'SocialButton/SocialButton';
+
+const GITHUB_HREF = `https://github.com/${REPO}`;
+const TWITTER_TEXT =
+  encodeURIComponent('Simple tool to test text/background contrast ratio and automatically find closest accessible colors');
+const TWITTER_URL = encodeURIComponent('http://accessible-colors.com');
+const TWITTER_HASHTAGS = 'WCAG,a11y';
+const TWITTER_HREF = `https://twitter.com/intent/tweet?text=${TWITTER_TEXT}&url=${TWITTER_URL}&hashtags=${TWITTER_HASHTAGS}`; // eslint-disable-line no-unused-vars
 
 function mapStateToProps(state) {
   return {
-    githubStars: state.githubStars
+    githubStars: state.githubStars,
+    twitterCount: state.twitterCount
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadGithubStars: () => dispatch(loadGithubStars())
+    loadSocialCounts: () => dispatch(loadSocialCounts())
   };
 }
 
 class Header extends Component {
   static propTypes = {
     githubStars: PropTypes.string.isRequired,
-    loadGithubStars: PropTypes.func.isRequired
+    twitterCount: PropTypes.string.isRequired,
+
+    loadSocialCounts: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    const { loadGithubStars } = this.props;
+    const { loadSocialCounts } = this.props;
 
-    loadGithubStars();
+    loadSocialCounts();
   }
 
   render() {
-    const { githubStars } = this.props;
+    const { githubStars, twitterCount } = this.props; // eslint-disable-line no-unused-vars
 
     return (
       <header className={styles.container}>
@@ -42,7 +53,15 @@ class Header extends Component {
             Automatically find closest accessible color combination
           </p>
           <p>
-            <SocialButton icon="icon-circle-github" count={githubStars} />
+            <SocialButton icon="icon-circle-github" count={githubStars}
+                          color="#212121" hoverColor="#4078c0"
+                          href={GITHUB_HREF} openInNewTab={true} />
+            {/*
+            <SocialButton className={styles.twitterButton}
+                          icon="icon-circle-twitter" count={twitterCount}
+                          color="#212121" hoverColor="#55acee"
+                          href={TWITTER_HREF} />
+            */}
           </p>
         </div>
       </header>

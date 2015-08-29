@@ -6,7 +6,7 @@ import { UPDATE_TEXT_COLOR, CORRECT_TEXT_COLOR,
          TOGGLE_FONT_WEIGHT,
          UPDATE_BACKGROUND_COLOR, CORRECT_BACKGROUND_COLOR,
          UPDATE_ACCESSIBILITY_LEVEL,
-         LOAD_GITHUB_STARS_SUCCESS } from 'actions/app';
+         LOAD_GITHUB_STARS_SUCCESS, LOAD_TWITTER_COUNT_SUCCESS } from 'actions/app';
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
 import colorReducer from 'reducers/color';
 
@@ -42,7 +42,8 @@ const initialState = {
   },
   accessibilityLevel: 'AA',
   isInputChanged: false,
-  githubStars: ''
+  githubStars: '',
+  twitterCount: ''
 };
 
 export default (state = initialState, action) => {
@@ -122,6 +123,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         githubStars: action.starsCount
+      };
+
+    case LOAD_TWITTER_COUNT_SUCCESS:
+      return {
+        ...state,
+        twitterCount: action.count
       };
 
     default:
