@@ -48,7 +48,8 @@ class App extends Component {
       <div className={styles.container}>
         <Header />
         <UserInput />
-        {isUserInputValid && <AccessibilityIndicator isAccessible={isAccessible} />}
+        {isUserInputValid && <AccessibilityIndicator accessibilityLevel={accessibilityLevel}
+                                                     isAccessible={isAccessible} />}
         {isUserInputValid && <Preview accessibleContrast={accessibleContrastRatio}
                                       isAccessible={isAccessible} />}
         {isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}

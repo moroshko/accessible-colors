@@ -1,17 +1,49 @@
+@passed: #49A15D;
+@failed: #ff0000;
+
 .container {
-  padding: 80px 0 40px;
+  height: 72px;
+  line-height: 72px;
+  font-size: 28px;
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.passedContainer {
+  composes: container;
+  background-color: fade(@passed, 50%);
+}
+
+.failedContainer {
+  composes: container;
+  background-color: fade(@failed, 50%);
 }
 
 .innerContainer {
   position: relative;
-  width: 740px;
+  width: 780px;
   margin: 0 auto;
-  font-size: 28px;
+}
+
+.textContainer {
+  position: relative;
+  width: 214px;
+  padding: 0 20px;
+}
+
+.passedTextContainer {
+  composes: textContainer;
+  background-color: fade(@passed, 80%);
+}
+
+.failedTextContainer {
+  composes: textContainer;
+  background-color: fade(@failed, 60%);
 }
 
 .icon {
   position: absolute;
-  top: -2px;
-  left: -55px;
-  font-size: 36px;
+  top: 15px;
+  left: -50px;
+  font-size: 42px;
 }

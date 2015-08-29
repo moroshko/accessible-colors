@@ -12,18 +12,21 @@ function mapStateToProps(state) {
 class AccessibilityIndicator extends Component {
   static propTypes = {
     isInputChanged: PropTypes.bool.isRequired,
+
+    accessibilityLevel: PropTypes.string.isRequired,
     isAccessible: PropTypes.bool.isRequired
   };
 
   render() {
-    const { isInputChanged, isAccessible } = this.props;
+    const { accessibilityLevel, isInputChanged, isAccessible } = this.props;
 
     return (
-      <div className={styles.container}>
+      <div className={isAccessible ? styles.passedContainer : styles.failedContainer}>
         <div className={styles.innerContainer}>
-          <span className={styles.icon + (isAccessible ? ' icon-circle-tick' : ' icon-circle-cross')} />
-          {isInputChanged ? 'Your text' : 'Text'} &amp; background combination
-          is {!isAccessible && 'not'} accessible
+          <div className={isAccessible ? styles.passedTextContainer : styles.failedTextContainer}>
+            <span className={styles.icon + (isAccessible ? ' icon-tick' : ' icon-cross')} />
+            {accessibilityLevel} {isAccessible ? 'passed' : 'failed'}
+          </div>
         </div>
       </div>
     );
