@@ -1,5 +1,5 @@
 .container {
-  padding: 40px 0;
+  padding: 0;
 }
 
 .innerContainer {
@@ -9,13 +9,24 @@
   color: #ff0000;
 }
 
-.paragraph {
+.error {
   position: relative;
+  margin: 0;
+  line-height: 72px;
+}
+
+.colorError {
+  composes: error;
+  margin-bottom: -18px;
+}
+
+.fontSizeError {
+  composes: error;
 }
 
 .icon {
   position: absolute;
-  top: -2px;
+  top: 19px;
   left: -55px;
-  font-size: 36px;
+  font-size: 32px;
 }

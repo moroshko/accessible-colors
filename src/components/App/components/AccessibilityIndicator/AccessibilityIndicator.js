@@ -1,24 +1,15 @@
 import styles from './AccessibilityIndicator.less';
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-function mapStateToProps(state) {
-  return {
-    isInputChanged: state.isInputChanged
-  };
-}
-
-class AccessibilityIndicator extends Component {
+export default class AccessibilityIndicator extends Component {
   static propTypes = {
-    isInputChanged: PropTypes.bool.isRequired,
-
     accessibilityLevel: PropTypes.string.isRequired,
     isAccessible: PropTypes.bool.isRequired
   };
 
   render() {
-    const { accessibilityLevel, isInputChanged, isAccessible } = this.props;
+    const { accessibilityLevel, isAccessible } = this.props;
 
     return (
       <div className={isAccessible ? styles.passedContainer : styles.failedContainer}>
@@ -32,5 +23,3 @@ class AccessibilityIndicator extends Component {
     );
   }
 }
-
-export default connect(mapStateToProps)(AccessibilityIndicator);
