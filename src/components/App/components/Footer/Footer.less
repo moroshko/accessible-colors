@@ -1,20 +1,31 @@
 .container {
   margin-top: 80px;
-  padding: 40px 0 80px 0;
+  padding: 0 0 40px 0;
   background-color: #f0f5f9;
 }
 
 .innerContainer {
-  width: 740px;
+  width: 780px;
   margin: 0 auto;
 }
 
-.broughtToYou {
+.contentContainer {
+  display: inline-block;
+  width: 214px;
+  padding: 20px;
+  vertical-align: top;
+}
+
+.broughtToYouContainer {
+  composes: contentContainer;
+}
+
+.contentHeader {
   margin-bottom: 30px;
   font-size: 21px;
 }
 
-.nameContainer {
+.content {
   margin: 24px 0;
 }
 
@@ -23,10 +34,6 @@
   color: #0066cc;
   font-size: 14px;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .image {
@@ -36,8 +43,22 @@
   border-radius: 18px;
 }
 
-.name {
+.linkText {
   line-height: 36px;
   vertical-align: top;
   margin-left: 20px;
+
+  .link:hover & {
+    text-decoration: underline;
+  }
+}
+
+.haveFeatureIdeasContainer {
+  composes: contentContainer;
+  margin-left: 9px;
+}
+
+.icon {
+  font-size: 36px;
+  color: #212121;
 }
