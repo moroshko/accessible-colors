@@ -15,7 +15,6 @@ export default class AccessibilityIndicator extends Component {
       <div className={isAccessible ? styles.passedContainer : styles.failedContainer}>
         <div className={styles.innerContainer}>
           <div className={isAccessible ? styles.passedTextContainer : styles.failedTextContainer}>
-            <span className={styles.icon + (isAccessible ? ' icon-tick' : ' icon-cross')} />
             {accessibilityLevel} {isAccessible ? 'passed' : 'failed'}
           </div>
         </div>
