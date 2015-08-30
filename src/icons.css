@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'AccessibleColors';
-  src:url('fonts/AccessibleColors.eot?-la84ea');
-  src:url('fonts/AccessibleColors.eot?#iefix-la84ea') format('embedded-opentype'),
-    url('fonts/AccessibleColors.ttf?-la84ea') format('truetype'),
-    url('fonts/AccessibleColors.woff?-la84ea') format('woff'),
-    url('fonts/AccessibleColors.svg?-la84ea#AccessibleColors') format('svg');
+  src:url('fonts/AccessibleColors.eot?-lao865');
+  src:url('fonts/AccessibleColors.eot?#iefix-lao865') format('embedded-opentype'),
+    url('fonts/AccessibleColors.ttf?-lao865') format('truetype'),
+    url('fonts/AccessibleColors.woff?-lao865') format('woff'),
+    url('fonts/AccessibleColors.svg?-lao865#AccessibleColors') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -20,10 +20,13 @@
 }
 
 .icon-circle-attention:before {
-  content: "\e600";
+  content: "\e606";
 }
-.icon-circle-cross:before {
+.icon-cross:before {
   content: "\e601";
+}
+.icon-tick:before {
+  content: "\e604";
 }
 .icon-circle-github:before {
   content: "\e602";
@@ -31,15 +34,6 @@
 .icon-circle-slack:before {
   content: "\e603";
 }
-.icon-circle-tick:before {
-  content: "\e604";
-}
 .icon-circle-twitter:before {
   content: "\e605";
-}
-.icon-cross:before {
-  content: "\e606";
-}
-.icon-tick:before {
-  content: "\e607";
 }
