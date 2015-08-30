@@ -46,7 +46,7 @@ class App extends Component {
 
     return (
       <div className={styles.container}>
-        <Header />
+        <Header isMinified={false} />
         <UserInput />
         {isUserInputValid && <AccessibilityIndicator accessibilityLevel={accessibilityLevel}
                                                      isAccessible={isAccessible} />}

@@ -1,11 +1,31 @@
 .container {
   background-color: #c9d6df;
+}
+
+.minifiedContainer {
+  composes: container;
+  height: 72px;
+  line-height: 72px;
+  box-shadow: 0px 2px 2px 0px fade(#000, 50%);
+}
+
+.fullContainer {
+  composes: container;
   padding: 40px 0;
 }
 
 .innerContainer {
+  position: relative;
   width: 740px;
   margin: 0 auto;
+}
+
+.minifiedInnerContainer {
+  composes: innerContainer;
+}
+
+.fullInnerContainer {
+  composes: innerContainer;
   text-align: center;
 }
 
@@ -14,6 +34,32 @@
   font-size: 77px;
   font-weight: 100;
   text-transform: uppercase;
+}
+
+.minifiedHeader {
+  composes: header;
+  display: inline-block;
+  font-size: 36px;
+}
+
+.fullHeader {
+  composes: header;
+}
+
+.socialButtons {
+  margin: 0;
+}
+
+.minifiedSocialButtons {
+  composes: socialButtons;
+  position: absolute;
+  top: 22px;
+  right: 8px;
+}
+
+.fullSocialButtons {
+  composes: socialButtons;
+  display: block;
 }
 
 .subHeader {

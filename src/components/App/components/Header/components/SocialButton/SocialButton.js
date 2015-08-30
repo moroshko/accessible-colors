@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 
 export default class SocialButton extends Component {
   static propTypes = {
+    isMinified: PropTypes.bool.isRequired,
     className: PropTypes.string,
     icon: PropTypes.string.isRequired,
     count: PropTypes.string.isRequired,
@@ -23,18 +24,19 @@ export default class SocialButton extends Component {
   }
 
   render() {
-    const { className, icon, count, color, hoverColor, href, openInNewTab } = this.props;
+    const { isMinified, className, icon, count, color, hoverColor,
+            href, openInNewTab } = this.props;
 
     return (
-      <a className={className + ' ' + styles.container}
+      <a className={className + ' ' + (isMinified ? styles.minifiedContainer : styles.fullContainer)}
          target={openInNewTab ? '_blank' : '_self'}
          href={href}
          style={{ color }}
          onMouseEnter={() => this.setColor(hoverColor)}
          onMouseLeave={() => this.setColor(color)}
          ref="link">
-        <span className={styles.icon + ' ' + icon} />
-        <span className={styles.count}>{count}</span>
+        <span className={(isMinified ? styles.minifiedIcon : styles.fullIcon) + ' ' + icon} />
+        <span className={isMinified ? styles.minifiedCount : styles.fullCount}>{count}</span>
       </a>
     );
   }

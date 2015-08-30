@@ -3,28 +3,42 @@
 
 .container {
   display: inline-block;
-  height: 36px;
   text-decoration: none;
   transition: color @transition;
 }
 
+.minifiedContainer {
+  composes: container;
+  height: 28px;
+}
+
+.fullContainer {
+  composes: container;
+  height: 36px;
+}
+
 .icon {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.minifiedIcon {
+  composes: icon;
+  font-size: 28px;
+}
+
+.fullIcon {
+  composes: icon;
   font-size: 36px;
 }
 
 .count {
   position: relative;
-  top: 4px;
-  left: 10px;
   display: inline-block;
-  height: 26px;
-  line-height: 26px;
-  min-width: 20px;
-  padding: 0 5px;
   background-color: @background-color;
   border: 1px solid currentColor;
-  font-size: 14px;
   font-weight: 500;
+  text-align: center;
   vertical-align: top;
 
   &:after, &:before {
@@ -50,4 +64,26 @@
     border-width: 5px;
     margin-top: -5px;
   }
+}
+
+.minifiedCount {
+  composes: count;
+  top: 2px;
+  left: 8px;
+  height: 22px;
+  min-width: 16px;
+  line-height: 22px;
+  font-size: 12px;
+  padding: 0 3px;
+}
+
+.fullCount {
+  composes: count;
+  top: 4px;
+  left: 10px;
+  height: 26px;
+  min-width: 20px;
+  line-height: 26px;
+  font-size: 14px;
+  padding: 0 5px;
 }

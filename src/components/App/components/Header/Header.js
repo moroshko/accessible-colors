@@ -31,7 +31,9 @@ class Header extends Component {
     githubStars: PropTypes.string.isRequired,
     twitterCount: PropTypes.string.isRequired,
 
-    loadSocialCounts: PropTypes.func.isRequired
+    loadSocialCounts: PropTypes.func.isRequired,
+
+    isMinified: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
@@ -41,23 +43,28 @@ class Header extends Component {
   }
 
   render() {
-    const { githubStars, twitterCount } = this.props; // eslint-disable-line no-unused-vars
+    const { isMinified, githubStars, twitterCount } = this.props; // eslint-disable-line no-unused-vars
 
     return (
-      <header className={styles.container}>
-        <div className={styles.innerContainer}>
-          <h1 className={styles.header}>
+      <header className={isMinified ? styles.minifiedContainer : styles.fullContainer}>
+        <div className={isMinified ? styles.minifiedInnerContainer : styles.fullInnerContainer}>
+          <h1 className={isMinified ? styles.minifiedHeader : styles.fullHeader}>
             Accessible colors
           </h1>
-          <p className={styles.subHeader}>
-            Automatically find closest accessible color combination
-          </p>
-          <p>
-            <SocialButton icon="icon-circle-github" count={githubStars}
+          {
+            !isMinified &&
+              <p className={styles.subHeader}>
+                Automatically find closest accessible color combination
+              </p>
+          }
+          <p className={isMinified ? styles.minifiedSocialButtons : styles.fullSocialButtons}>
+            <SocialButton isMinified={isMinified}
+                          icon="icon-circle-github" count={githubStars}
                           color="#212121" hoverColor="#4078c0"
                           href={GITHUB_HREF} openInNewTab={true} />
             {/*
-            <SocialButton className={styles.twitterButton}
+            <SocialButton isMinified={isMinified}
+                          className={styles.twitterButton}
                           icon="icon-circle-twitter" count={twitterCount}
                           color="#212121" hoverColor="#55acee"
                           href={TWITTER_HREF} />
