@@ -22,6 +22,8 @@ class Preview extends Component {
     isFontBold: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.object.isRequired,
     isInputChanged: PropTypes.bool.isRequired,
+
+    accessibilityLevel: PropTypes.string.isRequired,
     accessibleContrast: PropTypes.number.isRequired,
     isAccessible: PropTypes.bool.isRequired
   };
@@ -31,8 +33,8 @@ class Preview extends Component {
   }
 
   render() {
-    const { textColor, fontSize, isFontBold, backgroundColor,
-            isInputChanged, accessibleContrast, isAccessible } = this.props;
+    const { textColor, fontSize, isFontBold, backgroundColor, isInputChanged,
+            accessibilityLevel, accessibleContrast,isAccessible } = this.props;
     const containerStyle = {
       fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
       fontWeight: isFontBold ? '500' : '300'
@@ -73,6 +75,10 @@ class Preview extends Component {
               <p className={styles.previewParagraph}>
                 Contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
               </p>
+              <p className={styles.previewParagraph}>
+                <span className={styles.icon + (isAccessible ? ' icon-tick' : ' icon-cross')} />
+                {accessibilityLevel}
+              </p>
             </div>
           </div>
           {
@@ -93,6 +99,10 @@ class Preview extends Component {
                       </p>
                       <p className={styles.previewParagraph}>
                         Contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
+                      </p>
+                      <p className={styles.previewParagraph}>
+                        <span className={styles.icon + ' icon-tick'} />
+                        {accessibilityLevel}
                       </p>
                     </div>
                 }
@@ -121,6 +131,10 @@ class Preview extends Component {
                       </p>
                       <p className={styles.previewParagraph}>
                         Contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
+                      </p>
+                      <p className={styles.previewParagraph}>
+                        <span className={styles.icon + ' icon-tick'} />
+                        {accessibilityLevel}
                       </p>
                     </div>
                 }

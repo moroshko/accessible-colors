@@ -50,7 +50,8 @@ class App extends Component {
         <UserInput />
         {isUserInputValid && <AccessibilityIndicator accessibilityLevel={accessibilityLevel}
                                                      isAccessible={isAccessible} />}
-        {isUserInputValid && <Preview accessibleContrast={accessibleContrastRatio}
+        {isUserInputValid && <Preview accessibilityLevel={accessibilityLevel}
+                                      accessibleContrast={accessibleContrastRatio}
                                       isAccessible={isAccessible} />}
         {isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}
         {!isUserInputValid && <UserInputError areColorsValid={areColorsValid}
