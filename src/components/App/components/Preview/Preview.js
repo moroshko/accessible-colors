@@ -3,7 +3,8 @@ import styles from './Preview.less';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MAX_FONT_SIZE } from 'constants';
-import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
+import { str2sixDigitHex, str2hsl,
+         contrast, findClosestAccessibleColor } from 'utils/color/color';
 
 function mapStateToProps(state) {
   return {
@@ -32,6 +33,25 @@ class Preview extends Component {
     return Math.round(1000 * contrast(color1, color2)) / 1000;
   }
 
+  getLightnessChange(fromColor, toColor) {
+    const fromHsl = str2hsl(fromColor);
+    const toHsl = str2hsl(toColor);
+    const fromL = fromHsl.l;
+    const toL = toHsl.l;
+    let from = fromL.toFixed();
+    let to = toL.toFixed();
+
+    if (from === to) {
+      from = fromL.toFixed(1);
+      to = toL.toFixed(1);
+    }
+
+    return {
+      from: from + '%',
+      to: to + '%'
+    };
+  }
+
   render() {
     const { textColor, fontSize, isFontBold, backgroundColor, isInputChanged,
             accessibilityLevel, accessibleContrast,isAccessible } = this.props;
@@ -57,6 +77,10 @@ class Preview extends Component {
       color: newTextColor,
       backgroundColor: originalBackgroundColor
     };
+    const backgroundColorChange =
+      newBackgroundColor ? this.getLightnessChange(originalBackgroundColor, newBackgroundColor) : null;
+    const textColorChange =
+      newTextColor ? this.getLightnessChange(originalTextColor, newTextColor) : null;
 
     return (
       <div className={styles.container} style={containerStyle}>
@@ -65,6 +89,9 @@ class Preview extends Component {
             <h2 className={styles.previewTitle}>
               {isInputChanged ? 'Your' : 'Initial'} design
             </h2>
+            <p className={styles.lightnessChangedContainer + ' ' + styles.previewHiddenParagraph}
+               aria-hidden="true">
+            </p>
             <div className={styles.previewContent} style={originalStyle}>
               <p className={styles.previewParagraph}>
                 {originalStyle.color.toUpperCase()} text
@@ -87,6 +114,14 @@ class Preview extends Component {
                 <h2 className={styles.previewTitle}>
                   New background
                 </h2>
+                <p className={styles.lightnessChangedContainer}>
+                  {
+                    newBackgroundColor &&
+                      <span>
+                        Lightness changed: {backgroundColorChange.from} to {backgroundColorChange.to}
+                      </span>
+                  }
+                </p>
                 {
                   newBackgroundColor &&
                     <div className={styles.previewContent} style={newBackgroundStyle}>
@@ -119,6 +154,14 @@ class Preview extends Component {
                 <h2 className={styles.previewTitle}>
                   New text color
                 </h2>
+                <p className={styles.lightnessChangedContainer}>
+                  {
+                    newTextColor &&
+                      <span>
+                        Lightness changed: {textColorChange.from} to {textColorChange.to}
+                      </span>
+                  }
+                </p>
                 {
                   newTextColor &&
                     <div className={styles.previewContent} style={newTextStyle}>
