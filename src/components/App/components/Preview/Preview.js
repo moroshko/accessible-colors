@@ -55,7 +55,7 @@ class Preview extends Component {
   render() {
     const { textColor, fontSize, isFontBold, backgroundColor, isInputChanged,
             accessibilityLevel, accessibleContrast,isAccessible } = this.props;
-    const containerStyle = {
+    const previewContentStyle = {
       fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
       fontWeight: isFontBold ? '500' : '300'
     };
@@ -63,7 +63,8 @@ class Preview extends Component {
     const originalBackgroundColor = str2sixDigitHex(backgroundColor.value);
     const originalStyle = {
       color: originalTextColor,
-      backgroundColor: originalBackgroundColor
+      backgroundColor: originalBackgroundColor,
+      ...previewContentStyle
     };
     const newBackgroundColor =
       findClosestAccessibleColor(backgroundColor.value, textColor.value, accessibleContrast);
@@ -71,11 +72,13 @@ class Preview extends Component {
       findClosestAccessibleColor(textColor.value, backgroundColor.value, accessibleContrast);
     const newBackgroundStyle = {
       color: originalTextColor,
-      backgroundColor: newBackgroundColor
+      backgroundColor: newBackgroundColor,
+      ...previewContentStyle
     };
     const newTextStyle = {
       color: newTextColor,
-      backgroundColor: originalBackgroundColor
+      backgroundColor: originalBackgroundColor,
+      ...previewContentStyle
     };
     const backgroundColorChange =
       newBackgroundColor ? this.getLightnessChange(originalBackgroundColor, newBackgroundColor) : null;
@@ -83,7 +86,7 @@ class Preview extends Component {
       newTextColor ? this.getLightnessChange(originalTextColor, newTextColor) : null;
 
     return (
-      <div className={styles.container} style={containerStyle}>
+      <div className={styles.container}>
         <div className={styles.innerContainer}>
           <div className={styles.previewContainer}>
             <h2 className={styles.previewTitle}>
