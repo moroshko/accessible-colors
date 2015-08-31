@@ -1,16 +1,22 @@
+@import '~variables';
+
 .container {
-  background-color: #c9d6df;
+  position: fixed;
+  width: 100%;
+  background-color: @header-background-color;
+  z-index: 1;
+  transition: height @header-transition, padding @header-transition;
 }
 
 .minifiedContainer {
   composes: container;
   height: 72px;
-  line-height: 72px;
   box-shadow: 0px 2px 2px 0px fade(#000, 50%);
 }
 
 .fullContainer {
   composes: container;
+  height: 190px;
   padding: 40px 0;
 }
 
@@ -26,48 +32,77 @@
 
 .fullInnerContainer {
   composes: innerContainer;
-  text-align: center;
 }
 
 .header {
   margin: 0;
-  font-size: 77px;
   font-weight: 100;
   text-transform: uppercase;
+  transition: font-size @header-transition, line-height @header-transition;
 }
 
 .minifiedHeader {
   composes: header;
   display: inline-block;
   font-size: 36px;
+  line-height: 72px;
 }
 
 .fullHeader {
   composes: header;
+  font-size: 77px;
+  line-height: 90px;
 }
 
 .socialButtons {
+  position: absolute;
   margin: 0;
+  text-align: center;
+  transition: top @header-transition, right @header-transition;
 }
 
 .minifiedSocialButtons {
   composes: socialButtons;
-  position: absolute;
   top: 22px;
-  right: 8px;
+  right: 0;
 }
 
 .fullSocialButtons {
   composes: socialButtons;
   display: block;
+  top: 150px;
+
+  // When only GitHub button is visible:
+  right: ~"calc(50% - 39px)"; // 78px / 2
+  width: 78px;
+
+  // When both social buttons are visible:
+  // right: ~"calc(50% - 98px)"; // 196px / 2
+  // width: 196px;
 }
 
 .subHeader {
   margin: 0 0 30px 0;
   font-size: 28px;
   font-weight: 100;
+  text-align: center;
+  transition: opacity @header-transition;
 }
 
-.twitterButton {
+.minifiedSubHeader {
+  composes: subHeader;
+  opacity: 0;
+}
+
+.fullSubHeader {
+  composes: subHeader;
+  opacity: 1;
+}
+
+.fullTwitterButton {
   margin-left: 40px;
+}
+
+.minifiedTwitterButton {
+  margin-left: 20px;
 }

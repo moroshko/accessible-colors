@@ -8,6 +8,7 @@ export const CORRECT_BACKGROUND_COLOR = 'CORRECT_BACKGROUND_COLOR';
 export const UPDATE_ACCESSIBILITY_LEVEL = 'UPDATE_ACCESSIBILITY_LEVEL';
 export const LOAD_GITHUB_STARS_SUCCESS = 'LOAD_GITHUB_STARS_SUCCESS';
 export const LOAD_TWITTER_COUNT_SUCCESS = 'LOAD_TWITTER_COUNT_SUCCESS';
+export const UPDATE_HEADER = 'UPDATE_HEADER';
 
 import fetch from 'isomorphic-fetch';
 import jsonp from 'jsonp';
@@ -89,5 +90,12 @@ export function loadSocialCounts() {
     };
 
     jsonp('https://cdn.api.twitter.com/1/urls/count.json?callback=dispatchTwitterCount&url=http://accessible-colors.js.org');
+  };
+}
+
+export function updateHeader(isMinified) {
+  return {
+    type: UPDATE_HEADER,
+    isMinified
   };
 }

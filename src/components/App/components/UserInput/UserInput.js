@@ -14,7 +14,8 @@ function mapStateToProps(state) {
     fontSize: state.fontSize,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor,
-    accessibilityLevel: state.accessibilityLevel
+    accessibilityLevel: state.accessibilityLevel,
+    isHeaderMinified: state.isHeaderMinified
   };
 }
 
@@ -34,29 +35,31 @@ function mapDispatchToProps(dispatch) {
 class UserInput extends Component {
   static propTypes = {
     textColor: PropTypes.object.isRequired,
+    fontSize: PropTypes.object.isRequired,
+    isFontBold: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.object.isRequired,
+    accessibilityLevel: PropTypes.string.isRequired,
+    isHeaderMinified: PropTypes.bool.isRequired,
+
     updateTextColor: PropTypes.func.isRequired,
     correctTextColor: PropTypes.func.isRequired,
-    fontSize: PropTypes.object.isRequired,
     updateFontSize: PropTypes.func.isRequired,
     correctFontSize: PropTypes.func.isRequired,
-    isFontBold: PropTypes.bool.isRequired,
     toggleFontWeight: PropTypes.func.isRequired,
-    backgroundColor: PropTypes.object.isRequired,
     updateBackgroundColor: PropTypes.func.isRequired,
     correctBackgroundColor: PropTypes.func.isRequired,
-    accessibilityLevel: PropTypes.string.isRequired,
     updateAccessibilityLevel: PropTypes.func.isRequired
   };
 
   render() {
-    const { textColor, updateTextColor, correctTextColor,
-            fontSize, updateFontSize, correctFontSize,
-            isFontBold, toggleFontWeight,
-            backgroundColor, updateBackgroundColor, correctBackgroundColor,
-            accessibilityLevel, updateAccessibilityLevel } = this.props;
+    const { textColor, fontSize, isFontBold, backgroundColor,
+            accessibilityLevel, isHeaderMinified, updateTextColor,
+            correctTextColor, updateFontSize, correctFontSize,
+            toggleFontWeight, updateBackgroundColor, correctBackgroundColor,
+            updateAccessibilityLevel } = this.props;
 
     return (
-      <div className={styles.container}>
+      <div className={isHeaderMinified ? styles.minifiedContainer : styles.fullContainer}>
         <div className={styles.innerContainer}>
           <div>
             <span>My text color is </span>

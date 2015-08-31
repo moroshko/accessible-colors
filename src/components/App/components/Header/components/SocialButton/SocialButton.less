@@ -1,10 +1,10 @@
-@background-color: #c9d6df;
-@transition: 0.2s ease;
+@import '~variables';
 
 .container {
   display: inline-block;
   text-decoration: none;
-  transition: color @transition;
+  transition: height @header-transition, color @icon-transition,
+              margin @header-transition;
 }
 
 .minifiedContainer {
@@ -20,6 +20,7 @@
 .icon {
   display: inline-block;
   vertical-align: top;
+  transition: font-size @header-transition;
 }
 
 .minifiedIcon {
@@ -35,11 +36,15 @@
 .count {
   position: relative;
   display: inline-block;
-  background-color: @background-color;
+  background-color: @header-background-color;
   border: 1px solid currentColor;
   font-weight: 500;
   text-align: center;
   vertical-align: top;
+  transition: top @header-transition, margin @header-transition,
+              height @header-transition, min-width @header-transition,
+              line-height @header-transition, font-size @header-transition,
+              padding @header-transition;
 
   &:after, &:before {
     right: 100%;
@@ -53,14 +58,14 @@
   }
 
   &:after {
-    border-right-color: @background-color;
+    border-right-color: @header-background-color;
     border-width: 4px;
     margin-top: -4px;
   }
 
   &:before {
     border-right-color: currentColor;
-    transition: border-right-color @transition;
+    transition: border-right-color @header-transition;
     border-width: 5px;
     margin-top: -5px;
   }
@@ -69,7 +74,7 @@
 .minifiedCount {
   composes: count;
   top: 2px;
-  left: 8px;
+  margin: 0 0 0 8px;
   height: 22px;
   min-width: 16px;
   line-height: 22px;
@@ -80,7 +85,7 @@
 .fullCount {
   composes: count;
   top: 4px;
-  left: 10px;
+  margin: 0 0 0 10px;
   height: 26px;
   min-width: 20px;
   line-height: 26px;

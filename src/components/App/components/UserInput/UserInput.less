@@ -1,6 +1,18 @@
+@import '~variables';
+
 .container {
   background-color: #f0f5f9;
-  padding: 27px 0 54px;
+  transition: padding @header-transition;
+}
+
+.minifiedContainer {
+  composes: container;
+  padding: 99px 0 54px;
+}
+
+.fullContainer {
+  composes: container;
+  padding: 297px 0 54px;
 }
 
 .innerContainer {
