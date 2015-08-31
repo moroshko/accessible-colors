@@ -36,21 +36,23 @@
 
 .header {
   margin: 0;
+  font-size: 77px;
   font-weight: 100;
   text-transform: uppercase;
-  transition: font-size @header-transition, line-height @header-transition;
+  transform-origin: 0;
+  transition: transform @header-transition, transform-origin @header-transition,
+              line-height @header-transition;
 }
 
 .minifiedHeader {
   composes: header;
   display: inline-block;
-  font-size: 36px;
   line-height: 72px;
+  transform: scale(0.5);
 }
 
 .fullHeader {
   composes: header;
-  font-size: 77px;
   line-height: 90px;
 }
 
