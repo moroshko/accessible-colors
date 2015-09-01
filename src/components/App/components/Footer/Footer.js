@@ -9,7 +9,7 @@ export default class Footer extends Component {
         <div className={styles.innerContainer}>
           <div className={styles.broughtToYouContainer}>
             <p className={styles.contentHeader}>
-              Brought to you by:
+              Brought to you by
             </p>
             <p className={styles.content}>
               <a className={styles.link} target="_blank"
