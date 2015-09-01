@@ -52,7 +52,7 @@ class Header extends Component {
           <p className={styles.subHeader}>
             Automatically find the closest accessible color combination
           </p>
-          <p>
+          <p className={styles.socialButtons}>
             <SocialButton icon="icon-circle-github" count={githubStars}
                           color="#212121" hoverColor="#4078c0"
                           href={GITHUB_HREF} openInNewTab={true} />
