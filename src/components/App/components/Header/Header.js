@@ -8,7 +8,7 @@ import SocialButton from 'SocialButton/SocialButton';
 
 const GITHUB_HREF = `https://github.com/${REPO}`;
 const TWITTER_TEXT =
-  encodeURIComponent('Simple tool to test text/background contrast ratio and automatically find closest accessible colors');
+  encodeURIComponent('A simple tool to test background/text contrast ratio and automatically find the closest accessible colors');
 const TWITTER_URL = encodeURIComponent('http://accessible-colors.com');
 const TWITTER_HASHTAGS = 'WCAG,a11y';
 const TWITTER_HREF = `https://twitter.com/intent/tweet?text=${TWITTER_TEXT}&url=${TWITTER_URL}&hashtags=${TWITTER_HASHTAGS}`;
