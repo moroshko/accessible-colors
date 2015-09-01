@@ -9,19 +9,27 @@ import App from 'App/App';
 let store, debugPanel;
 
 if (__DEVTOOLS__) {
-  const { devTools } = require('redux-devtools');
-  const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
-  const DiffMonitor = require('redux-devtools-diff-monitor');
+  //const { devTools } = require('redux-devtools');
+  //const { DebugPanel, DevTools, LogMonitor } = require('redux-devtools/lib/react');
 
-  store = compose(applyMiddleware(thunk), devTools(), createStore)(appReducer);
+  store = compose(applyMiddleware(thunk)/*, devTools()*/)(createStore)(appReducer);
 
-  debugPanel = (
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('reducers/app', () => {
+      const nextRootReducer = require('reducers/app');
+
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  /*debugPanel = (
     <DebugPanel top left bottom>
-      <DevTools store={store} monitor={DiffMonitor} />
+      <DevTools store={store} monitor={LogMonitor} />
     </DebugPanel>
-  );
+  );*/
 } else {
-  store = compose(applyMiddleware(thunk), createStore)(appReducer);
+  store = applyMiddleware(thunk)(createStore)(appReducer);
 }
 
 ReactDOM.render(

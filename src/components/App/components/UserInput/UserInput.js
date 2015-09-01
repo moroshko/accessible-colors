@@ -14,8 +14,7 @@ function mapStateToProps(state) {
     fontSize: state.fontSize,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor,
-    accessibilityLevel: state.accessibilityLevel,
-    isHeaderMinified: state.isHeaderMinified
+    accessibilityLevel: state.accessibilityLevel
   };
 }
 
@@ -39,7 +38,6 @@ class UserInput extends Component {
     isFontBold: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.object.isRequired,
     accessibilityLevel: PropTypes.string.isRequired,
-    isHeaderMinified: PropTypes.bool.isRequired,
 
     updateTextColor: PropTypes.func.isRequired,
     correctTextColor: PropTypes.func.isRequired,
@@ -53,13 +51,13 @@ class UserInput extends Component {
 
   render() {
     const { textColor, fontSize, isFontBold, backgroundColor,
-            accessibilityLevel, isHeaderMinified, updateTextColor,
+            accessibilityLevel, updateTextColor,
             correctTextColor, updateFontSize, correctFontSize,
             toggleFontWeight, updateBackgroundColor, correctBackgroundColor,
             updateAccessibilityLevel } = this.props;
 
     return (
-      <div className={isHeaderMinified ? styles.minifiedContainer : styles.fullContainer}>
+      <div className={styles.container}>
         <div className={styles.innerContainer}>
           <div>
             <span>My text color is </span>

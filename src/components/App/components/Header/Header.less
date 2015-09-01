@@ -1,37 +1,14 @@
 @import '~variables';
 
 .container {
-  position: fixed;
-  width: 100%;
-  background-color: @header-background-color;
-  z-index: 1;
-  transition: height @header-transition, padding @header-transition;
-}
-
-.minifiedContainer {
-  composes: container;
-  height: 72px;
-  box-shadow: 0px 2px 2px 0px fade(#000, 50%);
-}
-
-.fullContainer {
-  composes: container;
-  height: 190px;
   padding: 40px 0;
+  background-color: @header-background-color;
 }
 
 .innerContainer {
-  position: relative;
   width: 740px;
   margin: 0 auto;
-}
-
-.minifiedInnerContainer {
-  composes: innerContainer;
-}
-
-.fullInnerContainer {
-  composes: innerContainer;
+  text-align: center;
 }
 
 .header {
@@ -39,72 +16,15 @@
   font-size: 77px;
   font-weight: 100;
   text-transform: uppercase;
-  transform-origin: 0;
-  transition: transform @header-transition, transform-origin @header-transition,
-              line-height @header-transition;
-}
-
-.minifiedHeader {
-  composes: header;
-  display: inline-block;
-  line-height: 72px;
-  transform: scale(0.5);
-}
-
-.fullHeader {
-  composes: header;
   line-height: 90px;
-}
-
-.socialButtons {
-  position: absolute;
-  margin: 0;
-  text-align: center;
-  transition: top @header-transition, right @header-transition;
-}
-
-.minifiedSocialButtons {
-  composes: socialButtons;
-  top: 22px;
-  right: 0;
-}
-
-.fullSocialButtons {
-  composes: socialButtons;
-  display: block;
-  top: 150px;
-
-  // When only GitHub button is visible:
-  right: ~"calc(50% - 39px)"; // 78px / 2
-  width: 78px;
-
-  // When both social buttons are visible:
-  // right: ~"calc(50% - 98px)"; // 196px / 2
-  // width: 196px;
 }
 
 .subHeader {
   margin: 0 0 30px 0;
   font-size: 28px;
   font-weight: 100;
-  text-align: center;
-  transition: opacity @header-transition;
 }
 
-.minifiedSubHeader {
-  composes: subHeader;
-  opacity: 0;
-}
-
-.fullSubHeader {
-  composes: subHeader;
-  opacity: 1;
-}
-
-.fullTwitterButton {
+.twitterButton {
   margin-left: 40px;
-}
-
-.minifiedTwitterButton {
-  margin-left: 20px;
 }
