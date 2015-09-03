@@ -34,7 +34,7 @@ export default class Footer extends Component {
             </p>
             <p className={styles.content}>
               <a className={styles.link} target="_blank"
-                 href="https://accessible-colors.slack.com">
+                 href="https://accessible-colors.herokuapp.com">
                 <span className={styles.icon + ' icon-circle-slack'} />
                 <span className={styles.linkText}>Chat to us on Slack</span>
               </a>
