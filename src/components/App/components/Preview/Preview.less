@@ -1,7 +1,3 @@
-.container {
-  padding: 40px 0;
-}
-
 .innerContainer {
   width: 768px;
   margin: 0 auto;
@@ -9,16 +5,17 @@
 
 .previewContainer {
   display: inline-block;
-  width: 250px;
+  width: 253px;
   vertical-align: top;
 
   &:nth-child(2) {
     margin-left: 9px;
   }
+}
 
-  &:nth-child(3) {
-    margin-left: 9px;
-  }
+.previewHeader {
+  height: 90px;
+  padding-top: 36px;
 }
 
 .previewTitle {
@@ -27,7 +24,7 @@
   font-weight: 300;
 }
 
-.lightnessChangedContainer {
+.lightnessChange {
   margin: 5px 0 9px 20px;
   height: 16px;
   font-size: 14px;
@@ -35,9 +32,10 @@
 }
 
 .previewContent {
+  position: relative;
   padding: 20px;
   background-color: #ffffff;
-  line-height: 2em;
+  line-height: 2;
 }
 
 .previewParagraph {
@@ -56,4 +54,18 @@
   position: relative;
   top: 1px;
   margin-right: 3px;
+}
+
+.orConnector {
+  position: absolute;
+  right: -14px;
+  top: ~"calc(50% - 14px)";
+  width: 27px;
+  height: 27px;
+  border: 1px solid #212121;
+  font-size: 14px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 14px;
+  z-index: 1;
 }

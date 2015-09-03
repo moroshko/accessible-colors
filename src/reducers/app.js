@@ -41,7 +41,6 @@ const initialState = {
     lightness: initialBackgroundColorHSL.l.toString()
   },
   accessibilityLevel: 'AA',
-  isInputChanged: false,
   githubStars: '',
   twitterCount: ''
 };
@@ -55,8 +54,7 @@ export default (state = initialState, action) => {
           type: UPDATE_COLOR,
           field: action.field,
           value: action.value
-        }),
-        isInputChanged: true
+        })
       };
 
     case CORRECT_TEXT_COLOR:
@@ -73,8 +71,7 @@ export default (state = initialState, action) => {
         fontSize: {
           isValid: numberUtils.isIntegerInRange(action.value, MIN_FONT_SIZE),
           value: action.value
-        },
-        isInputChanged: true
+        }
       };
 
     case CORRECT_FONT_SIZE:
@@ -89,8 +86,7 @@ export default (state = initialState, action) => {
     case TOGGLE_FONT_WEIGHT:
       return {
         ...state,
-        isFontBold: !state.isFontBold,
-        isInputChanged: true
+        isFontBold: !state.isFontBold
       };
 
     case UPDATE_BACKGROUND_COLOR:
@@ -100,8 +96,7 @@ export default (state = initialState, action) => {
           type: UPDATE_COLOR,
           field: action.field,
           value: action.value
-        }),
-        isInputChanged: true
+        })
       };
 
     case CORRECT_BACKGROUND_COLOR:
@@ -115,8 +110,7 @@ export default (state = initialState, action) => {
     case UPDATE_ACCESSIBILITY_LEVEL:
       return {
         ...state,
-        accessibilityLevel: action.value,
-        isInputChanged: true
+        accessibilityLevel: action.value
       };
 
     case LOAD_GITHUB_STARS_SUCCESS:

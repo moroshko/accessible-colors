@@ -11,8 +11,7 @@ function mapStateToProps(state) {
     textColor: state.textColor,
     fontSize: state.fontSize,
     isFontBold: state.isFontBold,
-    backgroundColor: state.backgroundColor,
-    isInputChanged: state.isInputChanged
+    backgroundColor: state.backgroundColor
   };
 }
 
@@ -22,7 +21,6 @@ class Preview extends Component {
     fontSize: PropTypes.object.isRequired,
     isFontBold: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.object.isRequired,
-    isInputChanged: PropTypes.bool.isRequired,
 
     accessibilityLevel: PropTypes.string.isRequired,
     accessibleContrast: PropTypes.number.isRequired,
@@ -53,7 +51,7 @@ class Preview extends Component {
   }
 
   render() {
-    const { textColor, fontSize, isFontBold, backgroundColor, isInputChanged,
+    const { textColor, fontSize, isFontBold, backgroundColor,
             accessibilityLevel, accessibleContrast,isAccessible } = this.props;
     const previewContentStyle = {
       fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
@@ -89,12 +87,7 @@ class Preview extends Component {
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <div className={styles.previewContainer}>
-            <h2 className={styles.previewTitle}>
-              {isInputChanged ? 'Your' : 'Initial'} design
-            </h2>
-            <p className={styles.lightnessChangedContainer + ' ' + styles.previewHiddenParagraph}
-               aria-hidden="true">
-            </p>
+            <div className={styles.previewHeader} style={originalStyle} />
             <div className={styles.previewContent} style={originalStyle}>
               <p className={styles.previewParagraph}>
                 {originalStyle.color.toUpperCase()} text
@@ -105,32 +98,35 @@ class Preview extends Component {
               <p className={styles.previewParagraph}>
                 Contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
               </p>
-              <p className={styles.previewParagraph}>
-                <span className={styles.icon + (isAccessible ? ' icon-tick' : ' icon-cross')} />
-                {accessibilityLevel}
+              <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
+                 aria-hidden="true">
+                AAA
               </p>
             </div>
           </div>
           {
             !isAccessible &&
               <div className={styles.previewContainer}>
-                <h2 className={styles.previewTitle}>
-                  New background
-                </h2>
-                <p className={styles.lightnessChangedContainer}>
-                  {
-                    newBackgroundColor &&
-                      <span>
-                        Lightness changed: {backgroundColorChange.from} to {backgroundColorChange.to}
-                      </span>
-                  }
-                </p>
+                <div className={styles.previewHeader}>
+                  <p className={styles.previewTitle}>
+                    Fix background
+                  </p>
+                  <p className={styles.lightnessChange}>
+                    {
+                      newBackgroundColor &&
+                        <span>
+                          by changing its lightness<br />
+                          from {backgroundColorChange.from} to {backgroundColorChange.to}
+                        </span>
+                    }
+                  </p>
+                </div>
                 {
                   newBackgroundColor &&
                     <div className={styles.previewContent} style={newBackgroundStyle}>
                       <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
                          aria-hidden="true">
-                        {originalStyle.color} text
+                        #FFFFFF text
                       </p>
                       <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
                         {newBackgroundStyle.backgroundColor.toUpperCase()} background
@@ -142,6 +138,12 @@ class Preview extends Component {
                         <span className={styles.icon + ' icon-tick'} />
                         {accessibilityLevel}
                       </p>
+                      {
+                        newTextColor &&
+                          <div className={styles.orConnector}>
+                            or
+                          </div>
+                      }
                     </div>
                 }
                 { !newBackgroundColor &&
@@ -154,17 +156,20 @@ class Preview extends Component {
           {
             !isAccessible &&
               <div className={styles.previewContainer}>
-                <h2 className={styles.previewTitle}>
-                  New text color
-                </h2>
-                <p className={styles.lightnessChangedContainer}>
-                  {
-                    newTextColor &&
-                      <span>
-                        Lightness changed: {textColorChange.from} to {textColorChange.to}
-                      </span>
-                  }
-                </p>
+                <div className={styles.previewHeader}>
+                  <p className={styles.previewTitle}>
+                    Fix text color
+                  </p>
+                  <p className={styles.lightnessChange}>
+                    {
+                      newTextColor &&
+                        <span>
+                          by changing its lightness<br />
+                          from {textColorChange.from} to {textColorChange.to}
+                        </span>
+                    }
+                  </p>
+                </div>
                 {
                   newTextColor &&
                     <div className={styles.previewContent} style={newTextStyle}>
@@ -173,7 +178,7 @@ class Preview extends Component {
                       </p>
                       <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph + ' ' + styles.previewBackground}
                          aria-hidden="true">
-                        {originalStyle.backgroundColor} background
+                        #FFFFFF background
                       </p>
                       <p className={styles.previewParagraph}>
                         Contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}

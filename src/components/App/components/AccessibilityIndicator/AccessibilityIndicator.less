@@ -1,22 +1,19 @@
-@passed: #49A15D;
-@failed: #ff0000;
-
 .container {
   height: 72px;
   line-height: 72px;
   font-size: 28px;
   color: #ffffff;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
 
-.passedContainer {
+.passesContainer {
   composes: container;
-  background-color: fade(@passed, 50%);
+  background-color: #6db37d;
 }
 
-.failedContainer {
+.failsContainer {
   composes: container;
-  background-color: fade(@failed, 50%);
+  background-color: #ff6666;
 }
 
 .innerContainer {
@@ -27,16 +24,33 @@
 
 .textContainer {
   position: relative;
-  width: 210px;
+  width: 213px;
   padding: 0 20px;
 }
 
-.passedTextContainer {
+.passesTextContainer {
   composes: textContainer;
-  background-color: fade(@passed, 80%);
+  background-color: #4aa15d;
 }
 
-.failedTextContainer {
+.failsTextContainer {
   composes: textContainer;
-  background-color: fade(@failed, 60%);
+  background-color: #ee0000;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 30px 126px 0 126px;
+}
+
+.passesTriangle {
+  composes: triangle;
+  border-color: #4aa15d transparent transparent transparent;
+}
+
+.failsTriangle {
+  composes: triangle;
+  border-color: #ee0000 transparent transparent transparent;
 }

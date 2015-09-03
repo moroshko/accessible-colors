@@ -12,11 +12,12 @@ export default class AccessibilityIndicator extends Component {
     const { accessibilityLevel, isAccessible } = this.props;
 
     return (
-      <div className={isAccessible ? styles.passedContainer : styles.failedContainer}>
+      <div className={isAccessible ? styles.passesContainer : styles.failsContainer}>
         <div className={styles.innerContainer}>
-          <div className={isAccessible ? styles.passedTextContainer : styles.failedTextContainer}>
-            {accessibilityLevel} {isAccessible ? 'passed' : 'failed'}
+          <div className={isAccessible ? styles.passesTextContainer : styles.failsTextContainer}>
+            {isAccessible ? 'Passes' : 'Fails'} {accessibilityLevel}
           </div>
+          <div className={isAccessible ? styles.passesTriangle : styles.failsTriangle} />
         </div>
       </div>
     );
