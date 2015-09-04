@@ -28,7 +28,7 @@ class Preview extends Component {
   };
 
   contrast(color1, color2) {
-    return Math.round(1000 * contrast(color1, color2)) / 1000;
+    return Math.round(100 * contrast(color1, color2)) / 100;
   }
 
   getLightnessChange(fromColor, toColor) {

@@ -74,7 +74,7 @@ class UserInput extends Component {
                         onChange={updateFontSize}
                         onBlur={correctFontSize} />
             </span>
-            px and
+            pt and
             <span className={styles.fontWeightContainer}>
               <Toggle values={['regular', 'bold']}
                       currentValue={isFontBold ? 'bold' : 'regular'}
