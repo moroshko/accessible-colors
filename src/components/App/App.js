@@ -7,7 +7,6 @@ import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { contrast } from 'utils/color/color';
 import Header from 'Header/Header';
 import UserInput from 'UserInput/UserInput';
-import AccessibilityIndicator from 'AccessibilityIndicator/AccessibilityIndicator';
 import FontSizeTooBig from 'FontSizeTooBig/FontSizeTooBig';
 import UserInputError from 'UserInputError/UserInputError';
 import Preview from 'Preview/Preview';
@@ -48,14 +47,13 @@ class App extends Component {
       <div className={styles.container}>
         <Header />
         <UserInput />
-        {isUserInputValid && <AccessibilityIndicator accessibilityLevel={accessibilityLevel}
-                                                     isAccessible={isAccessible} />}
         {isUserInputValid && <Preview accessibilityLevel={accessibilityLevel}
                                       accessibleContrast={accessibleContrastRatio}
                                       isAccessible={isAccessible} />}
-        {isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}
+        {/*{isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}
         {!isUserInputValid && <UserInputError areColorsValid={areColorsValid}
                                               isFontSizeValid={isFontSizeValid} />}
+        */}
         <Footer />
       </div>
     );

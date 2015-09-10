@@ -27,7 +27,7 @@ const initialState = {
   },
   fontSize: {
     isValid: true,
-    value: '16'
+    value: '14'
   },
   isFontBold: false,
   backgroundColor: {

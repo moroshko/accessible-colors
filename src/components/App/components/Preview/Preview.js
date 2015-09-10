@@ -3,8 +3,15 @@ import styles from './Preview.less';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MAX_FONT_SIZE } from 'constants';
-import { str2sixDigitHex, str2hsl,
-         contrast, findClosestAccessibleColor } from 'utils/color/color';
+import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
+import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
+
+const loremIpsum = `
+  Lorem ipsum dolor sit amet, ut pri essent facilis constituto, etiam assueverit
+  signiferumque ex ius. Quas quaestio ea duo. Purto magna aperiam no pri. Pri
+  prompta partiendo efficiendi ne, sed tritani deterruisset necessitatibus id,
+  ad est sint noluisse.
+`;
 
 function mapStateToProps(state) {
   return {
@@ -31,28 +38,21 @@ class Preview extends Component {
     return Math.round(100 * contrast(color1, color2)) / 100;
   }
 
-  getLightnessChange(fromColor, toColor) {
-    const fromHsl = str2hsl(fromColor);
-    const toHsl = str2hsl(toColor);
-    const fromL = fromHsl.l;
-    const toL = toHsl.l;
-    let from = fromL.toFixed();
-    let to = toL.toFixed();
-
-    if (from === to) {
-      from = fromL.toFixed(1);
-      to = toL.toFixed(1);
+  calcLinesToShow(fontSize) {
+    if (fontSize <= 12) {
+      return 5;
     }
 
-    return {
-      from: from + '%',
-      to: to + '%'
-    };
+    if (fontSize <= 16) {
+      return 4;
+    }
+
+    return 3;
   }
 
   render() {
     const { textColor, fontSize, isFontBold, backgroundColor,
-            accessibilityLevel, accessibleContrast,isAccessible } = this.props;
+            accessibilityLevel, accessibleContrast, isAccessible } = this.props;
     const previewContentStyle = {
       fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
       fontWeight: isFontBold ? '500' : '300'
@@ -78,123 +78,74 @@ class Preview extends Component {
       backgroundColor: originalBackgroundColor,
       ...previewContentStyle
     };
-    const backgroundColorChange =
-      newBackgroundColor ? this.getLightnessChange(originalBackgroundColor, newBackgroundColor) : null;
-    const textColorChange =
-      newTextColor ? this.getLightnessChange(originalTextColor, newTextColor) : null;
+    const linesToShow = this.calcLinesToShow(previewContentStyle.fontSize);
+    const multilineEllipsis = (
+      <MultilineEllipsis text={loremIpsum}
+                         fontSize={previewContentStyle.fontSize}
+                         linesToShow={linesToShow} />
+    );
 
     return (
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <div className={styles.previewContainer}>
-            <div className={styles.previewHeader} style={originalStyle} />
-            <div className={styles.previewContent} style={originalStyle}>
-              <p className={styles.previewParagraph}>
-                {originalStyle.color.toUpperCase()} text
+            <div className={isAccessible ? styles.passesPreviewInfo : styles.failsPreviewInfo}>
+              <p className={styles.previewInfoTitle}>
+                {isAccessible ? 'Passes' : 'Fails'} {accessibilityLevel}
               </p>
-              <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
-                {originalStyle.backgroundColor.toUpperCase()} background
+              <p className={styles.requiredContrastRatio}>
+                Required contrast ratio: {accessibleContrast}
               </p>
-              <p className={styles.previewParagraph}>
-                Contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
+              <p className={styles.previewContrastRatio}>
+                Your contrast ratio: {this.contrast(originalStyle.color, originalStyle.backgroundColor)}
               </p>
-              <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
-                 aria-hidden="true">
-                AAA
-              </p>
+              <div className={isAccessible ? styles.passesTriangle : styles.failsTriangle} />
+            </div>
+            <div className={styles.previewLoremIpsum} style={originalStyle}>
+              {multilineEllipsis}
             </div>
           </div>
           {
             !isAccessible &&
               <div className={styles.previewContainer}>
-                <div className={styles.previewHeader}>
-                  <p className={styles.previewTitle}>
-                    Fix background
+                <div className={styles.passesPreviewInfo}>
+                  <p className={styles.previewInfoTitle}>
+                    Passes {accessibilityLevel}
                   </p>
-                  <p className={styles.lightnessChange}>
-                    {
-                      newBackgroundColor &&
-                        <span>
-                          by changing its lightness<br />
-                          from {backgroundColorChange.from} to {backgroundColorChange.to}
-                        </span>
-                    }
+                  <p className={styles.ifYouChange}>
+                    if you change background color to {newBackgroundStyle.backgroundColor.toUpperCase()}
                   </p>
+                  <p className={styles.previewContrastRatio}>
+                    New contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
+                  </p>
+                  <div className={styles.orConnector}>
+                    or
+                  </div>
+                  <div className={styles.passesTriangle} />
                 </div>
-                {
-                  newBackgroundColor &&
-                    <div className={styles.previewContent} style={newBackgroundStyle}>
-                      <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph}
-                         aria-hidden="true">
-                        #FFFFFF text
-                      </p>
-                      <p className={styles.previewParagraph + ' ' + styles.previewBackground}>
-                        {newBackgroundStyle.backgroundColor.toUpperCase()} background
-                      </p>
-                      <p className={styles.previewParagraph}>
-                        Contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
-                      </p>
-                      <p className={styles.previewParagraph}>
-                        <span className={styles.icon + ' icon-tick'} />
-                        {accessibilityLevel}
-                      </p>
-                      {
-                        newTextColor &&
-                          <div className={styles.orConnector}>
-                            or
-                          </div>
-                      }
-                    </div>
-                }
-                { !newBackgroundColor &&
-                    <div className={styles.previewContent}>
-                      No accessible combination found by changing background lightness
-                    </div>
-                }
+                <div className={styles.previewLoremIpsum} style={newBackgroundStyle}>
+                  {multilineEllipsis}
+                </div>
               </div>
           }
           {
             !isAccessible &&
               <div className={styles.previewContainer}>
-                <div className={styles.previewHeader}>
-                  <p className={styles.previewTitle}>
-                    Fix text color
+                <div className={styles.passesPreviewInfo}>
+                  <p className={styles.previewInfoTitle}>
+                    Passes {accessibilityLevel}
                   </p>
-                  <p className={styles.lightnessChange}>
-                    {
-                      newTextColor &&
-                        <span>
-                          by changing its lightness<br />
-                          from {textColorChange.from} to {textColorChange.to}
-                        </span>
-                    }
+                  <p className={styles.ifYouChange}>
+                    if you change text color to {newTextStyle.color.toUpperCase()}
                   </p>
+                  <p className={styles.previewContrastRatio}>
+                    New contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
+                  </p>
+                  <div className={styles.passesTriangle} />
                 </div>
-                {
-                  newTextColor &&
-                    <div className={styles.previewContent} style={newTextStyle}>
-                      <p className={styles.previewParagraph}>
-                        {newTextStyle.color.toUpperCase()} text
-                      </p>
-                      <p className={styles.previewParagraph + ' ' + styles.previewHiddenParagraph + ' ' + styles.previewBackground}
-                         aria-hidden="true">
-                        #FFFFFF background
-                      </p>
-                      <p className={styles.previewParagraph}>
-                        Contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
-                      </p>
-                      <p className={styles.previewParagraph}>
-                        <span className={styles.icon + ' icon-tick'} />
-                        {accessibilityLevel}
-                      </p>
-                    </div>
-                }
-                {
-                  !newTextColor &&
-                    <div className={styles.previewContent}>
-                      No accessible combination found by changing text lightness
-                    </div>
-                }
+                <div className={styles.previewLoremIpsum} style={newTextStyle}>
+                  {multilineEllipsis}
+                </div>
               </div>
           }
         </div>

@@ -1,17 +1,112 @@
+@previewContainerWidth: 250px;
+@triangleHeight: 18px;
+@passColor: #4aa15d;
+@failColor: #ee0000;
+
 .innerContainer {
   width: 768px;
   margin: 0 auto;
+  transform: translateY(-72px);
 }
 
 .previewContainer {
   display: inline-block;
-  width: 253px;
-  vertical-align: top;
+  width: @previewContainerWidth;
 
-  &:nth-child(2) {
+  &:nth-child(2), &:nth-child(3) {
     margin-left: 9px;
   }
 }
+
+.previewInfo {
+  position: relative;
+  height: 108px;
+  padding: 18px 20px 27px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #fff;
+}
+
+.passesPreviewInfo {
+  composes: previewInfo;
+  background-color: @passColor;
+}
+
+.failsPreviewInfo {
+  composes: previewInfo;
+  background-color: @failColor;
+}
+
+.previewInfoTitle {
+  margin: 0;
+  font-size: 21px;
+}
+
+.paragraph {
+  position: absolute;
+  left: 20px;
+  margin: 0;
+}
+
+.ifYouChange {
+  composes: paragraph;
+  top: 45px;
+  padding-right: 15px;
+}
+
+.requiredContrastRatio {
+  composes: paragraph;
+  bottom: 54px;
+}
+
+.previewContrastRatio {
+  composes: paragraph;
+  bottom: 27px;
+}
+
+.orConnector {
+  position: absolute;
+  right: -20.5px;
+  top: ~"calc(50% - 16px)";
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  font-size: 14px;
+  text-align: center;
+  color: @passColor;
+  background-color: #fff;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.triangle {
+  position: absolute;
+  left: 0;
+  bottom: -@triangleHeight;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @triangleHeight (@previewContainerWidth / 2) 0 (@previewContainerWidth / 2);
+}
+
+.passesTriangle {
+  composes: triangle;
+  border-color: @passColor transparent transparent transparent;
+}
+
+.failsTriangle {
+  composes: triangle;
+  border-color: @failColor transparent transparent transparent;
+}
+
+.previewLoremIpsum {
+  height: 63px;
+  padding: 45px 20px 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
 
 .previewHeader {
   height: 90px;
@@ -72,3 +167,4 @@
   border-radius: 14px;
   z-index: 1;
 }
+*/

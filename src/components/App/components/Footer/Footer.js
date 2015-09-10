@@ -24,7 +24,7 @@ export default class Footer extends Component {
                  href="https://twitter.com/thatbalduxguy">
                 <img className={styles.image}
                      src="https://www.gravatar.com/avatar/6fa8f8433861ca68ed44cc79001554d6?s=54" />
-                <span className={styles.linkText}>Vedran Arnautović</span>
+                <span className={styles.linkText}>Vedran Arnautovic</span>
               </a>
             </p>
           </div>
