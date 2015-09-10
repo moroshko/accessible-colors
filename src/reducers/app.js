@@ -41,8 +41,8 @@ const initialState = {
     lightness: initialBackgroundColorHSL.l.toString()
   },
   accessibilityLevel: 'AA',
-  githubStars: '',
-  twitterCount: ''
+  githubStars: '13',
+  twitterCount: '3'
 };
 
 export default (state = initialState, action) => {
