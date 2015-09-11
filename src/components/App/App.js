@@ -10,6 +10,7 @@ import UserInput from 'UserInput/UserInput';
 import FontSizeTooBig from 'FontSizeTooBig/FontSizeTooBig';
 import UserInputError from 'UserInputError/UserInputError';
 import Preview from 'Preview/Preview';
+import HowItWorks from 'HowItWorks/HowItWorks';
 import Footer from 'Footer/Footer';
 
 function mapStateToProps(state) {
@@ -50,6 +51,7 @@ class App extends Component {
         {isUserInputValid && <Preview accessibilityLevel={accessibilityLevel}
                                       accessibleContrast={accessibleContrastRatio}
                                       isAccessible={isAccessible} />}
+        <HowItWorks />
         {/*{isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}
         {!isUserInputValid && <UserInputError areColorsValid={areColorsValid}
                                               isFontSizeValid={isFontSizeValid} />}
