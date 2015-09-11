@@ -12,6 +12,7 @@
 .previewContainer {
   display: inline-block;
   width: @previewContainerWidth;
+  vertical-align: top;
 
   &:nth-child(2), &:nth-child(3) {
     margin-left: 9px;
@@ -62,6 +63,15 @@
 .previewContrastRatio {
   composes: paragraph;
   bottom: 27px;
+}
+
+.notFound {
+  height: 268px;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 18px 20px;
+  background-color: #fff;
+  border: 1px solid #c9d6de;
 }
 
 .orConnector {

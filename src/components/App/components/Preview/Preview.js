@@ -108,44 +108,68 @@ class Preview extends Component {
           {
             !isAccessible &&
               <div className={styles.previewContainer}>
-                <div className={styles.passesPreviewInfo}>
-                  <p className={styles.previewInfoTitle}>
-                    Passes {accessibilityLevel}
-                  </p>
-                  <p className={styles.ifYouChange}>
-                    if you change background color to {newBackgroundStyle.backgroundColor.toUpperCase()}
-                  </p>
-                  <p className={styles.previewContrastRatio}>
-                    New contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
-                  </p>
-                  <div className={styles.orConnector}>
-                    or
-                  </div>
-                  <div className={styles.passesTriangle} />
-                </div>
-                <div className={styles.previewLoremIpsum} style={newBackgroundStyle}>
-                  {multilineEllipsis}
-                </div>
+                {
+                  newBackgroundColor &&
+                    <div className={styles.passesPreviewInfo}>
+                      <p className={styles.previewInfoTitle}>
+                        Passes {accessibilityLevel}
+                      </p>
+                      <p className={styles.ifYouChange}>
+                        if you change background color to {newBackgroundStyle.backgroundColor.toUpperCase()}
+                      </p>
+                      <p className={styles.previewContrastRatio}>
+                        New contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
+                      </p>
+                      <div className={styles.orConnector}>
+                        or
+                      </div>
+                      <div className={styles.passesTriangle} />
+                    </div>
+                }
+                {
+                  newBackgroundColor &&
+                    <div className={styles.previewLoremIpsum} style={newBackgroundStyle}>
+                      {multilineEllipsis}
+                    </div>
+                }
+                {
+                  !newBackgroundColor &&
+                    <div className={styles.notFound}>
+                      No accessible combination found by changing background lightness
+                    </div>
+                }
               </div>
           }
           {
             !isAccessible &&
               <div className={styles.previewContainer}>
-                <div className={styles.passesPreviewInfo}>
-                  <p className={styles.previewInfoTitle}>
-                    Passes {accessibilityLevel}
-                  </p>
-                  <p className={styles.ifYouChange}>
-                    if you change text color to {newTextStyle.color.toUpperCase()}
-                  </p>
-                  <p className={styles.previewContrastRatio}>
-                    New contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
-                  </p>
-                  <div className={styles.passesTriangle} />
-                </div>
-                <div className={styles.previewLoremIpsum} style={newTextStyle}>
-                  {multilineEllipsis}
-                </div>
+                {
+                  newTextColor &&
+                    <div className={styles.passesPreviewInfo}>
+                      <p className={styles.previewInfoTitle}>
+                        Passes {accessibilityLevel}
+                      </p>
+                      <p className={styles.ifYouChange}>
+                        if you change text color to {newTextStyle.color.toUpperCase()}
+                      </p>
+                      <p className={styles.previewContrastRatio}>
+                        New contrast ratio: {this.contrast(newTextStyle.color, newTextStyle.backgroundColor)}
+                      </p>
+                      <div className={styles.passesTriangle} />
+                    </div>
+                }
+                {
+                  newTextColor &&
+                    <div className={styles.previewLoremIpsum} style={newTextStyle}>
+                      {multilineEllipsis}
+                    </div>
+                }
+                {
+                  !newTextColor &&
+                    <div className={styles.notFound}>
+                      No accessible combination found by changing text lightness
+                    </div>
+                }
               </div>
           }
         </div>
