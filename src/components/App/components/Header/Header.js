@@ -55,13 +55,20 @@ class Header extends Component {
           <div className={styles.socialButtons}>
             <SocialButton icon="icon-circle-github" count={githubStars}
                           color="#212121" hoverColor="#4078c0"
-                          href={GITHUB_HREF} openInNewTab={true}
-                          linkAreaLabel={`Star ${REPO} on GitHub`} />
-            <SocialButton className={styles.twitterButton}
-                          icon="icon-circle-twitter" count={twitterCount}
+                          linkProps={{
+                            href: GITHUB_HREF,
+                            target: '_blank',
+                            ariaLabel: `Star ${REPO} on GitHub`,
+                            'data-link-name': 'Header - GitHub'
+                          }} />
+            <SocialButton icon="icon-circle-twitter" count={twitterCount}
                           color="#212121" hoverColor="#55acee"
-                          href={TWITTER_HREF}
-                          linkAreaLabel={`Share ${DOMAIN} on Twitter`} />
+                          linkProps={{
+                            className: styles.twitterButton,
+                            href: TWITTER_HREF,
+                            ariaLabel: `Share ${DOMAIN} on Twitter`,
+                            'data-link-name': 'Header - Twitter'
+                          }} />
           </div>
         </div>
       </header>

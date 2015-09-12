@@ -15,7 +15,8 @@ export default class HowItWorks extends Component {
               We evaluate your color combination using the&nbsp;
               <a className={styles.link}
                  href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html"
-                 target="_blank">
+                 target="_blank"
+                 data-link-name="How it works - WCAG 2.0 guidelines for contrast accessibility">
                 WCAG 2.0 guidelines for contrast accessibility
               </a>.
             </p>
@@ -24,7 +25,8 @@ export default class HowItWorks extends Component {
               closest accessible combination by modifying the color&nbsp;
               <a className={styles.link}
                  href="https://en.wikipedia.org/wiki/HSL_and_HSV"
-                 target="_blank">
+                 target="_blank"
+                 data-link-name="How it works - lightness">
                 lightness
               </a>.
             </p>

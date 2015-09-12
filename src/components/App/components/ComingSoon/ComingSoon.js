@@ -20,7 +20,8 @@ export default class ComingSoon extends Component {
               To find out more, or if you have any feedback, get in touch with
               us on&nbsp;
               <a className={styles.link} target="_blank"
-                 href="https://accessible-colors.herokuapp.com">
+                 href="https://accessible-colors.herokuapp.com"
+                 data-link-name="Coming soon - Slack">
                 Slack
               </a>.
             </p>

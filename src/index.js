@@ -4,6 +4,7 @@ import { compose, applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import appReducer from 'reducers/app';
+import TrackLinks from 'TrackLinks/TrackLinks';
 import App from 'App/App';
 
 let store, debugPanel;
@@ -34,9 +35,11 @@ if (__DEVTOOLS__) {
 
 ReactDOM.render(
   <div>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <TrackLinks>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </TrackLinks>
     {debugPanel}
   </div>,
   document.getElementById('accessible-colors')
