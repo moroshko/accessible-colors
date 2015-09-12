@@ -61,23 +61,29 @@ class UserInput extends Component {
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <div>
-            <span>My text color is </span>
+            <label htmlFor="text-color">My text color is </label>
             <span className={styles.colorContainer}>
-              <Editable type="text"
-                        isValid={textColor.isValueValid}
-                        value={textColor.value}
+              <Editable isValid={textColor.isValueValid}
                         onChange={updateTextColor}
-                        onBlur={correctTextColor} />
+                        inputProps={{
+                          id: 'text-color',
+                          type: 'text',
+                          value: textColor.value,
+                          onBlur: correctTextColor
+                        }} />
             </span>
-            <span> at </span>
+            <label htmlFor="font-size"> at </label>
             <span className={styles.fontSizeContainer}>
-              <Editable type="number"
-                        min={MIN_FONT_SIZE}
-                        max={MAX_FONT_SIZE}
-                        isValid={fontSize.isValid}
-                        value={fontSize.value}
+              <Editable isValid={fontSize.isValid}
                         onChange={updateFontSize}
-                        onBlur={correctFontSize} />
+                        inputProps={{
+                          id: 'font-size',
+                          type: 'number',
+                          min: MIN_FONT_SIZE,
+                          max: MAX_FONT_SIZE,
+                          value: fontSize.value,
+                          onBlur: correctFontSize
+                        }} />
             </span>
             pt and
             <span className={styles.fontWeightContainer}>
@@ -88,13 +94,16 @@ class UserInput extends Component {
             weight
           </div>
           <div>
-            <span>My background color is </span>
+            <label htmlFor="background-color">My background color is </label>
             <span className={styles.colorContainer}>
-              <Editable type="text"
-                        isValid={backgroundColor.isValueValid}
-                        value={backgroundColor.value}
+              <Editable isValid={backgroundColor.isValueValid}
                         onChange={updateBackgroundColor}
-                        onBlur={correctBackgroundColor} />
+                        inputProps={{
+                          id: 'background-color',
+                          type: 'text',
+                          value: backgroundColor.value,
+                          onBlur: correctBackgroundColor
+                        }} />
             </span>
           </div>
           <div>

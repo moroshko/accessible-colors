@@ -10,7 +10,6 @@
   text-align: center;
   padding: 0;
   border: 0;
-  border-bottom: 1px dashed #000000;
   cursor: pointer;
 
   &:focus {
@@ -20,7 +19,13 @@
   }
 }
 
-.invalid {
+.validInput {
+  composes: input;
+  border-bottom: 1px dashed #000000;
+}
+
+.invalidInput {
+  composes: input;
   border-bottom: 2px solid #ff0000;
 
   &:focus {

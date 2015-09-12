@@ -120,9 +120,12 @@ class Preview extends Component {
                       <p className={styles.previewContrastRatio}>
                         New contrast ratio: {this.contrast(newBackgroundStyle.color, newBackgroundStyle.backgroundColor)}
                       </p>
-                      <div className={styles.orConnector}>
-                        or
-                      </div>
+                      {
+                        newTextColor &&
+                          <div className={styles.orConnector}>
+                            or
+                          </div>
+                      }
                       <div className={styles.passesTriangle} />
                     </div>
                 }

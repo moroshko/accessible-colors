@@ -12,7 +12,7 @@ export const LOAD_TWITTER_COUNT_SUCCESS = 'LOAD_TWITTER_COUNT_SUCCESS';
 import fetch from 'isomorphic-fetch';
 import jsonp from 'jsonp';
 import addCommas from 'add-commas';
-import { REPO } from 'constants';
+import { SITE_URL, REPO } from 'constants';
 
 export function updateTextColor(field, value) {
   return {
@@ -88,6 +88,6 @@ export function loadSocialCounts() {
       });
     };
 
-    jsonp('https://cdn.api.twitter.com/1/urls/count.json?callback=dispatchTwitterCount&url=http://accessible-colors.com');
+    jsonp(`https://cdn.api.twitter.com/1/urls/count.json?callback=dispatchTwitterCount&url=${SITE_URL}`);
   };
 }

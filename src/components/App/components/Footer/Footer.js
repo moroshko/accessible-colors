@@ -15,7 +15,8 @@ export default class Footer extends Component {
               <a className={styles.link} target="_blank"
                  href="https://twitter.com/moroshko">
                 <img className={styles.image}
-                     src="https://www.gravatar.com/avatar/7ee5d55919c272eddef98dbe16f5cb09?s=54" />
+                     src="https://www.gravatar.com/avatar/7ee5d55919c272eddef98dbe16f5cb09?s=54"
+                     alt="" role="presentation" />
                 <span className={styles.linkText}>Misha Moroshko</span>
               </a>
             </p>
@@ -23,7 +24,8 @@ export default class Footer extends Component {
               <a className={styles.link} target="_blank"
                  href="https://twitter.com/thatbalduxguy">
                 <img className={styles.image}
-                     src="https://www.gravatar.com/avatar/6fa8f8433861ca68ed44cc79001554d6?s=54" />
+                     src="https://www.gravatar.com/avatar/6fa8f8433861ca68ed44cc79001554d6?s=54"
+                     alt="" role="presentation" />
                 <span className={styles.linkText}>Vedran Arnautovic</span>
               </a>
             </p>

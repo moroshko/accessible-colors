@@ -4,18 +4,13 @@ import React, { Component, PropTypes } from 'react';
 
 export default class Editable extends Component {
   static propTypes = {
-    type: PropTypes.string.isRequired,
-    min: PropTypes.number,
-    max: PropTypes.number,
     isValid: PropTypes.bool.isRequired,
-    value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    onBlur: PropTypes.func.isRequired
+    inputProps: PropTypes.object
   };
 
   static defaultProps = {
-    min: null,
-    max: null
+    inputProps: {}
   };
 
   constructor(props) {
@@ -49,15 +44,14 @@ export default class Editable extends Component {
   }
 
   render() {
-    const { isValid, value, type, min, max, onChange, onBlur } = this.props;
+    const { isValid, onChange, inputProps } = this.props;
 
     return (
-      <input className={styles.input + ' ' + (isValid ? '' : styles.invalid)}
-             type={type} min={min} max={max}
-             aria-invalid={!isValid} value={value}
+      <input {...inputProps}
+             className={isValid ? styles.validInput : styles.invalidInput}
+             aria-invalid={!isValid}
              onFocus={this.onFocus} onKeyUp={this.onKeyUp}
              onChange={event => onChange(event.target.value)}
-             onBlur={onBlur}
              ref="input" />
     );
   }

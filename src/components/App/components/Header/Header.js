@@ -3,13 +3,13 @@ import styles from './Header.less';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadSocialCounts } from 'actions/app';
-import { REPO } from 'constants';
+import { SITE_URL, DOMAIN, REPO } from 'constants';
 import SocialButton from 'SocialButton/SocialButton';
 
 const GITHUB_HREF = `https://github.com/${REPO}`;
 const TWITTER_TEXT =
   encodeURIComponent('A simple tool to test background/text contrast ratio and automatically find the closest accessible colors');
-const TWITTER_URL = encodeURIComponent('http://accessible-colors.com');
+const TWITTER_URL = encodeURIComponent(SITE_URL);
 const TWITTER_HASHTAGS = 'WCAG,a11y';
 const TWITTER_HREF = `https://twitter.com/intent/tweet?text=${TWITTER_TEXT}&url=${TWITTER_URL}&hashtags=${TWITTER_HASHTAGS}`;
 
@@ -55,11 +55,13 @@ class Header extends Component {
           <div className={styles.socialButtons}>
             <SocialButton icon="icon-circle-github" count={githubStars}
                           color="#212121" hoverColor="#4078c0"
-                          href={GITHUB_HREF} openInNewTab={true} />
+                          href={GITHUB_HREF} openInNewTab={true}
+                          linkAreaLabel={`Star ${REPO} on GitHub`} />
             <SocialButton className={styles.twitterButton}
                           icon="icon-circle-twitter" count={twitterCount}
                           color="#212121" hoverColor="#55acee"
-                          href={TWITTER_HREF} />
+                          href={TWITTER_HREF}
+                          linkAreaLabel={`Share ${DOMAIN} on Twitter`} />
           </div>
         </div>
       </header>

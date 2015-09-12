@@ -10,7 +10,8 @@ export default class SocialButton extends Component {
     color: PropTypes.string.isRequired,
     hoverColor: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
-    openInNewTab: PropTypes.bool
+    openInNewTab: PropTypes.bool,
+    linkAreaLabel: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -24,13 +25,14 @@ export default class SocialButton extends Component {
 
   render() {
     const { className, icon, count, color, hoverColor,
-            href, openInNewTab } = this.props;
+            href, openInNewTab, linkAreaLabel } = this.props;
 
     return (
       <a className={className + ' ' + styles.container}
          target={openInNewTab ? '_blank' : '_self'}
          href={href}
          style={{ color }}
+         aria-label={linkAreaLabel}
          onMouseEnter={() => this.setColor(hoverColor)}
          onMouseLeave={() => this.setColor(color)}
          ref="link">
