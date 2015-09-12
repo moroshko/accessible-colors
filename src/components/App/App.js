@@ -2,15 +2,14 @@ import styles from './App.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { MAX_FONT_SIZE } from 'constants';
 import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { contrast } from 'utils/color/color';
 import Header from 'Header/Header';
 import UserInput from 'UserInput/UserInput';
-import FontSizeTooBig from 'FontSizeTooBig/FontSizeTooBig';
 import UserInputError from 'UserInputError/UserInputError';
 import Preview from 'Preview/Preview';
 import HowItWorks from 'HowItWorks/HowItWorks';
+import ComingSoon from 'ComingSoon/ComingSoon';
 import Footer from 'Footer/Footer';
 
 function mapStateToProps(state) {
@@ -62,7 +61,7 @@ class App extends Component {
           }
         </div>
         <HowItWorks />
-        {/*{isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}*/}
+        <ComingSoon />
         <Footer />
       </div>
     );

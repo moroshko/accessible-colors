@@ -49,10 +49,10 @@ class Header extends Component {
           <h1 className={styles.header}>
             Accessible colors
           </h1>
-          <p className={styles.subHeader}>
+          <h2 className={styles.subHeader}>
             Automatically find the closest accessible color combination
-          </p>
-          <p className={styles.socialButtons}>
+          </h2>
+          <div className={styles.socialButtons}>
             <SocialButton icon="icon-circle-github" count={githubStars}
                           color="#212121" hoverColor="#4078c0"
                           href={GITHUB_HREF} openInNewTab={true} />
@@ -60,7 +60,7 @@ class Header extends Component {
                           icon="icon-circle-twitter" count={twitterCount}
                           color="#212121" hoverColor="#55acee"
                           href={TWITTER_HREF} />
-          </p>
+          </div>
         </div>
       </header>
     );
