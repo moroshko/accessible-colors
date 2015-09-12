@@ -21,8 +21,12 @@ export default class HowItWorks extends Component {
             </p>
             <p>
               If your combination does not meet the guidelines, we find the
-              closest accessible combination by modifying the lightness of the
-              color.
+              closest accessible combination by modifying the color&nbsp;
+              <a className={styles.link}
+                 href="https://en.wikipedia.org/wiki/HSL_and_HSV"
+                 target="_blank">
+                lightness
+              </a>.
             </p>
             <p>
               We modify the lightness value only, in order to stay as true to

@@ -2,6 +2,7 @@ import styles from './UserInput.less';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { MIN_FONT_SIZE, MAX_FONT_SIZE } from 'constants';
 import { updateTextColor, correctTextColor, updateFontSize, correctFontSize,
          toggleFontWeight, updateBackgroundColor, correctBackgroundColor,
          updateAccessibilityLevel } from 'actions/app';
@@ -62,14 +63,18 @@ class UserInput extends Component {
           <div>
             <span>My text color is </span>
             <span className={styles.colorContainer}>
-              <Editable isValid={textColor.isValueValid}
+              <Editable type="text"
+                        isValid={textColor.isValueValid}
                         value={textColor.value}
                         onChange={updateTextColor}
                         onBlur={correctTextColor} />
             </span>
             <span> at </span>
             <span className={styles.fontSizeContainer}>
-              <Editable isValid={fontSize.isValid}
+              <Editable type="number"
+                        min={MIN_FONT_SIZE}
+                        max={MAX_FONT_SIZE}
+                        isValid={fontSize.isValid}
                         value={fontSize.value}
                         onChange={updateFontSize}
                         onBlur={correctFontSize} />
@@ -85,7 +90,8 @@ class UserInput extends Component {
           <div>
             <span>My background color is </span>
             <span className={styles.colorContainer}>
-              <Editable isValid={backgroundColor.isValueValid}
+              <Editable type="text"
+                        isValid={backgroundColor.isValueValid}
                         value={backgroundColor.value}
                         onChange={updateBackgroundColor}
                         onBlur={correctBackgroundColor} />

@@ -48,14 +48,21 @@ class App extends Component {
       <div className={styles.container}>
         <Header />
         <UserInput />
-        {isUserInputValid && <Preview accessibilityLevel={accessibilityLevel}
-                                      accessibleContrast={accessibleContrastRatio}
-                                      isAccessible={isAccessible} />}
+        <div className={styles.previewContainer}>
+          {
+            isUserInputValid &&
+              <Preview accessibilityLevel={accessibilityLevel}
+                       accessibleContrast={accessibleContrastRatio}
+                       isAccessible={isAccessible} />
+          }
+          {
+            !isUserInputValid &&
+              <UserInputError areColorsValid={areColorsValid}
+                              isFontSizeValid={isFontSizeValid} />
+          }
+        </div>
         <HowItWorks />
-        {/*{isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}
-        {!isUserInputValid && <UserInputError areColorsValid={areColorsValid}
-                                              isFontSizeValid={isFontSizeValid} />}
-        */}
+        {/*{isUserInputValid && fontSizeValue > MAX_FONT_SIZE && <FontSizeTooBig />}*/}
         <Footer />
       </div>
     );

@@ -1,3 +1,5 @@
+@import '~variables';
+
 @previewContainerWidth: 250px;
 @triangleHeight: 18px;
 @passColor: #4aa15d;
@@ -6,7 +8,6 @@
 .innerContainer {
   width: 768px;
   margin: 0 auto;
-  transform: translateY(-72px);
 }
 
 .previewContainer {
@@ -67,11 +68,11 @@
 
 .notFound {
   height: 268px;
-  font-size: 18px;
-  line-height: 27px;
+  font-size: 14px;
+  line-height: 18px;
   padding: 18px 20px;
   background-color: #fff;
-  border: 1px solid #c9d6de;
+  border: 1px solid @header-background-color;
 }
 
 .orConnector {
