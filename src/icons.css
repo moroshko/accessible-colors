@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'AccessibleColors';
-  src:url('fonts/AccessibleColors.eot?-lao865');
-  src:url('fonts/AccessibleColors.eot?#iefix-lao865') format('embedded-opentype'),
-    url('fonts/AccessibleColors.ttf?-lao865') format('truetype'),
-    url('fonts/AccessibleColors.woff?-lao865') format('woff'),
-    url('fonts/AccessibleColors.svg?-lao865#AccessibleColors') format('svg');
+  src:url('fonts/AccessibleColors.eot?e2dtpz');
+  src:url('fonts/AccessibleColors.eot?#iefixe2dtpz') format('embedded-opentype'),
+    url('fonts/AccessibleColors.ttf?e2dtpz') format('truetype'),
+    url('fonts/AccessibleColors.woff?e2dtpz') format('woff'),
+    url('fonts/AccessibleColors.svg?e2dtpz#AccessibleColors') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,12 +21,6 @@
 
 .icon-circle-attention:before {
   content: "\e606";
-}
-.icon-cross:before {
-  content: "\e601";
-}
-.icon-tick:before {
-  content: "\e604";
 }
 .icon-circle-github:before {
   content: "\e602";
