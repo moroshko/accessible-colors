@@ -33,7 +33,14 @@
 
 .colorContainer {
   display: inline-block;
-  width: 80px;
+
+  @media @small-medium {
+    width: 80px;
+  }
+
+  @media @large {
+    width: 94px;
+  }
 }
 
 .fontSizeAndWeightContainer {
@@ -42,7 +49,14 @@
 
 .fontSizeContainer {
   display: inline-block;
-  width: 46px;
+
+  @media @small-medium {
+    width: 40px;
+  }
+
+  @media @large {
+    width: 46px;
+  }
 }
 
 .accessibilityLevelContainer {
