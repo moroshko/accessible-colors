@@ -1,15 +1,41 @@
+@import '~variables';
+
 .container {
-  margin-top: 27px;
+  @media @small {
+    margin-top: -36px;
+  }
+
+  @media @medium-large {
+    margin-top: 27px;
+  }
 }
 
 .innerContainer {
-  width: 728px;
-  margin: 0 auto;
+  @media @small {
+    margin: 0 20px;
+  }
+
+  @media @medium {
+    margin: 0 auto;
+    width: @medium-screen-width - 40px;
+  }
+
+  @media @large {
+    margin: 0 auto;
+    width: @large-screen-width - 40px;
+  }
 }
 
 .title {
-  font-size: 21px;
   font-weight: 300;
+
+  @media @small-medium {
+    font-size: 18px;
+  }
+
+  @media @large {
+    font-size: 21px;
+  }
 }
 
 .content {

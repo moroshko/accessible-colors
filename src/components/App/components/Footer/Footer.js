@@ -7,9 +7,9 @@ export default function Footer() {
     <footer className={styles.container}>
       <div className={styles.innerContainer}>
         <div className={styles.broughtToYouContainer}>
-          <p className={styles.contentHeader}>
-            Brought to you by:
-          </p>
+          <h3 className={styles.contentHeader}>
+            Brought to you by
+          </h3>
           <p className={styles.content}>
             <a className={styles.link} target="_blank"
                href="https://twitter.com/moroshko"
@@ -32,9 +32,9 @@ export default function Footer() {
           </p>
         </div>
         <div className={styles.haveFeatureIdeasContainer}>
-          <p className={styles.contentHeader}>
+          <h3 className={styles.contentHeader}>
             Have feature ideas?
-          </p>
+          </h3>
           <p className={styles.content}>
             <a className={styles.link} target="_blank"
                href="https://accessible-colors.herokuapp.com"

@@ -7,28 +7,64 @@
 
 .innerContainer {
   position: relative;
-  width: 728px;
   margin: 0 auto;
   padding: 0 20px;
+
+  @media @small {
+    width: @small-screen-width - 40px;
+  }
+
+  @media @medium {
+    width: @medium-screen-width - 40px;
+  }
+
+  @media @large {
+    width: @large-screen-width - 40px;
+  }
 }
 
 .header {
   margin: 0;
-  font-size: 36px;
-  font-weight: 300;
   text-transform: uppercase;
+
+  @media @small {
+    font-size: 28px;
+    font-weight: 100;
+    text-align: center;
+  }
+
+  @media @medium-large {
+    font-size: 36px;
+    font-weight: 300;
+  }
 }
 
 .subHeader {
   margin: 0;
   font-size: 14px;
   font-weight: 100;
+
+  @media @small {
+    padding: 0 10px;
+    text-align: center;
+  }
 }
 
 .socialButtons {
-  position: absolute;
-  top: 9px;
-  right: 0;
+  @media @small {
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  @media @medium {
+    margin-top: 18px;
+  }
+
+  @media @large {
+    position: absolute;
+    top: 9px;
+    right: 0;
+  }
 }
 
 .twitterButton {

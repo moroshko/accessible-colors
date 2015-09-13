@@ -1,1 +1,12 @@
+@small-screen-width: 320px;
+@medium-screen-width: 510px;
+@large-screen-width: 768px;
+
+@small: ~"(max-width:" (@medium-screen-width - 1px) ~")";
+@medium: ~"(min-width:" @medium-screen-width ~") and (max-width:" (@large-screen-width - 1px) ~")";
+@large: ~"(min-width:" @large-screen-width ~")";
+
+@small-medium: ~"(max-width:" (@large-screen-width - 1px) ~")";
+@medium-large: ~"(min-width:" @medium-screen-width ~")";
+
 @header-background-color: #c9d6de;
