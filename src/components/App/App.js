@@ -1,6 +1,6 @@
 import styles from './App.less';
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { contrast } from 'utils/color/color';
@@ -22,50 +22,48 @@ function mapStateToProps(state) {
   };
 }
 
-class App extends Component {
-  static propTypes = {
-    textColor: PropTypes.object.isRequired,
-    fontSize: PropTypes.object.isRequired,
-    isFontBold: PropTypes.bool.isRequired,
-    backgroundColor: PropTypes.object.isRequired,
-    accessibilityLevel: PropTypes.string.isRequired
-  };
+function App(props) {
+  const { textColor, fontSize, isFontBold,
+          backgroundColor, accessibilityLevel } = props;
+  const areColorsValid = textColor.isValueValid && backgroundColor.isValueValid;
+  const isFontSizeValid = fontSize.isValid;
+  const isUserInputValid = areColorsValid && isFontSizeValid;
+  const fontSizeValue = parseInt(fontSize.value, 10);
+  const accessibleContrastRatio = isUserInputValid ?
+    accessibleContrast(accessibilityLevel, fontSizeValue, isFontBold) : null;
+  const isAccessible = isUserInputValid ?
+    (contrast(textColor.value, backgroundColor.value) >= accessibleContrastRatio) : null;
 
-  render() {
-    const { textColor, fontSize, isFontBold,
-            backgroundColor, accessibilityLevel } = this.props;
-    const areColorsValid = textColor.isValueValid && backgroundColor.isValueValid;
-    const isFontSizeValid = fontSize.isValid;
-    const isUserInputValid = areColorsValid && isFontSizeValid;
-    const fontSizeValue = parseInt(fontSize.value, 10);
-    const accessibleContrastRatio = isUserInputValid ?
-      accessibleContrast(accessibilityLevel, fontSizeValue, isFontBold) : null;
-    const isAccessible = isUserInputValid ?
-      (contrast(textColor.value, backgroundColor.value) >= accessibleContrastRatio) : null;
-
-    return (
-      <div className={styles.container}>
-        <Header />
-        <UserInput />
-        <div className={styles.previewContainer}>
-          {
-            isUserInputValid &&
-              <Preview accessibilityLevel={accessibilityLevel}
-                       accessibleContrast={accessibleContrastRatio}
-                       isAccessible={isAccessible} />
-          }
-          {
-            !isUserInputValid &&
-              <UserInputError areColorsValid={areColorsValid}
-                              isFontSizeValid={isFontSizeValid} />
-          }
-        </div>
-        <HowItWorks />
-        <ComingSoon />
-        <Footer />
+  return (
+    <div className={styles.container}>
+      <Header />
+      <UserInput />
+      <div className={styles.previewContainer}>
+        {
+          isUserInputValid &&
+            <Preview accessibilityLevel={accessibilityLevel}
+                     accessibleContrast={accessibleContrastRatio}
+                     isAccessible={isAccessible} />
+        }
+        {
+          !isUserInputValid &&
+            <UserInputError areColorsValid={areColorsValid}
+                            isFontSizeValid={isFontSizeValid} />
+        }
       </div>
-    );
-  }
+      <HowItWorks />
+      <ComingSoon />
+      <Footer />
+    </div>
+  );
 }
+
+App.propTypes = {
+  textColor: PropTypes.object.isRequired,
+  fontSize: PropTypes.object.isRequired,
+  isFontBold: PropTypes.bool.isRequired,
+  backgroundColor: PropTypes.object.isRequired,
+  accessibilityLevel: PropTypes.string.isRequired
+};
 
 export default connect(mapStateToProps)(App);
