@@ -16,6 +16,16 @@
 }
 
 .previewContainer {
+  @media @small {
+    width: @small-screen-width;
+    height: 279px;
+    margin: 0 auto;
+
+    &:nth-child(2), &:nth-child(3) {
+      margin-top: 9px;
+    }
+  }
+
   @media @medium {
     width: @medium-screen-width;
     height: 135px;
@@ -43,6 +53,10 @@
   font-size: 14px;
   line-height: 18px;
   color: #fff;
+
+  @media @small {
+    height: 90px;
+  }
 
   @media @medium {
     display: inline-block;
@@ -128,6 +142,11 @@
   border-radius: 16px;
   z-index: 1;
 
+  @media @small {
+    left: ~"calc(50% - 16px)";
+    bottom: -163px;
+  }
+
   @media @medium {
     left: ~"calc(50% - 16px)";
     bottom: -19px;
@@ -145,10 +164,16 @@
   height: 0;
   border-style: solid;
 
+  @media @small {
+    left: 0;
+    bottom: -18px;
+    border-width: 18px (320px / 2) 0 (320px / 2);
+  }
+
   @media @medium {
-    right: -16px;
+    right: -15px;
     top: 0;
-    border-width: (135px / 2) 0 (135px / 2) 16px;
+    border-width: (135px / 2) 0 (135px / 2) 15px;
   }
 
   @media @large {
@@ -161,30 +186,43 @@
 .passesTriangle {
   composes: triangle;
 
-  @media @large {
+  @media @small {
     border-color: @passColor transparent transparent transparent;
   }
 
   @media @medium {
     border-color: transparent transparent transparent @passColor;
   }
+
+  @media @large {
+    border-color: @passColor transparent transparent transparent;
+  }
 }
 
 .failsTriangle {
   composes: triangle;
 
-  @media @large {
+  @media @small {
     border-color: @failColor transparent transparent transparent;
   }
 
   @media @medium {
     border-color: transparent transparent transparent @failColor;
   }
+
+  @media @large {
+    border-color: @failColor transparent transparent transparent;
+  }
 }
 
 .previewLoremIpsum {
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media @small {
+    height: 72px;
+    padding: 36px 20px 36px;
+  }
 
   @media @medium {
     display: inline-block;
