@@ -1,32 +1,59 @@
 @import '~variables';
 
-@previewContainerWidth: 250px;
-@triangleHeight: 18px;
 @passColor: #3d854d;
 @failColor: #ee0000;
 
 .innerContainer {
-  width: 768px;
   margin: 0 auto;
+
+  @media @medium {
+    width: @medium-screen-width;
+  }
+
+  @media @large {
+    width: @large-screen-width;
+  }
 }
 
 .previewContainer {
-  display: inline-block;
-  width: @previewContainerWidth;
-  vertical-align: top;
+  @media @medium {
+    width: @medium-screen-width;
+    height: 135px;
+    margin: 0 auto;
 
-  &:nth-child(2), &:nth-child(3) {
-    margin-left: 9px;
+    &:nth-child(2), &:nth-child(3) {
+      margin-top: 9px;
+    }
+  }
+
+  @media @large {
+    display: inline-block;
+    width: 250px;
+    vertical-align: top;
+
+    &:nth-child(2), &:nth-child(3) {
+      margin-left: 9px;
+    }
   }
 }
 
 .previewInfo {
   position: relative;
-  height: 108px;
   padding: 18px 20px 27px;
   font-size: 14px;
   line-height: 18px;
   color: #fff;
+
+  @media @medium {
+    display: inline-block;
+    width: 187px;
+    height: 90px;
+    vertical-align: top;
+  }
+
+  @media @large {
+    height: 108px;
+  }
 }
 
 .passesPreviewInfo {
@@ -41,7 +68,14 @@
 
 .previewInfoTitle {
   margin: 0;
-  font-size: 21px;
+
+  @media @small-medium {
+    font-size: 18px;
+  }
+
+  @media @large {
+    font-size: 21px;
+  }
 }
 
 .paragraph {
@@ -67,18 +101,23 @@
 }
 
 .notFound {
-  height: 268px;
   font-size: 14px;
   line-height: 18px;
   padding: 18px 20px;
   background-color: #fff;
   border: 1px solid @header-background-color;
+
+  @media @medium {
+    height: 97px;
+  }
+
+  @media @large {
+    height: 268px;
+  }
 }
 
 .orConnector {
   position: absolute;
-  right: -20.5px;
-  top: ~"calc(50% - 16px)";
   width: 32px;
   height: 32px;
   line-height: 30px;
@@ -88,94 +127,74 @@
   background-color: #fff;
   border-radius: 16px;
   z-index: 1;
+
+  @media @medium {
+    left: ~"calc(50% - 16px)";
+    bottom: -19px;
+  }
+
+  @media @large {
+    top: ~"calc(50% - 16px)";
+    right: -20.5px;
+  }
 }
 
 .triangle {
   position: absolute;
-  left: 0;
-  bottom: -@triangleHeight;
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: @triangleHeight (@previewContainerWidth / 2) 0 (@previewContainerWidth / 2);
+
+  @media @medium {
+    right: -16px;
+    top: 0;
+    border-width: (135px / 2) 0 (135px / 2) 16px;
+  }
+
+  @media @large {
+    left: 0;
+    bottom: -18px;
+    border-width: 18px (250px / 2) 0 (250px / 2);
+  }
 }
 
 .passesTriangle {
   composes: triangle;
-  border-color: @passColor transparent transparent transparent;
+
+  @media @large {
+    border-color: @passColor transparent transparent transparent;
+  }
+
+  @media @medium {
+    border-color: transparent transparent transparent @passColor;
+  }
 }
 
 .failsTriangle {
   composes: triangle;
-  border-color: @failColor transparent transparent transparent;
+
+  @media @large {
+    border-color: @failColor transparent transparent transparent;
+  }
+
+  @media @medium {
+    border-color: transparent transparent transparent @failColor;
+  }
 }
 
 .previewLoremIpsum {
-  height: 63px;
-  padding: 45px 20px 45px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
 
-/*
+  @media @medium {
+    display: inline-block;
+    width: 223px;
+    height: 99px;
+    padding: 27px 20px 9px 40px;
+  }
 
-.previewHeader {
-  height: 90px;
-  padding-top: 36px;
+  @media @large {
+    height: 63px;
+    padding: 45px 20px 45px;
+  }
 }
-
-.previewTitle {
-  margin: 0 0 0 20px;
-  font-size: 28px;
-  font-weight: 300;
-}
-
-.lightnessChange {
-  margin: 5px 0 9px 20px;
-  height: 16px;
-  font-size: 14px;
-  line-height: 18px;
-  color: #747474;
-}
-
-.previewContent {
-  position: relative;
-  padding: 20px;
-  background-color: #ffffff;
-  line-height: 2;
-}
-
-.previewParagraph {
-  margin: 0;
-}
-
-.previewHiddenParagraph {
-  visibility: hidden;
-}
-
-.previewBackground {
-  margin: 0 0 3em 0;
-}
-
-.icon {
-  position: relative;
-  top: 1px;
-  margin-right: 3px;
-}
-
-.orConnector {
-  position: absolute;
-  right: -14px;
-  top: ~"calc(50% - 14px)";
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
-  border: 1px solid #212121;
-  font-size: 14px;
-  text-align: center;
-  color: #212121;
-  background-color: #fff;
-  border-radius: 14px;
-  z-index: 1;
-}
-*/

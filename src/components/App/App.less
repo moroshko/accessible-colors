@@ -1,3 +1,5 @@
+@import '~variables';
+
 body {
   margin: 0;
 }
@@ -9,6 +11,9 @@ body {
 }
 
 .previewContainer {
-  height: 306px;
   transform: translateY(-72px);
+
+  @media @large {
+    height: 306px;
+  }
 }
