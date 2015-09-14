@@ -15,7 +15,7 @@ import jsonp from 'jsonp';
 import addCommas from 'add-commas';
 import { SITE_URL, REPO } from 'constants';
 
-es6promise.polyfill();
+es6promise.polyfill(); // Required because `Promise` is undefined in IE
 
 export function updateTextColor(field, value) {
   return {

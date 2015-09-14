@@ -18,13 +18,13 @@ export default class UserInputError extends Component {
           {
             !areColorsValid &&
               <p className={styles.colorError}>
-                Please enter a valid hexadecimal color
+                Enter a valid hexadecimal color
               </p>
           }
           {
             !isFontSizeValid &&
               <p className={styles.fontSizeError}>
-                Please enter a font size of {MIN_FONT_SIZE}px or above
+                Enter a font size of {MIN_FONT_SIZE}px or above
               </p>
           }
         </div>
