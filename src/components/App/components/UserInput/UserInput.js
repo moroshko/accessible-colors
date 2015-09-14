@@ -42,7 +42,7 @@ function UserInput(props) {
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
-        <div>
+        <p className={styles.textColorAndFontWeightContainer}>
           <span className={styles.textColorContainer}>
             <label htmlFor="text-color">My text color is </label>
             <span className={styles.colorContainer}>
@@ -79,8 +79,8 @@ function UserInput(props) {
             </span>
             weight
           </span>
-        </div>
-        <div className={styles.backgroundColorContainer}>
+        </p>
+        <p className={styles.backgroundColorContainer}>
           <label htmlFor="background-color">My background color is </label>
           <span className={styles.colorContainer}>
             <Editable isValid={backgroundColor.isValueValid}
@@ -92,14 +92,31 @@ function UserInput(props) {
                         onBlur: correctBackgroundColor
                       }} />
           </span>
-        </div>
-        <div className={styles.accessibilityLevelContainer}>
-          My design needs to be
+        </p>
+        <p className={styles.accessibilityLevelContainer}>
+          My design must be
           <Toggle values={['AA', 'AAA']}
                   currentValue={accessibilityLevel}
                   onChange={updateAccessibilityLevel} />
           compliant
-        </div>
+        </p>
+        {
+          (!textColor.isValueValid || !backgroundColor.isValueValid || !fontSize.isValid) &&
+            <div className={styles.errorsContainer}>
+              {
+                (!textColor.isValueValid || !backgroundColor.isValueValid) &&
+                  <p className={styles.error}>
+                    Enter a valid hexadecimal color
+                  </p>
+              }
+              {
+                !fontSize.isValid &&
+                  <p className={styles.error}>
+                    Enter a font size of {MIN_FONT_SIZE}px or above
+                  </p>
+              }
+            </div>
+        }
       </div>
     </div>
   );

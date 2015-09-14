@@ -2,7 +2,19 @@
 
 .container {
   background-color: #f0f5f9;
-  padding: 27px 0 108px;
+  padding-top: 27px;
+
+  @media @small {
+    height: 324px;
+  }
+
+  @media @medium {
+    height: 243px;
+  }
+
+  @media @large {
+    height: 279px;
+  }
 }
 
 .innerContainer {
@@ -25,6 +37,14 @@
     font-size: 21px;
     line-height: 54px;
   }
+}
+
+.paragraph {
+  margin: 0;
+}
+
+.textColorAndFontWeightContainer {
+  composes: paragraph;
 }
 
 .textColorContainer {
@@ -60,15 +80,29 @@
 }
 
 .backgroundColorContainer {
+  composes: paragraph;
+
   @media @small {
     margin-top: 18px;
   }
 }
 
 .accessibilityLevelContainer {
+  composes: paragraph;
   white-space: nowrap;
 
   @media @small {
     margin-top: 18px;
   }
+}
+
+.errorsContainer {
+  margin-top: 9px;
+  height: 99px;
+  color: #ff0000;
+  vertical-align: bottom;
+}
+
+.error {
+  composes: paragraph;
 }
