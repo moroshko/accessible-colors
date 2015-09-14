@@ -41,7 +41,7 @@ const initialState = {
     lightness: initialBackgroundColorHSL.l.toString()
   },
   accessibilityLevel: 'AA',
-  githubStars: '17',
+  githubStars: '18',
   twitterCount: '3'
 };
 
