@@ -80,7 +80,7 @@ function UserInput(props) {
             weight
           </span>
         </div>
-        <div>
+        <div className={styles.backgroundColorContainer}>
           <label htmlFor="background-color">My background color is </label>
           <span className={styles.colorContainer}>
             <Editable isValid={backgroundColor.isValueValid}
