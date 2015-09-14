@@ -9,10 +9,13 @@ export const UPDATE_ACCESSIBILITY_LEVEL = 'UPDATE_ACCESSIBILITY_LEVEL';
 export const LOAD_GITHUB_STARS_SUCCESS = 'LOAD_GITHUB_STARS_SUCCESS';
 export const LOAD_TWITTER_COUNT_SUCCESS = 'LOAD_TWITTER_COUNT_SUCCESS';
 
+import es6promise from 'es6-promise';
 import fetch from 'isomorphic-fetch';
 import jsonp from 'jsonp';
 import addCommas from 'add-commas';
 import { SITE_URL, REPO } from 'constants';
+
+es6promise.polyfill();
 
 export function updateTextColor(field, value) {
   return {
