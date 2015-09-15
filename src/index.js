@@ -11,8 +11,8 @@ let store, debugPanel;
 
 if (__DEVTOOLS__) {
   const { devTools } = require('redux-devtools');
-  const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
-  const DiffMonitor = require('redux-devtools-diff-monitor');
+  //const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
+  //const DiffMonitor = require('redux-devtools-diff-monitor');
 
   store = compose(applyMiddleware(thunk), devTools())(createStore)(appReducer);
 
@@ -25,11 +25,11 @@ if (__DEVTOOLS__) {
     });
   }
 
-  debugPanel = (
-    <DebugPanel top={true} right={true} bottom={true}>
-      <DevTools store={store} monitor={DiffMonitor} />
-    </DebugPanel>
-  );
+  // debugPanel = (
+  //   <DebugPanel top={true} right={true} bottom={true}>
+  //     <DevTools store={store} monitor={DiffMonitor} />
+  //   </DebugPanel>
+  // );
 } else {
   store = applyMiddleware(thunk)(createStore)(appReducer);
 }
