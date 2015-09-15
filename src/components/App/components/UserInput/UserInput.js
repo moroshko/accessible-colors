@@ -3,8 +3,8 @@ import styles from './UserInput.less';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MIN_FONT_SIZE, MAX_FONT_SIZE } from 'constants';
-import { updateTextColor, correctTextColor, updateFontSize, correctFontSize,
-         toggleFontWeight, updateBackgroundColor, correctBackgroundColor,
+import { updateTextColor, blurTextColor, updateFontSize, blurFontSize,
+         toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
          updateAccessibilityLevel } from 'actions/app';
 import Editable from 'Editable/Editable';
 import Toggle from 'Toggle/Toggle';
@@ -22,12 +22,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateTextColor: value => dispatch(updateTextColor('value', value)),
-    correctTextColor: () => dispatch(correctTextColor()),
+    blurTextColor: () => dispatch(blurTextColor()),
     updateFontSize: value => dispatch(updateFontSize(value)),
-    correctFontSize: () => dispatch(correctFontSize()),
+    blurFontSize: () => dispatch(blurFontSize()),
     toggleFontWeight: () => dispatch(toggleFontWeight()),
     updateBackgroundColor: value => dispatch(updateBackgroundColor('value', value)),
-    correctBackgroundColor: () => dispatch(correctBackgroundColor()),
+    blurBackgroundColor: () => dispatch(blurBackgroundColor()),
     updateAccessibilityLevel: value => dispatch(updateAccessibilityLevel(value))
   };
 }
@@ -35,8 +35,8 @@ function mapDispatchToProps(dispatch) {
 function UserInput(props) {
   const { textColor, fontSize, isFontBold, backgroundColor,
           accessibilityLevel, updateTextColor,
-          correctTextColor, updateFontSize, correctFontSize,
-          toggleFontWeight, updateBackgroundColor, correctBackgroundColor,
+          blurTextColor, updateFontSize, blurFontSize,
+          toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
           updateAccessibilityLevel } = props;
 
   return (
@@ -52,7 +52,7 @@ function UserInput(props) {
                           id: 'text-color',
                           type: 'text',
                           value: textColor.value,
-                          onBlur: correctTextColor
+                          onBlur: blurTextColor
                         }} />
             </span>
           </span>
@@ -68,7 +68,7 @@ function UserInput(props) {
                           min: MIN_FONT_SIZE,
                           max: MAX_FONT_SIZE,
                           value: fontSize.value,
-                          onBlur: correctFontSize
+                          onBlur: blurFontSize
                         }} />
             </span>
             pt and
@@ -89,7 +89,7 @@ function UserInput(props) {
                         id: 'background-color',
                         type: 'text',
                         value: backgroundColor.value,
-                        onBlur: correctBackgroundColor
+                        onBlur: blurBackgroundColor
                       }} />
           </span>
         </p>
@@ -130,12 +130,12 @@ UserInput.propTypes = {
   accessibilityLevel: PropTypes.string.isRequired,
 
   updateTextColor: PropTypes.func.isRequired,
-  correctTextColor: PropTypes.func.isRequired,
+  blurTextColor: PropTypes.func.isRequired,
   updateFontSize: PropTypes.func.isRequired,
-  correctFontSize: PropTypes.func.isRequired,
+  blurFontSize: PropTypes.func.isRequired,
   toggleFontWeight: PropTypes.func.isRequired,
   updateBackgroundColor: PropTypes.func.isRequired,
-  correctBackgroundColor: PropTypes.func.isRequired,
+  blurBackgroundColor: PropTypes.func.isRequired,
   updateAccessibilityLevel: PropTypes.func.isRequired
 };
 

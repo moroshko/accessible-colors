@@ -1,10 +1,10 @@
 import { MIN_FONT_SIZE } from 'constants';
 import colorUtils from 'utils/color/color';
 import numberUtils from 'utils/number/number';
-import { UPDATE_TEXT_COLOR, CORRECT_TEXT_COLOR,
-         UPDATE_FONT_SIZE, CORRECT_FONT_SIZE,
+import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
+         UPDATE_FONT_SIZE, BLUR_FONT_SIZE,
          TOGGLE_FONT_WEIGHT,
-         UPDATE_BACKGROUND_COLOR, CORRECT_BACKGROUND_COLOR,
+         UPDATE_BACKGROUND_COLOR, BLUR_BACKGROUND_COLOR,
          UPDATE_ACCESSIBILITY_LEVEL,
          LOAD_GITHUB_STARS_SUCCESS, LOAD_TWITTER_COUNT_SUCCESS } from 'actions/app';
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
@@ -57,7 +57,7 @@ export default (state = initialState, action) => {
         })
       };
 
-    case CORRECT_TEXT_COLOR:
+    case BLUR_TEXT_COLOR:
       return {
         ...state,
         textColor: colorReducer(state.textColor, {
@@ -74,7 +74,7 @@ export default (state = initialState, action) => {
         }
       };
 
-    case CORRECT_FONT_SIZE:
+    case BLUR_FONT_SIZE:
       return state.fontSize.isValid ? {
         ...state,
         fontSize: {
@@ -99,7 +99,7 @@ export default (state = initialState, action) => {
         })
       };
 
-    case CORRECT_BACKGROUND_COLOR:
+    case BLUR_BACKGROUND_COLOR:
       return {
         ...state,
         backgroundColor: colorReducer(state.backgroundColor, {
