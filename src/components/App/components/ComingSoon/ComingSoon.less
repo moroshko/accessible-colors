@@ -31,7 +31,7 @@
 }
 
 .title {
-  font-weight: 300;
+  font-weight: 400;
 
   @media @small-medium {
     font-size: 18px;
@@ -43,11 +43,15 @@
 }
 
 .content {
-  font-size: 14px;
-  line-height: 18px;
+  @media @small-medium {
+    font-size: 14px;
+    line-height: 18px;
+  }
 
   @media @large {
-    width: 489px;
+    font-size: 18px;
+    line-height: 27px;
+    width: 469px;
   }
 }
 
