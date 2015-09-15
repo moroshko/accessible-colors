@@ -60,6 +60,10 @@ function isValueValid(str) {
   return str2sixDigitHex(str) !== null;
 }
 
+function isValuePotentiallyValid() {
+  return true;
+}
+
 function correctValue(str) {
   str = str.trim();
 
@@ -359,6 +363,7 @@ function findClosestAccessibleColor(adjustableColor, otherColor, contrastRatio) 
 export default {
   str2sixDigitHex,
   isValueValid,
+  isValuePotentiallyValid,
   isHueValid,
   isSaturationValid,
   isLightnessValid,

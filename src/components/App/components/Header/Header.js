@@ -49,9 +49,6 @@ class Header extends Component {
           <h1 className={styles.header}>
             Accessible colors
           </h1>
-          <h2 className={styles.subHeader}>
-            Automatically find the closest accessible color combination
-          </h2>
           <div className={styles.socialButtons}>
             <SocialButton icon="icon-circle-github" count={githubStars}
                           color="#212121" hoverColor="#4078c0"

@@ -6,7 +6,6 @@ import { accessibleContrast } from 'utils/accessibility/accessibility';
 import { contrast } from 'utils/color/color';
 import Header from 'Header/Header';
 import UserInput from 'UserInput/UserInput';
-import UserInputError from 'UserInputError/UserInputError';
 import Preview from 'Preview/Preview';
 import HowItWorks from 'HowItWorks/HowItWorks';
 import ComingSoon from 'ComingSoon/ComingSoon';
@@ -25,9 +24,9 @@ function mapStateToProps(state) {
 function App(props) {
   const { textColor, fontSize, isFontBold,
           backgroundColor, accessibilityLevel } = props;
-  const areColorsValid = textColor.isValueValid && backgroundColor.isValueValid;
-  const isFontSizeValid = fontSize.isValid;
-  const isUserInputValid = areColorsValid && isFontSizeValid;
+  const isUserInputValid = textColor.isValueValid &&
+                           backgroundColor.isValueValid &&
+                           fontSize.isValid;
   const fontSizeValue = parseInt(fontSize.value, 10);
   const accessibleContrastRatio = isUserInputValid ?
     accessibleContrast(accessibilityLevel, fontSizeValue, isFontBold) : null;
@@ -44,11 +43,6 @@ function App(props) {
             <Preview accessibilityLevel={accessibilityLevel}
                      accessibleContrast={accessibleContrastRatio}
                      isAccessible={isAccessible} />
-        }
-        {
-          !isUserInputValid &&
-            <UserInputError areColorsValid={areColorsValid}
-                            isFontSizeValid={isFontSizeValid} />
         }
       </div>
       <HowItWorks />

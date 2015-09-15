@@ -63,7 +63,7 @@ function handleUpdateColor(state, action) {
       return updateHSLifValueValid({
         ...state,
         isValueValid: colorUtils.isValueValid(action.value),
-        value: action.value
+        value: action.value.toUpperCase()
       });
 
     case 'hue':

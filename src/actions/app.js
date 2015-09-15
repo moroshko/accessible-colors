@@ -1,10 +1,10 @@
 export const UPDATE_TEXT_COLOR = 'UPDATE_TEXT_COLOR';
-export const CORRECT_TEXT_COLOR = 'CORRECT_TEXT_COLOR';
+export const BLUR_TEXT_COLOR = 'BLUR_TEXT_COLOR';
 export const UPDATE_FONT_SIZE = 'UPDATE_FONT_SIZE';
-export const CORRECT_FONT_SIZE = 'CORRECT_FONT_SIZE';
+export const BLUR_FONT_SIZE = 'BLUR_FONT_SIZE';
 export const TOGGLE_FONT_WEIGHT = 'TOGGLE_FONT_WEIGHT';
 export const UPDATE_BACKGROUND_COLOR = 'UPDATE_BACKGROUND_COLOR';
-export const CORRECT_BACKGROUND_COLOR = 'CORRECT_BACKGROUND_COLOR';
+export const BLUR_BACKGROUND_COLOR = 'BLUR_BACKGROUND_COLOR';
 export const UPDATE_ACCESSIBILITY_LEVEL = 'UPDATE_ACCESSIBILITY_LEVEL';
 export const LOAD_GITHUB_STARS_SUCCESS = 'LOAD_GITHUB_STARS_SUCCESS';
 export const LOAD_TWITTER_COUNT_SUCCESS = 'LOAD_TWITTER_COUNT_SUCCESS';
@@ -15,7 +15,7 @@ import jsonp from 'jsonp';
 import addCommas from 'add-commas';
 import { SITE_URL, REPO } from 'constants';
 
-es6promise.polyfill();
+es6promise.polyfill(); // Required because `Promise` is undefined in IE
 
 export function updateTextColor(field, value) {
   return {
@@ -25,9 +25,9 @@ export function updateTextColor(field, value) {
   };
 }
 
-export function correctTextColor() {
+export function blurTextColor() {
   return {
-    type: CORRECT_TEXT_COLOR
+    type: BLUR_TEXT_COLOR
   };
 }
 
@@ -38,9 +38,9 @@ export function updateFontSize(value) {
   };
 }
 
-export function correctFontSize() {
+export function blurFontSize() {
   return {
-    type: CORRECT_FONT_SIZE
+    type: BLUR_FONT_SIZE
   };
 }
 
@@ -58,9 +58,9 @@ export function updateBackgroundColor(field, value) {
   };
 }
 
-export function correctBackgroundColor() {
+export function blurBackgroundColor() {
   return {
-    type: CORRECT_BACKGROUND_COLOR
+    type: BLUR_BACKGROUND_COLOR
   };
 }
 
