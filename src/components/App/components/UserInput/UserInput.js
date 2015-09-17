@@ -67,6 +67,7 @@ function UserInput(props) {
                           type: 'number',
                           min: MIN_FONT_SIZE,
                           max: MAX_FONT_SIZE,
+                          step: '1',
                           value: fontSize.value,
                           onBlur: blurFontSize
                         }} />
