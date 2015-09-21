@@ -15,8 +15,8 @@ const initialTextColor = '#747474';
 const initialBackgroundColorHSL = colorUtils.str2hsl(initialBackgroundColor);
 const initialTextColorHSL = colorUtils.str2hsl(initialTextColor);
 const initialState = {
-  githubStars: '19',
-  twitterCount: '31',
+  githubStars: '23',
+  twitterCount: '37',
   textColor: {
     isValueValid: true,
     value: initialTextColor,
