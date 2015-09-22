@@ -11,7 +11,7 @@ let store, devToolsComponent;
 
 if (__DEVTOOLS__) {
   const { devTools } = require('redux-devtools');
-  const { DebugPanel, DevTools } = require('redux-devtools/lib/react');
+  const { DevTools } = require('redux-devtools/lib/react');
   const DiffMonitor = require('redux-devtools-diff-monitor');
 
   store = compose(applyMiddleware(thunk), devTools())(createStore)(appReducer);
