@@ -13,7 +13,7 @@
     "test": "mocha --opts mocha.opts",
     "test-watch": "mocha --opts mocha.opts --watch --reporter min",
     "copy-static-files": "cp src/index.html src/favicon.png src/icons.css dist/ && cp -r src/fonts dist/",
-    "dist": "rm -rf dist/ && mkdir dist && npm run copy-static-files && webpack --config webpack.prod.config.js",
+    "dist": "rm -rf dist/ && mkdir dist && npm run copy-static-files && NODE_ENV=production webpack --config webpack.prod.config.js",
     "build": "npm run lint && npm test && npm run dist"
   },
   "dependencies": {
