@@ -42,6 +42,7 @@
     "less-loader": "^2.2.1",
     "mocha": "^2.3.3",
     "node-libs-browser": "^0.5.3",
+    "opn": "^3.0.2",
     "react-transform-hmr": "^1.0.1",
     "redux-devtools": "^2.1.5",
     "redux-devtools-diff-monitor": "^3.0.0",

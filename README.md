@@ -7,8 +7,6 @@
 ```shell
 $ npm install
 $ npm start
-
-open http://localhost:3000/dist/index.html
 ```
 
 ## Running Tests
