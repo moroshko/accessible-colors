@@ -1,36 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { compose, applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import { render } from 'react-dom';
+import configureStore from 'store';
 import { Provider } from 'react-redux';
-import appReducer from 'reducers/app';
 import TrackLinks from 'TrackLinks/TrackLinks';
 import App from 'App/App';
 
-let store, devToolsComponent;
+const store = configureStore();
 
-if (__DEVTOOLS__) {
-  const { devTools } = require('redux-devtools');
+let devTools;
+
+if (DEV) {
   const { DevTools } = require('redux-devtools/lib/react');
   const DiffMonitor = require('redux-devtools-diff-monitor');
 
-  store = compose(applyMiddleware(thunk), devTools())(createStore)(appReducer);
-
-  devToolsComponent = (
+  devTools = (
     <DevTools store={store} monitor={DiffMonitor} />
   );
-} else {
-  store = applyMiddleware(thunk)(createStore)(appReducer);
 }
 
-ReactDOM.render(
+render(
   <div>
     <TrackLinks>
       <Provider store={store}>
         <App />
       </Provider>
     </TrackLinks>
-    {devToolsComponent}
+    {devTools}
   </div>,
   document.getElementById('accessible-colors')
 );

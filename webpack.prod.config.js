@@ -30,7 +30,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       },
-      __DEVTOOLS__: false
+      DEV: false
     }),
     new ExtractTextPlugin('./dist/app.css'),
     new webpack.optimize.UglifyJsPlugin({
