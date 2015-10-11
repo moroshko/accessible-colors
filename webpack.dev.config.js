@@ -4,14 +4,14 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-hot-middleware/client',
     './src/index'
   ],
 
   output: {
     path: path.join(__dirname, 'dist'), // Must be an absolute path
     filename: 'index.js',
-    publicPath: '/dist'
+    publicPath: '/'
   },
 
   module: {

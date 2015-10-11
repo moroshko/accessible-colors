@@ -1,14 +1,28 @@
+var path = require('path');
+var express = require('express');
 var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.dev.config');
 var opn = require('opn');
+var app = express();
+var compiler = webpack(config);
+var port = 1704;
 
-new WebpackDevServer(webpack(config), {
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
   publicPath: config.output.publicPath
-}).listen(3000, 'localhost', function(error) {
-  if (error) {
-    console.log(error); // eslint-disable-line no-console
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.use(express.static(path.join(__dirname, 'dist')));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
+app.listen(port, 'localhost', function(err) {
+  if (err) {
+    console.log(err); // eslint-disable-line no-console
   } else {
-    opn('http://localhost:3000/dist/index.html');
+    opn('http://localhost:' + port);
   }
 });
