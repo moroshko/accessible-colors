@@ -7,17 +7,6 @@ import App from 'App/App';
 
 const store = configureStore();
 
-let devTools;
-
-if (DEV) {
-  const { DevTools } = require('redux-devtools/lib/react');
-  const DiffMonitor = require('redux-devtools-diff-monitor');
-
-  devTools = (
-    <DevTools store={store} monitor={DiffMonitor} />
-  );
-}
-
 render(
   <div>
     <TrackLinks>
@@ -25,7 +14,6 @@ render(
         <App />
       </Provider>
     </TrackLinks>
-    {devTools}
   </div>,
   document.getElementById('accessible-colors')
 );

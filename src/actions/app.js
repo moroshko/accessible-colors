@@ -91,6 +91,6 @@ export function loadSocialCounts() {
       });
     };
 
-    jsonp(`https://cdn.api.twitter.com/1/urls/count.json?callback=dispatchTwitterCount&url=${SITE_URL}`);
+    jsonp(`http://public.newsharecounts.com/count.json?callback=dispatchTwitterCount&url=${SITE_URL}`);
   };
 }
