@@ -24,7 +24,7 @@ function correctInteger(str) {
   return parseInt(str.trim(), 10).toString();
 }
 
-export default {
+export {
   isIntegerInRange,
   correctInteger
 };

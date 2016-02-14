@@ -17,6 +17,6 @@ function accessibleContrast(accessibilityLevel, fontSize, isFontBold) {
   return null;
 }
 
-export default {
+export {
   accessibleContrast
 };

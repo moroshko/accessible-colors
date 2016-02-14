@@ -1,6 +1,6 @@
 import { MIN_FONT_SIZE } from 'constants';
-import colorUtils from 'utils/color/color';
-import numberUtils from 'utils/number/number';
+import { str2hsl } from 'utils/color/color';
+import { isIntegerInRange, correctInteger } from 'utils/number/number';
 import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
          UPDATE_FONT_SIZE, BLUR_FONT_SIZE,
          TOGGLE_FONT_WEIGHT,
@@ -12,8 +12,8 @@ import colorReducer from 'reducers/color';
 
 const initialBackgroundColor = '#EEEEEE';
 const initialTextColor = '#747474';
-const initialBackgroundColorHSL = colorUtils.str2hsl(initialBackgroundColor);
-const initialTextColorHSL = colorUtils.str2hsl(initialTextColor);
+const initialBackgroundColorHSL = str2hsl(initialBackgroundColor);
+const initialTextColorHSL = str2hsl(initialTextColor);
 const initialState = {
   githubStars: '31',
   twitterCount: '0',
@@ -69,7 +69,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fontSize: {
-          isValid: numberUtils.isIntegerInRange(action.value, MIN_FONT_SIZE),
+          isValid: isIntegerInRange(action.value, MIN_FONT_SIZE),
           value: action.value
         }
       };
@@ -79,7 +79,7 @@ export default (state = initialState, action) => {
         ...state,
         fontSize: {
           ...state.fontSize,
-          value: numberUtils.correctInteger(state.fontSize.value)
+          value: correctInteger(state.fontSize.value)
         }
       } : state;
 

@@ -360,7 +360,7 @@ function findClosestAccessibleColor(adjustableColor, otherColor, contrastRatio) 
   return closestDarkerColor.color;
 }
 
-export default {
+export {
   str2sixDigitHex,
   isValueValid,
   isValuePotentiallyValid,

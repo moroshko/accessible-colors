@@ -1,4 +1,12 @@
-import colorUtils from 'utils/color/color';
+import {
+  str2hsl,
+  hsl2str,
+  isValueValid,
+  isHueValid,
+  isSaturationValid,
+  isLightnessValid,
+  correctValue
+} from 'utils/color/color';
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
 
 function updateHSLifValueValid(newState) {
@@ -8,7 +16,7 @@ function updateHSLifValueValid(newState) {
         isLightnessValid, lightness } = newState;
 
   if (isValueValid) {
-    const { h, s, l } = colorUtils.str2hsl(value);
+    const { h, s, l } = str2hsl(value);
 
     isHueValid = true;
     hue = h.toString();
@@ -38,7 +46,7 @@ function updateValueIfHSLvalid(newState) {
 
   if (isHueValid && isSaturationValid && isLightnessValid) {
     isValueValid = true;
-    value = colorUtils.hsl2str({
+    value = hsl2str({
       h: parseFloat(hue),
       s: parseFloat(saturation),
       l: parseFloat(lightness)
@@ -62,28 +70,28 @@ function handleUpdateColor(state, action) {
     case 'value':
       return updateHSLifValueValid({
         ...state,
-        isValueValid: colorUtils.isValueValid(action.value),
+        isValueValid: isValueValid(action.value),
         value: action.value.toUpperCase()
       });
 
     case 'hue':
       return updateValueIfHSLvalid({
         ...state,
-        isHueValid: colorUtils.isHueValid(action.value),
+        isHueValid: isHueValid(action.value),
         hue: action.value
       });
 
     case 'saturation':
       return updateValueIfHSLvalid({
         ...state,
-        isSaturationValid: colorUtils.isSaturationValid(action.value),
+        isSaturationValid: isSaturationValid(action.value),
         saturation: action.value
       });
 
     case 'lightness':
       return updateValueIfHSLvalid({
         ...state,
-        isLightnessValid: colorUtils.isLightnessValid(action.value),
+        isLightnessValid: isLightnessValid(action.value),
         lightness: action.value
       });
 
@@ -100,7 +108,7 @@ export default (state, action) => {
     case CORRECT_COLOR:
       return state.isValueValid ? {
         ...state,
-        value: colorUtils.correctValue(state.value)
+        value: correctValue(state.value)
       } : state;
 
     default:
