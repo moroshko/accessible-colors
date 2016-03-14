@@ -6,11 +6,11 @@
   }
 
   @media @medium {
-    margin-top: 72px;
+    margin-top: 63px;
   }
 
   @media @large {
-    margin-top: 90px;
+    margin-top: 81px;
   }
 }
 
@@ -55,11 +55,29 @@
   }
 }
 
-.link {
-  color: #0066cc;
-  text-decoration: none;
+:global {
+  .ct-grid {
+    stroke: #212121;
+    stroke-dasharray: none;
+  }
 
-  &:hover {
-    text-decoration: underline;
+  .ct-series-a {   /* Accessible Line */
+    .ct-line {
+      stroke: #212121;
+      stroke-width: 1px;
+      stroke-dasharray: 5px 2px;
+    }
+  }
+
+  .ct-series-b {   /* Graph */
+    .ct-line {
+      stroke: #212121;
+      stroke-width: 1px;
+    }
+
+    .ct-point {
+      stroke: #212121;
+      stroke-width: 15px;
+    }
   }
 }

@@ -7,8 +7,8 @@ import { contrast } from 'utils/color/color';
 import Header from 'Header/Header';
 import UserInput from 'UserInput/UserInput';
 import Preview from 'Preview/Preview';
+import SeeBehindTheScenes from 'SeeBehindTheScenes/SeeBehindTheScenes';
 import HowItWorks from 'HowItWorks/HowItWorks';
-import ComingSoon from 'ComingSoon/ComingSoon';
 import Footer from 'Footer/Footer';
 
 function mapStateToProps(state) {
@@ -46,7 +46,7 @@ function App(props) {
         }
       </div>
       <HowItWorks />
-      <ComingSoon />
+      <SeeBehindTheScenes accessibleContrast={accessibleContrastRatio} />
       <Footer />
     </div>
   );

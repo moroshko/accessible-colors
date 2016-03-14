@@ -15,8 +15,8 @@ const initialTextColor = '#747474';
 const initialBackgroundColorHSL = str2hsl(initialBackgroundColor);
 const initialTextColorHSL = str2hsl(initialTextColor);
 const initialState = {
-  githubStars: '31',
-  twitterCount: '0',
+  githubStars: '32',
+  twitterCount: '27',
   textColor: {
     isValueValid: true,
     value: initialTextColor,
@@ -42,7 +42,11 @@ const initialState = {
     isLightnessValid: true,
     lightness: initialBackgroundColorHSL.l.toString()
   },
-  accessibilityLevel: 'AA'
+  accessibilityLevel: 'AA',
+  graph: {
+    colorType: 'textColor',       // or 'backgroundColor'
+    colorParameter: 'lightness'   // or 'hue' or 'saturation'
+  }
 };
 
 export default (state = initialState, action) => {

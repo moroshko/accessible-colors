@@ -8,21 +8,24 @@ module.exports = {
   ],
 
   output: {
-    path: path.join(__dirname, 'dist'), // Must be an absolute path
+    path: path.resolve(__dirname, 'dist'), // Must be an absolute path
     filename: 'index.js',
     publicPath: '/'
   },
 
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src') // Must be an absolute path
-    }, {
-      test: /\.less$/,
-      loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer!less',
-      exclude: /node_modules/
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
+        include: path.resolve(__dirname, 'src') // Must be an absolute path
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!autoprefixer!less',
+        exclude: /node_modules/
+      }
+    ]
   },
 
   resolve: {
