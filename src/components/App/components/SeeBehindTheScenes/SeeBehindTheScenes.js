@@ -19,7 +19,7 @@ function getGraphData(textColor, backgroundColor, graph) {
   const modifiedColor = {
     h: isTextColor ? textColor.hue : backgroundColor.hue,
     s: isTextColor ? textColor.saturation : backgroundColor.saturation,
-    l: isTextColor ? textColor.lightness : backgroundColor.lightness,
+    l: isTextColor ? textColor.lightness : backgroundColor.lightness
   };
   const result = [];
 
@@ -29,7 +29,7 @@ function getGraphData(textColor, backgroundColor, graph) {
       [colorParameter[0]]: x
     }));
 
-    result.push({ x, y })
+    result.push({ x, y });
   }
 
   return result;

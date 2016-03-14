@@ -37,6 +37,6 @@ export default class ChartistGraph extends Component {
 
     return (
       <div className={`ct-chart ${className}`} ref="chartElement" />
-    )
+    );
   }
 }
