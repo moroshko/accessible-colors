@@ -51,7 +51,16 @@
   @media @large {
     font-size: 18px;
     line-height: 27px;
-    width: 469px;
+  }
+}
+
+.graphContainer {
+  @media @small {
+    transform: translateX(-40px);
+  }
+
+  @media @medium-large {
+    transform: translateX(-80px);
   }
 }
 
@@ -61,7 +70,14 @@
     stroke-dasharray: none;
   }
 
-  .ct-series-a {   /* Accessible Line */
+  .ct-series-a {   /* Axes */
+    .ct-line {
+      stroke: #212121;
+      stroke-width: 1px;
+    }
+  }
+
+  .ct-series-b {   /* Accessible Line */
     .ct-line {
       stroke: #212121;
       stroke-width: 1px;
@@ -69,7 +85,7 @@
     }
   }
 
-  .ct-series-b {   /* Graph */
+  .ct-series-c {   /* Graph */
     .ct-line {
       stroke: #212121;
       stroke-width: 1px;
@@ -78,6 +94,20 @@
     .ct-point {
       stroke: #212121;
       stroke-width: 15px;
+    }
+  }
+
+  .ct-series-d {   /* Current Point */
+    .ct-point {
+      stroke: #212121;
+
+      @media @small-medium {
+        stroke-width: 10px;
+      }
+
+      @media @large {
+        stroke-width: 20px;
+      }
     }
   }
 }

@@ -11,37 +11,48 @@ import ChartistGraph from 'ChartistGraph/ChartistGraph';
 window.Chartist = Chartist;
 require('chartist-plugin-axistitle');
 
-function getGraphData(textColor, backgroundColor, graph) {
-  const { colorType, colorParameter } = graph;
+const eventHandlers = {
+  draw: data => {
+    const { type } = data;
+
+    if (type === 'label') {
+      const { index, axis: { units: { dir: direction } } } = data;
+
+      if (direction === 'vertical') {
+        data.element.attr({
+          style: 'transform: translateY(5px)'
+        });
+      }
+
+      if (direction === 'horizontal') {
+        data.element.attr({
+          style: `transform: translateX(${[-3, -14, -9][index]}px)`
+        });
+      }
+    }
+  }
+};
+
+function getContrast(constantColorValue, modifiedColor, colorParameter, colorParameterValue) {
+  return contrast(constantColorValue, hsl2str({
+    ...modifiedColor,
+    [colorParameter[0]]: colorParameterValue
+  }));
+}
+
+function getGraphData(constantColorValue, modifiedColor, colorParameter) {
   const max = (colorParameter === 'hue' ? 360 : 100);
-  const isTextColor = (colorType === 'textColor');
-  const constantColorValue = (isTextColor ? backgroundColor.value : textColor.value);
-  const modifiedColor = {
-    h: isTextColor ? textColor.hue : backgroundColor.hue,
-    s: isTextColor ? textColor.saturation : backgroundColor.saturation,
-    l: isTextColor ? textColor.lightness : backgroundColor.lightness
-  };
   const result = [];
 
-  for (let x = 0; x <= max; x++) {
-    const y = contrast(constantColorValue, hsl2str({
-      ...modifiedColor,
-      [colorParameter[0]]: x
-    }));
-
-    result.push({ x, y });
+  for (let x = 0; x <= max; x += 2) {
+    result.push({
+      x,
+      y: getContrast(constantColorValue, modifiedColor, colorParameter, x)
+    });
   }
 
   return result;
 }
-
-const eventHandlers = {
-  draw: data => {
-    if (data.type === 'grid' && data.index > 0) {
-      data.element.remove();
-    }
-  }
-};
 
 function mapStateToProps(state) {
   return {
@@ -54,13 +65,20 @@ function mapStateToProps(state) {
 function SeeBehindTheScenes(props) {
   const { textColor, backgroundColor, graph, accessibleContrast } = props;
   const { colorType, colorParameter } = graph;
-  const xAxisTitle = `${colorType === 'textColor' ? 'Text' : 'Background'} color ${colorParameter}`;
-  const currentXvalue = round(props[colorType][colorParameter], 2);
-  const graphData = getGraphData(textColor, backgroundColor, graph);
+  const isTextColor = (colorType === 'textColor');
+  const constantColorValue = (isTextColor ? backgroundColor.value : textColor.value);
+  const modifiedColor = {
+    h: isTextColor ? textColor.hue : backgroundColor.hue,
+    s: isTextColor ? textColor.saturation : backgroundColor.saturation,
+    l: isTextColor ? textColor.lightness : backgroundColor.lightness
+  };
+  const xAxisTitle = `${isTextColor ? 'Text' : 'Background'} color ${colorParameter}`;
+  const currentXvalue = props[colorType][colorParameter];
+  const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, currentXvalue);
+  const graphData = getGraphData(constantColorValue, modifiedColor, colorParameter);
   const maxXvalue = graphData[graphData.length - 1].x;
 
   const options = {
-    fullWidth: true,
     chartPadding: {
       top: 20,
       right: 30,
@@ -70,14 +88,16 @@ function SeeBehindTheScenes(props) {
     axisX: {
       type: Chartist.FixedScaleAxis,
       low: 0,
-      high: maxXvalue,
-      ticks: [0, currentXvalue, maxXvalue]
+      high: maxXvalue * 1.1,
+      ticks: [0, round(currentXvalue, 2), maxXvalue],
+      showGrid: false
     },
     axisY: {
       type: Chartist.FixedScaleAxis,
       low: 1,
-      high: 21,
-      ticks: [1, accessibleContrast, 21]
+      high: 21 * 1.1,
+      ticks: [1, accessibleContrast, 21],
+      showGrid: false
     },
     plugins: [
       Chartist.plugins.ctAxisTitle({
@@ -103,17 +123,33 @@ function SeeBehindTheScenes(props) {
       })
     ],
     series: {
+      axes: {
+        showPoint: false
+      },
       accessibleLine: {
         showPoint: false
       },
       graph: {
         showPoint: false
+      },
+      currentPoint: {
+        showPoint: true
       }
     }
   };
 
   const data = {
     series: [
+      {
+        name: 'axes',
+        data: [
+          { x: 0, y: 1 },
+          { x: maxXvalue * 1.1, y: 1 },
+          null,
+          { x: 0, y: 1 },
+          { x: 0, y: 21 * 1.1 }
+        ]
+      },
       {
         name: 'accessibleLine',
         data: [
@@ -123,7 +159,14 @@ function SeeBehindTheScenes(props) {
       },
       {
         name: 'graph',
-        data: graphData
+        data: graphData,
+        lineSmooth: Chartist.Interpolation.none({ fillHoles: true })
+      },
+      {
+        name: 'currentPoint',
+        data: [
+          { x: currentXvalue, y: currentYvalue }
+        ]
       }
     ]
   };
@@ -135,11 +178,13 @@ function SeeBehindTheScenes(props) {
           See behind the scenes
         </h3>
         <div className={styles.content}>
-          <ChartistGraph className="ct-perfect-fifth"
-                         type="Line"
-                         options={options}
-                         data={data}
-                         eventHandlers={eventHandlers} />
+          <div className={styles.graphContainer}>
+            <ChartistGraph className="ct-octave"
+                           type="Line"
+                           options={options}
+                           data={data}
+                           eventHandlers={eventHandlers} />
+          </div>
         </div>
       </div>
     </div>
