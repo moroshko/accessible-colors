@@ -45,7 +45,7 @@ const initialState = {
   accessibilityLevel: 'AA',
   graph: {
     colorType: 'textColor',       // or 'backgroundColor'
-    colorParameter: 'lightness'   // or 'hue' or 'saturation'
+    colorParameter: 'saturation'   // or 'hue' or 'saturation'
   }
 };
 

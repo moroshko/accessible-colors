@@ -1,10 +1,11 @@
 import styles from './SeeBehindTheScenes.less';
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import round from 'lodash.round';
 import { contrast, hsl2str } from 'utils/color/color';
 import Chartist from 'chartist';
+import ReactSlider from 'react-slider';
 import ChartistGraph from 'ChartistGraph/ChartistGraph';
 
 // chartist-plugin-axistitle requires Chartist to be on `window`
@@ -40,11 +41,10 @@ function getContrast(constantColorValue, modifiedColor, colorParameter, colorPar
   }));
 }
 
-function getGraphData(constantColorValue, modifiedColor, colorParameter) {
-  const max = (colorParameter === 'hue' ? 360 : 100);
+function getGraphData(constantColorValue, modifiedColor, colorParameter, maxXvalue) {
   const result = [];
 
-  for (let x = 0; x <= max; x += 2) {
+  for (let x = 0; x <= maxXvalue; x += 2) {
     result.push({
       x,
       y: getContrast(constantColorValue, modifiedColor, colorParameter, x)
@@ -62,141 +62,187 @@ function mapStateToProps(state) {
   };
 }
 
-function SeeBehindTheScenes(props) {
-  const { textColor, backgroundColor, graph, accessibleContrast } = props;
-  const { colorType, colorParameter } = graph;
-  const isTextColor = (colorType === 'textColor');
-  const constantColorValue = (isTextColor ? backgroundColor.value : textColor.value);
-  const modifiedColor = {
-    h: isTextColor ? textColor.hue : backgroundColor.hue,
-    s: isTextColor ? textColor.saturation : backgroundColor.saturation,
-    l: isTextColor ? textColor.lightness : backgroundColor.lightness
-  };
-  const xAxisTitle = `${isTextColor ? 'Text' : 'Background'} color ${colorParameter}`;
-  const currentXvalue = props[colorType][colorParameter];
-  const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, currentXvalue);
-  const graphData = getGraphData(constantColorValue, modifiedColor, colorParameter);
-  const maxXvalue = graphData[graphData.length - 1].x;
+class SeeBehindTheScenes extends Component {
+  static propTypes = {
+    textColor: PropTypes.object.isRequired,
+    backgroundColor: PropTypes.object.isRequired,
+    graph: PropTypes.object.isRequired,
 
-  const options = {
-    chartPadding: {
-      top: 20,
-      right: 30,
-      bottom: 40,
-      left: 40
-    },
-    axisX: {
-      type: Chartist.FixedScaleAxis,
-      low: 0,
-      high: maxXvalue * 1.1,
-      ticks: [0, round(currentXvalue, 2), maxXvalue],
-      showGrid: false
-    },
-    axisY: {
-      type: Chartist.FixedScaleAxis,
-      low: 1,
-      high: 21 * 1.1,
-      ticks: [1, accessibleContrast, 21],
-      showGrid: false
-    },
-    plugins: [
-      Chartist.plugins.ctAxisTitle({
-        axisX: {
-          axisTitle: xAxisTitle,
-          axisClass: 'ct-axis-title',
-          offset: {
-            x: 0,
-            y: 50   /* Controls the distance between the X axis title and the graph */
-          },
-          textAnchor: 'middle'
+    accessibleContrast: PropTypes.number.isRequired
+  };
+
+  constructor() {
+    super();
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize() {
+    console.log('New window width:', window.innerWidth);
+  }
+
+  onChange(newSliderValue) {
+    console.log('new slider value:', newSliderValue);
+  }
+
+  render() {
+    const { textColor, backgroundColor, graph, accessibleContrast } = this.props;
+    const { colorType, colorParameter } = graph;
+    const isTextColor = (colorType === 'textColor');
+    const constantColorValue = (isTextColor ? backgroundColor.value : textColor.value);
+    const modifiedColor = {
+      h: isTextColor ? textColor.hue : backgroundColor.hue,
+      s: isTextColor ? textColor.saturation : backgroundColor.saturation,
+      l: isTextColor ? textColor.lightness : backgroundColor.lightness
+    };
+    const xAxisTitle = `${isTextColor ? 'Text' : 'Background'} color ${colorParameter}`;
+    const maxXvalue = (colorParameter === 'hue' ? 360 : 100);
+    const currentXvalue = parseFloat(this.props[colorType][colorParameter], 10);
+    const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, currentXvalue);
+    const graphData = getGraphData(constantColorValue, modifiedColor, colorParameter, maxXvalue);
+
+    const data = {
+      series: [
+        {
+          name: 'axes',
+          data: [
+            { x: 0, y: 1 },
+            { x: maxXvalue * 1.05, y: 1 },
+            null,
+            { x: 0, y: 1 },
+            { x: 0, y: 21 * 1.05 }
+          ]
         },
-        axisY: {
-          axisTitle: 'Contrast',
-          axisClass: 'ct-axis-title',
-          offset: {
-            x: 0,
-            y: 50   /* Controls the distance between the Y axis title and the graph */
-          },
-          textAnchor: 'middle',
-          flipTitle: true
+        {
+          name: 'accessibleLine',
+          data: [
+            { x: 0, y: accessibleContrast },
+            { x: maxXvalue, y: accessibleContrast }
+          ]
+        },
+        {
+          name: 'graph',
+          data: graphData,
+          lineSmooth: Chartist.Interpolation.none({ fillHoles: true })
+        },
+        {
+          name: 'currentPoint',
+          data: [
+            { x: currentXvalue, y: currentYvalue }
+          ]
         }
-      })
-    ],
-    series: {
-      axes: {
-        showPoint: false
-      },
-      accessibleLine: {
-        showPoint: false
-      },
-      graph: {
-        showPoint: false
-      },
-      currentPoint: {
-        showPoint: true
-      }
-    }
-  };
+      ]
+    };
 
-  const data = {
-    series: [
-      {
-        name: 'axes',
-        data: [
-          { x: 0, y: 1 },
-          { x: maxXvalue * 1.1, y: 1 },
-          null,
-          { x: 0, y: 1 },
-          { x: 0, y: 21 * 1.1 }
-        ]
+    const options = {
+      axisX: {
+        type: Chartist.FixedScaleAxis,
+        low: 0,
+        high: maxXvalue * 1.05,
+        ticks: [0, maxXvalue],
+        showGrid: false
       },
-      {
-        name: 'accessibleLine',
-        data: [
-          { x: 0, y: accessibleContrast },
-          { x: maxXvalue, y: accessibleContrast }
-        ]
+      axisY: {
+        type: Chartist.FixedScaleAxis,
+        low: 1,
+        high: 21 * 1.05,
+        ticks: [1, accessibleContrast, 21],
+        showGrid: false
       },
-      {
-        name: 'graph',
-        data: graphData,
-        lineSmooth: Chartist.Interpolation.none({ fillHoles: true })
-      },
-      {
-        name: 'currentPoint',
-        data: [
-          { x: currentXvalue, y: currentYvalue }
-        ]
+      plugins: [
+        Chartist.plugins.ctAxisTitle({
+          axisX: {
+            axisTitle: xAxisTitle,
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 325,
+              y: 5
+            },
+            textAnchor: 'start'
+          },
+          axisY: {
+            axisTitle: 'Contrast',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 0,
+              y: 15
+            },
+            textAnchor: 'middle',
+            flipTitle: true
+          }
+        })
+      ],
+      series: {
+        axes: {
+          showPoint: false
+        },
+        accessibleLine: {
+          showPoint: false
+        },
+        graph: {
+          showPoint: false
+        },
+        currentPoint: {
+          showPoint: true
+        }
       }
-    ]
-  };
+    };
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.innerContainer}>
-        <h3 className={styles.title}>
-          See behind the scenes
-        </h3>
-        <div className={styles.content}>
-          <div className={styles.graphContainer}>
-            <ChartistGraph className="ct-octave"
-                           type="Line"
-                           options={options}
-                           data={data}
-                           eventHandlers={eventHandlers} />
+    const responsiveOptions = [
+      ['(min-width: 510px) and (max-width: 767px)', {
+        chartPadding: {
+          top: 20,
+          right: 140,
+          bottom: 0,
+          left: 5
+        }
+      }],
+      ['(min-width: 768px)', {
+        chartPadding: {
+          top: 20,
+          right: 140,
+          bottom: 0,
+          left: 5
+        }
+      }]
+    ];
+
+    return (
+      <div className={styles.container}>
+        <div className={styles.innerContainer}>
+          <h3 className={styles.title}>
+            See behind the scenes
+          </h3>
+          <div className={styles.content}>
+            <div className={styles.graphContainer}>
+              <ChartistGraph className="ct-octave"
+                             type="Line"
+                             data={data}
+                             options={options}
+                             responsiveOptions={responsiveOptions}
+                             eventHandlers={eventHandlers} />
+            </div>
+            <ReactSlider min={0}
+                         max={maxXvalue}
+                         step={0.5}
+                         value={currentXvalue}
+                         className={styles.slider}
+                         handleClassName={styles.handle}
+                         handleActiveClassName={styles.activeHandle}
+                         onChange={this.onChange} />
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-SeeBehindTheScenes.propTypes = {
-  textColor: PropTypes.object.isRequired,
-  backgroundColor: PropTypes.object.isRequired,
-  graph: PropTypes.object.isRequired,
-
-  accessibleContrast: PropTypes.number.isRequired
-};
 
 export default connect(mapStateToProps)(SeeBehindTheScenes);
