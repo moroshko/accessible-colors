@@ -7,6 +7,7 @@ import { updateGraphSliderValue } from 'actions/app';
 import Chartist from 'chartist';
 import ReactSlider from 'react-slider';
 import ChartistGraph from 'ChartistGraph/ChartistGraph';
+import GraphInfo from 'GraphInfo/GraphInfo';
 
 // chartist-plugin-axistitle requires Chartist to be on `window`
 window.Chartist = Chartist;
@@ -176,7 +177,7 @@ class SeeBehindTheScenes extends Component {
             textAnchor: 'start'
           },
           axisY: {
-            axisTitle: 'Contrast ratio',
+            axisTitle: 'Contrast',
             axisClass: 'ct-axis-title',
             offset: {
               x: 0,
@@ -245,6 +246,7 @@ class SeeBehindTheScenes extends Component {
                          handleClassName={styles.handle}
                          handleActiveClassName={styles.activeHandle}
                          onChange={this.onChange} />
+            <GraphInfo contrast={currentYvalue} />
           </div>
         </div>
       </div>
