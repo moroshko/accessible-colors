@@ -1,0 +1,27 @@
+@import '~variables';
+
+.container {
+  margin-top: 9px;
+}
+
+.innerContainer {
+  margin: 0 auto;
+
+  @media @small {
+    width: @small-screen-width - 40px;
+    font-size: 18px;
+    line-height: 45px;
+  }
+
+  @media @medium {
+    width: @medium-screen-width - 40px;
+    font-size: 18px;
+    line-height: 45px;
+  }
+
+  @media @large {
+    width: @large-screen-width - 40px;
+    font-size: 21px;
+    line-height: 54px;
+  }
+}

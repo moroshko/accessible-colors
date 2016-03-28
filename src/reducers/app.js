@@ -6,10 +6,22 @@ import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
          TOGGLE_FONT_WEIGHT,
          UPDATE_BACKGROUND_COLOR, BLUR_BACKGROUND_COLOR,
          UPDATE_ACCESSIBILITY_LEVEL,
+         UPDATE_GRAPH_COLOR_TYPE, UPDATE_GRAPH_COLOR_PARAMETER,
          UPDATE_GRAPH_SLIDER_VALUE,
          LOAD_GITHUB_STARS_SUCCESS, LOAD_TWITTER_COUNT_SUCCESS } from 'actions/app';
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
 import colorReducer from 'reducers/color';
+
+function calcGraphState(stateTextColor, stateBackgroundColor, colorType, colorParameter) {
+  const stateColor =
+    colorType === 'textColor' ? stateTextColor : stateBackgroundColor;
+
+  return {
+    colorType,
+    colorParameter,
+    sliderValue: parseFloat(stateColor[colorParameter], 10)
+  };
+}
 
 const initialBackgroundColorValue = '#EEEEEE';
 const initialTextColorValue = '#747474';
@@ -37,10 +49,6 @@ const initialBackgroundColor = {
 };
 const initialGraphColorType = 'textColor';      // or 'backgroundColor'
 const initialGraphColorParameter = 'lightness'; // or 'hue' or 'saturation'
-const initialGraphColor =
-  initialGraphColorType === 'textColor' ? initialTextColor : initialBackgroundColor;
-const initialGraphSliderValue =
-  parseFloat(initialGraphColor[initialGraphColorParameter], 10);
 const initialState = {
   githubStars: '32',
   twitterCount: '27',
@@ -52,11 +60,7 @@ const initialState = {
   isFontBold: false,
   backgroundColor: initialBackgroundColor,
   accessibilityLevel: 'AA',
-  graph: {
-    colorType: initialGraphColorType,
-    colorParameter: initialGraphColorParameter,
-    sliderValue: initialGraphSliderValue
-  }
+  graph: calcGraphState(initialTextColor, initialBackgroundColor, initialGraphColorType, initialGraphColorParameter)
 };
 
 export default (state = initialState, action) => {
@@ -134,6 +138,18 @@ export default (state = initialState, action) => {
           ...state.graph,
           sliderValue: action.value
         }
+      };
+
+    case UPDATE_GRAPH_COLOR_TYPE:
+      return {
+        ...state,
+        graph: calcGraphState(state.textColor, state.backgroundColor, action.value, state.graph.colorParameter)
+      };
+
+    case UPDATE_GRAPH_COLOR_PARAMETER:
+      return {
+        ...state,
+        graph: calcGraphState(state.textColor, state.backgroundColor, state.graph.colorType, action.value)
       };
 
     case LOAD_GITHUB_STARS_SUCCESS:

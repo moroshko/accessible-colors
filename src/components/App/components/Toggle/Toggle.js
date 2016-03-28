@@ -4,11 +4,19 @@ import React, { PropTypes } from 'react';
 
 function Toggle(props) {
   const { values, currentValue, onChange } = props;
-  const otherValue = (currentValue === values[0] ? values[1] : values[0]);
+  const currentIndex = values.findIndex(value => value === currentValue);
+
+  if (currentIndex === -1) {
+    throw new Error(`Toggle: Could not find ${currentValue} in [${values}]`);
+    return null;
+  }
+
+  const nextIndex = currentIndex === values.length - 1 ? 0 : currentIndex + 1;
+  const nextValue = values[nextIndex];
 
   return (
     <button className={styles.button} type="button"
-            onClick={() => onChange(otherValue)}>
+            onClick={() => onChange(nextValue)}>
       {currentValue}
     </button>
   );

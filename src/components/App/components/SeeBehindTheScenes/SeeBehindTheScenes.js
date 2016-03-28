@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { contrast, hsl2str } from 'utils/color/color';
 import { updateGraphSliderValue } from 'actions/app';
 import Chartist from 'chartist';
+import GraphInput from 'GraphInput/GraphInput';
 import ReactSlider from 'react-slider';
 import ChartistGraph from 'ChartistGraph/ChartistGraph';
 import GraphInfo from 'GraphInfo/GraphInfo';
@@ -230,6 +231,7 @@ class SeeBehindTheScenes extends Component {
             See behind the scenes
           </h3>
           <div className={styles.content}>
+            <GraphInput />
             <div className={styles.graphContainer}>
               <ChartistGraph className="ct-octave"
                              type="Line"

@@ -46,7 +46,10 @@ function App(props) {
         }
       </div>
       <HowItWorks />
-      <SeeBehindTheScenes accessibleContrast={accessibleContrastRatio} />
+      {
+        isUserInputValid &&
+          <SeeBehindTheScenes accessibleContrast={accessibleContrastRatio} />
+      }
       <Footer />
     </div>
   );
