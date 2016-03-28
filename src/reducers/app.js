@@ -6,46 +6,56 @@ import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
          TOGGLE_FONT_WEIGHT,
          UPDATE_BACKGROUND_COLOR, BLUR_BACKGROUND_COLOR,
          UPDATE_ACCESSIBILITY_LEVEL,
+         UPDATE_GRAPH_SLIDER_VALUE,
          LOAD_GITHUB_STARS_SUCCESS, LOAD_TWITTER_COUNT_SUCCESS } from 'actions/app';
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
 import colorReducer from 'reducers/color';
 
-const initialBackgroundColor = '#EEEEEE';
-const initialTextColor = '#747474';
-const initialBackgroundColorHSL = str2hsl(initialBackgroundColor);
-const initialTextColorHSL = str2hsl(initialTextColor);
+const initialBackgroundColorValue = '#EEEEEE';
+const initialTextColorValue = '#747474';
+const initialBackgroundColorHSL = str2hsl(initialBackgroundColorValue);
+const initialTextColorHSL = str2hsl(initialTextColorValue);
+const initialTextColor = {
+  isValueValid: true,
+  value: initialTextColorValue,
+  isHueValid: true,
+  hue: initialTextColorHSL.h.toString(),
+  isSaturationValid: true,
+  saturation: initialTextColorHSL.s.toString(),
+  isLightnessValid: true,
+  lightness: initialTextColorHSL.l.toString()
+};
+const initialBackgroundColor = {
+  isValueValid: true,
+  value: initialBackgroundColorValue,
+  isHueValid: true,
+  hue: initialBackgroundColorHSL.h.toString(),
+  isSaturationValid: true,
+  saturation: initialBackgroundColorHSL.s.toString(),
+  isLightnessValid: true,
+  lightness: initialBackgroundColorHSL.l.toString()
+};
+const initialGraphColorType = 'textColor';      // or 'backgroundColor'
+const initialGraphColorParameter = 'lightness'; // or 'hue' or 'saturation'
+const initialGraphColor =
+  initialGraphColorType === 'textColor' ? initialTextColor : initialBackgroundColor;
+const initialGraphSliderValue =
+  parseFloat(initialGraphColor[initialGraphColorParameter], 10);
 const initialState = {
   githubStars: '32',
   twitterCount: '27',
-  textColor: {
-    isValueValid: true,
-    value: initialTextColor,
-    isHueValid: true,
-    hue: initialTextColorHSL.h.toString(),
-    isSaturationValid: true,
-    saturation: initialTextColorHSL.s.toString(),
-    isLightnessValid: true,
-    lightness: initialTextColorHSL.l.toString()
-  },
+  textColor: initialTextColor,
   fontSize: {
     isValid: true,
     value: '14'
   },
   isFontBold: false,
-  backgroundColor: {
-    isValueValid: true,
-    value: initialBackgroundColor,
-    isHueValid: true,
-    hue: initialBackgroundColorHSL.h.toString(),
-    isSaturationValid: true,
-    saturation: initialBackgroundColorHSL.s.toString(),
-    isLightnessValid: true,
-    lightness: initialBackgroundColorHSL.l.toString()
-  },
+  backgroundColor: initialBackgroundColor,
   accessibilityLevel: 'AA',
   graph: {
-    colorType: 'textColor',       // or 'backgroundColor'
-    colorParameter: 'saturation'   // or 'hue' or 'saturation'
+    colorType: initialGraphColorType,
+    colorParameter: initialGraphColorParameter,
+    sliderValue: initialGraphSliderValue
   }
 };
 
@@ -115,6 +125,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         accessibilityLevel: action.value
+      };
+
+    case UPDATE_GRAPH_SLIDER_VALUE:
+      return {
+        ...state,
+        graph: {
+          ...state.graph,
+          sliderValue: action.value
+        }
       };
 
     case LOAD_GITHUB_STARS_SUCCESS:

@@ -2,8 +2,8 @@ import styles from './SeeBehindTheScenes.less';
 
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import round from 'lodash.round';
 import { contrast, hsl2str } from 'utils/color/color';
+import { updateGraphSliderValue } from 'actions/app';
 import Chartist from 'chartist';
 import ReactSlider from 'react-slider';
 import ChartistGraph from 'ChartistGraph/ChartistGraph';
@@ -62,11 +62,19 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    updateGraphSliderValue: value => dispatch(updateGraphSliderValue(value))
+  };
+}
+
 class SeeBehindTheScenes extends Component {
   static propTypes = {
     textColor: PropTypes.object.isRequired,
     backgroundColor: PropTypes.object.isRequired,
     graph: PropTypes.object.isRequired,
+
+    updateGraphSliderValue: PropTypes.func.isRequired,
 
     accessibleContrast: PropTypes.number.isRequired
   };
@@ -86,16 +94,16 @@ class SeeBehindTheScenes extends Component {
   }
 
   handleResize() {
-    console.log('New window width:', window.innerWidth);
+    //console.log('New window width:', window.innerWidth);
   }
 
   onChange(newSliderValue) {
-    console.log('new slider value:', newSliderValue);
+    this.props.updateGraphSliderValue(newSliderValue);
   }
 
   render() {
     const { textColor, backgroundColor, graph, accessibleContrast } = this.props;
-    const { colorType, colorParameter } = graph;
+    const { colorType, colorParameter, sliderValue } = graph;
     const isTextColor = (colorType === 'textColor');
     const constantColorValue = (isTextColor ? backgroundColor.value : textColor.value);
     const modifiedColor = {
@@ -105,8 +113,7 @@ class SeeBehindTheScenes extends Component {
     };
     const xAxisTitle = `${isTextColor ? 'Text' : 'Background'} color ${colorParameter}`;
     const maxXvalue = (colorParameter === 'hue' ? 360 : 100);
-    const currentXvalue = parseFloat(this.props[colorType][colorParameter], 10);
-    const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, currentXvalue);
+    const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, sliderValue);
     const graphData = getGraphData(constantColorValue, modifiedColor, colorParameter, maxXvalue);
 
     const data = {
@@ -136,7 +143,7 @@ class SeeBehindTheScenes extends Component {
         {
           name: 'currentPoint',
           data: [
-            { x: currentXvalue, y: currentYvalue }
+            { x: sliderValue, y: currentYvalue }
           ]
         }
       ]
@@ -169,7 +176,7 @@ class SeeBehindTheScenes extends Component {
             textAnchor: 'start'
           },
           axisY: {
-            axisTitle: 'Contrast',
+            axisTitle: 'Contrast ratio',
             axisClass: 'ct-axis-title',
             offset: {
               x: 0,
@@ -233,7 +240,7 @@ class SeeBehindTheScenes extends Component {
             <ReactSlider min={0}
                          max={maxXvalue}
                          step={0.5}
-                         value={currentXvalue}
+                         value={sliderValue}
                          className={styles.slider}
                          handleClassName={styles.handle}
                          handleActiveClassName={styles.activeHandle}
@@ -245,4 +252,4 @@ class SeeBehindTheScenes extends Component {
   }
 }
 
-export default connect(mapStateToProps)(SeeBehindTheScenes);
+export default connect(mapStateToProps, mapDispatchToProps)(SeeBehindTheScenes);

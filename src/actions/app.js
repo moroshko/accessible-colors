@@ -6,6 +6,7 @@ export const TOGGLE_FONT_WEIGHT = 'TOGGLE_FONT_WEIGHT';
 export const UPDATE_BACKGROUND_COLOR = 'UPDATE_BACKGROUND_COLOR';
 export const BLUR_BACKGROUND_COLOR = 'BLUR_BACKGROUND_COLOR';
 export const UPDATE_ACCESSIBILITY_LEVEL = 'UPDATE_ACCESSIBILITY_LEVEL';
+export const UPDATE_GRAPH_SLIDER_VALUE = 'UPDATE_GRAPH_SLIDER_VALUE';
 export const LOAD_GITHUB_STARS_SUCCESS = 'LOAD_GITHUB_STARS_SUCCESS';
 export const LOAD_TWITTER_COUNT_SUCCESS = 'LOAD_TWITTER_COUNT_SUCCESS';
 
@@ -67,6 +68,13 @@ export function blurBackgroundColor() {
 export function updateAccessibilityLevel(value) {
   return {
     type: UPDATE_ACCESSIBILITY_LEVEL,
+    value
+  };
+}
+
+export function updateGraphSliderValue(value) {
+  return {
+    type: UPDATE_GRAPH_SLIDER_VALUE,
     value
   };
 }
