@@ -13,11 +13,11 @@ import GraphInfo from 'GraphInfo/GraphInfo';
 const accessibleColor = '#3d854d';
 const notAccessibleColor = '#ee0000';
 
-function getContrast(constantColorValue, modifiedColor, colorParameter, colorParameterValue) {
-  return contrast(constantColorValue, hsl2str({
+function modifyColor(modifiedColor, colorParameter, colorParameterValue) {
+  return hsl2str({
     ...modifiedColor,
     [colorParameter[0]]: colorParameterValue
-  }));
+  });
 }
 
 function getGraphData(constantColorValue, modifiedColor, colorParameter, maxXvalue) {
@@ -26,7 +26,7 @@ function getGraphData(constantColorValue, modifiedColor, colorParameter, maxXval
   for (let x = 0; x <= maxXvalue; x += 2) {
     result.push({
       x,
-      y: getContrast(constantColorValue, modifiedColor, colorParameter, x)
+      y: contrast(constantColorValue, modifyColor(modifiedColor, colorParameter, x))
     });
   }
 
@@ -90,11 +90,14 @@ class SeeBehindTheScenes extends Component {
       s: isTextColor ? textColor.saturation : backgroundColor.saturation,
       l: isTextColor ? textColor.lightness : backgroundColor.lightness
     };
+    const modifiedColorValue = modifyColor(modifiedColor, colorParameter, sliderValue);
     const maxXvalue = (colorParameter === 'hue' ? 360 : 100);
-    const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, sliderValue);
+    const currentYvalue = contrast(constantColorValue, modifiedColorValue);
     const graphData = getGraphData(constantColorValue, modifiedColor, colorParameter, maxXvalue);
     const isAccessible = (currentYvalue >= accessibleContrast);
     const currentPointColor = (isAccessible ? accessibleColor : notAccessibleColor);
+    const textColorValue = (isTextColor ? modifiedColorValue : constantColorValue);
+    const backgroundColorValue = (isTextColor ? constantColorValue : modifiedColorValue);
 
     const data = {
       series: [
@@ -255,7 +258,9 @@ class SeeBehindTheScenes extends Component {
                          className={styles.slider}
                          handleClassName={`${styles.handle} ${isAccessible ? styles.accessibleHandle : styles.notAccessibleHandle}`}
                          onChange={this.onChange} />
-            <GraphInfo contrast={currentYvalue} />
+            <GraphInfo contrast={currentYvalue}
+                       textColorValue={textColorValue}
+                       backgroundColorValue={backgroundColorValue} />
           </div>
         </div>
       </div>

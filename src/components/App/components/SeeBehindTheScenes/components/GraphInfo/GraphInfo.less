@@ -2,9 +2,42 @@
   margin-top: 54px;
 }
 
-.contrastValue {
-  margin-top: 18px;
-  font-family: 'Roboto', sans-serif;
+.sectionContainer {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.contrastContainer {
+  composes: sectionContainer;
+  width: 186px;
+}
+
+.colorsContainer {
+  composes: sectionContainer;
+  width: 296px;
+}
+
+.sampleContainer {
+  composes: sectionContainer;
+  width: 246px;
+}
+
+.title {
+  font-size: 18px;
   font-weight: 400;
+}
+
+.content {
+  margin-top: 18px;
+}
+
+.contrastContent {
+  composes: content;
   font-size: 40px;
+  font-weight: 400;
+}
+
+.sampleContent {
+  composes: content;
+  padding: 18px 20px;
 }
