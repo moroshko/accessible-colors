@@ -5,36 +5,13 @@ import { connect } from 'react-redux';
 import { contrast, hsl2str } from 'utils/color/color';
 import { updateGraphSliderValue } from 'actions/app';
 import Chartist from 'chartist';
+import ChartistGraph from 'ChartistGraph/ChartistGraph';
 import GraphInput from 'GraphInput/GraphInput';
 import ReactSlider from 'react-slider';
-import ChartistGraph from 'ChartistGraph/ChartistGraph';
 import GraphInfo from 'GraphInfo/GraphInfo';
 
-// chartist-plugin-axistitle requires Chartist to be on `window`
-window.Chartist = Chartist;
-require('chartist-plugin-axistitle');
-
-const eventHandlers = {
-  draw: data => {
-    const { type } = data;
-
-    if (type === 'label') {
-      const { index, axis: { units: { dir: direction } } } = data;
-
-      if (direction === 'vertical') {
-        data.element.attr({
-          style: 'transform: translateY(5px)'
-        });
-      }
-
-      if (direction === 'horizontal') {
-        data.element.attr({
-          style: `transform: translateX(${[-3, -14, -9][index]}px)`
-        });
-      }
-    }
-  }
-};
+const accessibleColor = '#3d854d';
+const notAccessibleColor = '#ee0000';
 
 function getContrast(constantColorValue, modifiedColor, colorParameter, colorParameterValue) {
   return contrast(constantColorValue, hsl2str({
@@ -113,10 +90,11 @@ class SeeBehindTheScenes extends Component {
       s: isTextColor ? textColor.saturation : backgroundColor.saturation,
       l: isTextColor ? textColor.lightness : backgroundColor.lightness
     };
-    const xAxisTitle = `${isTextColor ? 'Text' : 'Background'} color ${colorParameter}`;
     const maxXvalue = (colorParameter === 'hue' ? 360 : 100);
     const currentYvalue = getContrast(constantColorValue, modifiedColor, colorParameter, sliderValue);
     const graphData = getGraphData(constantColorValue, modifiedColor, colorParameter, maxXvalue);
+    const isAccessible = (currentYvalue >= accessibleContrast);
+    const currentPointColor = (isAccessible ? accessibleColor : notAccessibleColor);
 
     const data = {
       series: [
@@ -124,7 +102,7 @@ class SeeBehindTheScenes extends Component {
           name: 'axes',
           data: [
             { x: 0, y: 1 },
-            { x: maxXvalue * 1.05, y: 1 },
+            { x: maxXvalue * 1.2, y: 1 },
             null,
             { x: 0, y: 1 },
             { x: 0, y: 21 * 1.05 }
@@ -155,7 +133,7 @@ class SeeBehindTheScenes extends Component {
       axisX: {
         type: Chartist.FixedScaleAxis,
         low: 0,
-        high: maxXvalue * 1.05,
+        high: maxXvalue * 1.2,
         ticks: [0, maxXvalue],
         showGrid: false
       },
@@ -166,29 +144,6 @@ class SeeBehindTheScenes extends Component {
         ticks: [1, accessibleContrast, 21],
         showGrid: false
       },
-      plugins: [
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-            axisTitle: xAxisTitle,
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 325,
-              y: 5
-            },
-            textAnchor: 'start'
-          },
-          axisY: {
-            axisTitle: 'Contrast',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: 15
-            },
-            textAnchor: 'middle',
-            flipTitle: true
-          }
-        })
-      ],
       series: {
         axes: {
           showPoint: false
@@ -217,12 +172,65 @@ class SeeBehindTheScenes extends Component {
       ['(min-width: 768px)', {
         chartPadding: {
           top: 20,
-          right: 140,
-          bottom: 0,
+          right: 80,
+          bottom: 30,
           left: 5
         }
       }]
     ];
+
+    const eventHandlers = {
+      draw: data => {
+        const { type } = data;
+
+        if (type === 'label') {
+          const { index, axis: { units: { dir: direction } } } = data;
+
+          if (direction === 'vertical') {
+            data.element.attr({
+              style: 'transform: translateY(5px)'
+            });
+          }
+
+          if (direction === 'horizontal') {
+            data.element.attr({
+              style: `transform: translateX(${[-3, -14, -9][index]}px) translateY(4px)`
+            });
+          }
+        } else if (type === 'line') {
+          if (data.series.name === 'axes') {
+            const xAxisNameCoords = {
+              x: 640,
+              y: 360
+            };
+
+            data.group.elem('text', xAxisNameCoords, styles.axisName).text(
+              colorType === 'textColor' ? 'Text color' : 'Background color'
+            );
+            data.group.elem('text', {
+              x: xAxisNameCoords.x,
+              y: xAxisNameCoords.y + 20
+            }, styles.axisName).text(colorParameter);
+
+            const yAxisNameCoords = {
+              x: -220,
+              y: 30
+            };
+
+            data.group.elem('text', {
+              ...yAxisNameCoords,
+              transform: 'rotate(-90)'
+            }, styles.axisName).text('Contrast ratio');
+          }
+        } else if (type === 'point') {
+          if (data.series.name === 'currentPoint') {
+            data.element.attr({
+              style: `stroke: ${currentPointColor}`
+            });
+          }
+        }
+      }
+    };
 
     return (
       <div className={styles.container}>
@@ -245,8 +253,7 @@ class SeeBehindTheScenes extends Component {
                          step={0.5}
                          value={sliderValue}
                          className={styles.slider}
-                         handleClassName={styles.handle}
-                         handleActiveClassName={styles.activeHandle}
+                         handleClassName={`${styles.handle} ${isAccessible ? styles.accessibleHandle : styles.notAccessibleHandle}`}
                          onChange={this.onChange} />
             <GraphInfo contrast={currentYvalue} />
           </div>

@@ -12,7 +12,7 @@ export default function GraphInfo(props) {
           Contrast
         </div>
         <div className={styles.contrastValue}>
-          {contrast.toFixed(1)}
+          {contrast.toFixed(2)}
         </div>
       </div>
     </div>

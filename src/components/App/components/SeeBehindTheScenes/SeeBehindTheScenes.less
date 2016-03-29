@@ -65,15 +65,23 @@
   }
 
   @media @large {
-    width: 818px;
+    width: 800px;
     transform: translateX(-45px);
   }
 }
 
+.axisName {
+  font-size: 14px;
+}
+
 :global {
-  .ct-axis-title {
-    font-size: 14px;
-  }
+  // svg {
+  //   outline: 1px solid blue;
+
+  //   g:nth-child(1) {
+  //     outline: 1px solid red;
+  //   }
+  // }
 
   .ct-series-a {   /* Axes */
     .ct-line {
@@ -104,7 +112,6 @@
 
   .ct-series-d {   /* Current Point */
     .ct-point {
-      stroke: #212121;
       stroke-width: 8px;
     }
   }
@@ -115,21 +122,19 @@
 .slider {
   height: 0;
   transform: translateX(-@handleWidth / 2);
+  top: -20px;
 
   @media @medium {
     width: 534px;
   }
 
   @media @large {
-    width: 603px + @handleWidth;
+    width: 563px + @handleWidth;
   }
 }
 
-@green: #1AAD58;
-
 .handle {
   position: relative;
-  background: @green;
   width: @handleWidth;
   height: 27px;
   border-bottom-left-radius: 4px;
@@ -145,8 +150,27 @@
     height: 0;
     width: 0;
     pointer-events: none;
-    border-bottom-color: @green;
     border-width: 12px (@handleWidth / 2);
     margin-left: -@handleWidth / 2;
+  }
+}
+
+.accessibleHandle {
+  @accessibleColor: #3d854d;
+
+  background: @accessibleColor;
+
+  &:after {
+    border-bottom-color: @accessibleColor;
+  }
+}
+
+.notAccessibleHandle {
+  @notAccessibleColor: #ee0000;
+
+  background: @notAccessibleColor;
+
+  &:after {
+    border-bottom-color: @notAccessibleColor;
   }
 }

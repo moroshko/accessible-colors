@@ -28,8 +28,19 @@ export default class ChartistGraph extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.chart.detach();
+  }
+
   componentWillReceiveProps(newProps) {
     const { data, options, responsiveOptions } = newProps;
+
+    if (newProps.eventHandlers !== this.props.eventHandlers) {
+      for (const event in newProps.eventHandlers) {
+        this.chart.off(event);
+        this.chart.on(event, newProps.eventHandlers[event]);
+      }
+    }
 
     this.chart.update(data, options, responsiveOptions);
   }
