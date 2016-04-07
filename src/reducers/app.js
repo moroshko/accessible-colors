@@ -65,15 +65,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_TEXT_COLOR:
+    case UPDATE_TEXT_COLOR: {
+      const textColor = colorReducer(state.textColor, {
+        type: UPDATE_COLOR,
+        field: action.field,
+        value: action.value
+      });
+      const graph = calcGraphState(textColor, state.backgroundColor, state.graph.colorType, state.graph.colorParameter);
+
       return {
         ...state,
-        textColor: colorReducer(state.textColor, {
-          type: UPDATE_COLOR,
-          field: action.field,
-          value: action.value
-        })
+        textColor,
+        graph
       };
+    }
 
     case BLUR_TEXT_COLOR:
       return {
@@ -107,15 +112,20 @@ export default (state = initialState, action) => {
         isFontBold: !state.isFontBold
       };
 
-    case UPDATE_BACKGROUND_COLOR:
+    case UPDATE_BACKGROUND_COLOR: {
+      const backgroundColor = colorReducer(state.backgroundColor, {
+        type: UPDATE_COLOR,
+        field: action.field,
+        value: action.value
+      });
+      const graph = calcGraphState(state.textColor, backgroundColor, state.graph.colorType, state.graph.colorParameter);
+
       return {
         ...state,
-        backgroundColor: colorReducer(state.backgroundColor, {
-          type: UPDATE_COLOR,
-          field: action.field,
-          value: action.value
-        })
+        backgroundColor,
+        graph
       };
+    }
 
     case BLUR_BACKGROUND_COLOR:
       return {

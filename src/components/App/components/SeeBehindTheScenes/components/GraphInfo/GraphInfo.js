@@ -3,6 +3,7 @@ import styles from './GraphInfo.less';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MAX_FONT_SIZE } from 'constants';
+import { str2sixDigitHex } from 'utils/color/color';
 import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
 
 const loremIpsum = `
@@ -36,8 +37,8 @@ function GraphInfo(props) {
   const sampleStyle = {
     fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
     fontWeight: isFontBold ? '500' : '300',
-    color: textColorValue,
-    backgroundColor: backgroundColorValue
+    color: str2sixDigitHex(textColorValue),
+    backgroundColor: str2sixDigitHex(backgroundColorValue)
   };
   const linesToShow = calcLinesToShow(sampleStyle.fontSize);
   const multilineEllipsis = (
