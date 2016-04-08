@@ -57,19 +57,19 @@ function GraphInfo(props) {
           {contrast.toFixed(2)}
         </div>
       </div>
-      <div className={styles.colorsContainer}>
-        <div className={styles.title}>
-          Text color
-        </div>
-        <div className={styles.content}>
-        </div>
-      </div>
       <div className={styles.sampleContainer}>
         <div className={styles.title}>
           Sample
         </div>
         <div className={styles.sampleContent} style={sampleStyle}>
           {multilineEllipsis}
+        </div>
+      </div>
+      <div className={styles.colorsContainer}>
+        <div className={styles.title}>
+          Text color
+        </div>
+        <div className={styles.content}>
         </div>
       </div>
     </div>
