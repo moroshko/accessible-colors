@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class TrackLinks extends Component {
+  static propTypes = {
+    children: PropTypes.node
+  };
+
   componentDidMount() {
     if (typeof analytics !== 'object') {
       return;
