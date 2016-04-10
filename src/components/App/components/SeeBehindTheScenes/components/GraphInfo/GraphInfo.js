@@ -3,7 +3,7 @@ import styles from './GraphInfo.less';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MAX_FONT_SIZE } from 'constants';
-import { str2sixDigitHex } from 'utils/color/color';
+import { str2sixDigitHex, str2hsl } from 'utils/color/color';
 import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
 
 const loremIpsum = `
@@ -34,11 +34,15 @@ function mapStateToProps(state) {
 
 function GraphInfo(props) {
   const { fontSize, isFontBold, contrast, textColorValue, backgroundColorValue } = props;
+  const colorStr = str2sixDigitHex(textColorValue);
+  const backgroundColorStr = str2sixDigitHex(backgroundColorValue);
+  const colorHsl = str2hsl(colorStr);
+  const backgroundColorHsl = str2hsl(backgroundColorStr);
   const sampleStyle = {
     fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
     fontWeight: isFontBold ? '500' : '300',
-    color: str2sixDigitHex(textColorValue),
-    backgroundColor: str2sixDigitHex(backgroundColorValue)
+    color: colorStr,
+    backgroundColor: backgroundColorStr
   };
   const linesToShow = calcLinesToShow(sampleStyle.fontSize);
   const multilineEllipsis = (
@@ -69,7 +73,24 @@ function GraphInfo(props) {
         <div className={styles.title}>
           Text color
         </div>
-        <div className={styles.content}>
+        <div className={styles.textColorContent}>
+          {colorStr.toUpperCase()}
+          <div className={styles.hslContainer}>
+            <span>H: {colorHsl.h.toFixed(2)}</span>
+            <span>S: {colorHsl.s.toFixed(2)}</span>
+            <span>L: {colorHsl.l.toFixed(2)}</span>
+          </div>
+        </div>
+        <div className={styles.backgroundColorTitle}>
+          Background color
+        </div>
+        <div className={styles.backgroundColorContent}>
+          {backgroundColorStr.toUpperCase()}
+          <div className={styles.hslContainer}>
+            <span>H: {backgroundColorHsl.h.toFixed(2)}</span>
+            <span>S: {backgroundColorHsl.s.toFixed(2)}</span>
+            <span>L: {backgroundColorHsl.l.toFixed(2)}</span>
+          </div>
         </div>
       </div>
     </div>

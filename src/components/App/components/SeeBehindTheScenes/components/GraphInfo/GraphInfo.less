@@ -7,15 +7,30 @@
   vertical-align: top;
 }
 
+.content {
+  margin-top: 18px;
+}
+
 .contrastContainer {
   composes: sectionContainer;
   width: 100px;
+}
+
+.contrastContent {
+  composes: content;
+  font-size: 40px;
+  font-weight: 400;
 }
 
 .sampleContainer {
   composes: sectionContainer;
   margin-left: 60px;
   width: 250px;
+}
+
+.sampleContent {
+  composes: content;
+  padding: 18px 20px;
 }
 
 .colorsContainer {
@@ -29,17 +44,23 @@
   font-weight: 400;
 }
 
-.content {
-  margin-top: 18px;
+.backgroundColorTitle {
+  composes: title;
+  margin-top: 54px;
 }
 
-.contrastContent {
+.textColorContent {
   composes: content;
-  font-size: 40px;
-  font-weight: 400;
+  font-size: 14px;
 }
 
-.sampleContent {
+.backgroundColorContent {
   composes: content;
-  padding: 18px 20px;
+  font-size: 14px;
+}
+
+.hslContainer {
+  display: flex;
+  width: 180px;
+  justify-content: space-between;
 }
