@@ -1,5 +1,5 @@
 .container {
-  margin-top: 54px;
+  margin-top: 59px;
 }
 
 .sectionContainer {
@@ -8,7 +8,7 @@
 }
 
 .content {
-  margin-top: 18px;
+  margin-top: 21px;
 }
 
 .contrastContainer {
@@ -18,8 +18,14 @@
 
 .contrastContent {
   composes: content;
-  font-size: 40px;
+  font-size: 48px;
+  line-height: 38px;
   font-weight: 400;
+}
+
+.passesOrFails {
+  margin-top: 6px;
+  font-size: 14px;
 }
 
 .sampleContainer {
@@ -30,7 +36,8 @@
 
 .sampleContent {
   composes: content;
-  padding: 18px 20px;
+  padding: 20px;
+  height: 162px;
 }
 
 .colorsContainer {
@@ -46,16 +53,18 @@
 
 .backgroundColorTitle {
   composes: title;
-  margin-top: 54px;
+  margin-top: 45px;
 }
 
 .textColorContent {
   composes: content;
+  margin-top: 12px;
   font-size: 14px;
 }
 
 .backgroundColorContent {
   composes: content;
+  margin-top: 12px;
   font-size: 14px;
 }
 
@@ -63,4 +72,5 @@
   display: flex;
   width: 180px;
   justify-content: space-between;
+  line-height: 24px;
 }

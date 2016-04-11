@@ -257,8 +257,10 @@ class SeeBehindTheScenes extends Component {
                          value={sliderValue}
                          className={styles.slider}
                          handleClassName={`${styles.handle} ${isAccessible ? styles.accessibleHandle : styles.notAccessibleHandle}`}
+                         handleActiveClassName={styles.activeHandle}
                          onChange={this.onChange} />
             <GraphInfo contrast={currentYvalue}
+                       isAccessible={isAccessible}
                        textColorValue={textColorValue}
                        backgroundColorValue={backgroundColorValue} />
           </div>

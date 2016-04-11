@@ -7,33 +7,53 @@ import { str2sixDigitHex, str2hsl } from 'utils/color/color';
 import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
 
 const loremIpsum = `
-  Lorem ipsum dolor sit amet, ut pri essent facilis constituto, etiam assueverit
-  signiferumque ex ius. Quas quaestio ea duo. Purto magna aperiam no pri. Pri
-  prompta partiendo efficiendi ne, sed tritani deterruisset necessitatibus id,
-  ad est sint noluisse.
+  Lorem ipsum dolor sit amet, et modo impedit sadipscing quo, te has expetendis
+  efficiendi assueverit, quas corpora accusamus vim ne. Usu ex platonem mandamus
+  theophrastus, duo dictas inimicus an, vim ei recusabo salutatus. Has cu iriure
+  fabulas laboramus. Et quidam omittantur voluptatibus per, illum partem mollis
+  ea eum, sale possim in vix. Copiosae invenire intellegebat mea te. Has quando
+  mollis an. Falli saepe euismod an per, no graeco aperiri sed. Ea per postea
+  necessitatibus, his ut odio commodo sententiae. Legere accusata sed an, mollis
+  convenire accusamus te pri, aperiam nusquam ocurreret quo cu. Ne semper docendi
+  fastidii vis, in has debet torquatos necessitatibus. Solet postea albucius an
+  pri, cum ut sint definiebas. Case inimicus id quo, dolore temporibus has ei.
 `;
 
 function calcLinesToShow(fontSize) {
+  if (fontSize <= 10) {
+    return 10;
+  }
+
   if (fontSize <= 12) {
-    return 5;
+    return 9;
+  }
+
+  if (fontSize <= 14) {
+    return 8;
   }
 
   if (fontSize <= 16) {
-    return 4;
+    return 7;
   }
 
-  return 3;
+  if (fontSize <= 18) {
+    return 6;
+  }
+
+  return 5;
 }
 
 function mapStateToProps(state) {
   return {
     fontSize: state.fontSize,
-    isFontBold: state.isFontBold
+    isFontBold: state.isFontBold,
+    accessibilityLevel: state.accessibilityLevel
   };
 }
 
 function GraphInfo(props) {
-  const { fontSize, isFontBold, contrast, textColorValue, backgroundColorValue } = props;
+  const { fontSize, isFontBold, accessibilityLevel, contrast, isAccessible,
+          textColorValue, backgroundColorValue } = props;
   const colorStr = str2sixDigitHex(textColorValue);
   const backgroundColorStr = str2sixDigitHex(backgroundColorValue);
   const colorHsl = str2hsl(colorStr);
@@ -59,6 +79,9 @@ function GraphInfo(props) {
         </div>
         <div className={styles.contrastContent}>
           {contrast.toFixed(2)}
+        </div>
+        <div className={styles.passesOrFails}>
+          {isAccessible ? 'Passes' : 'Fails'} {accessibilityLevel}
         </div>
       </div>
       <div className={styles.sampleContainer}>
@@ -100,8 +123,10 @@ function GraphInfo(props) {
 GraphInfo.propTypes = {
   fontSize: PropTypes.object.isRequired,
   isFontBold: PropTypes.bool.isRequired,
+  accessibilityLevel: PropTypes.string.isRequired,
 
   contrast: PropTypes.number.isRequired,
+  isAccessible: PropTypes.bool.isRequired,
   textColorValue: PropTypes.string.isRequired,
   backgroundColorValue: PropTypes.string.isRequired
 };
