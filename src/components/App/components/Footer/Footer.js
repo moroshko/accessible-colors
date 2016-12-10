@@ -22,7 +22,7 @@ export default function Footer() {
           </p>
           <p className={styles.content}>
             <a className={styles.link} target="_blank"
-               href="https://twitter.com/thatbalduxguy"
+               href="https://twitter.com/vedranio"
                data-link-name="Footer - Vedran Arnautovic">
               <img className={styles.image}
                    src="https://www.gravatar.com/avatar/6fa8f8433861ca68ed44cc79001554d6?s=54"
