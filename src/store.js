@@ -4,4 +4,4 @@ import appReducer from 'reducers/app';
 
 export default function configureStore() {
   return createStore(appReducer, applyMiddleware(thunk));
-};
+}

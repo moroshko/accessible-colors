@@ -27,12 +27,20 @@ export default class Color extends Component {
   render() {
     const { isBackgroundColor, colorChannel, backgroundColor, textColor,
             accessibleContrast } = this.props;
+    const accessibleAreaStyle = {
+      left: 5 * (accessibleContrast - 1) + '%',
+      width: (100 - 5 * (accessibleContrast - 1)) + '%'
+    };
     const yAxisName = (isBackgroundColor ? 'Background' : 'Text') +
                       ' color ' + colorChannel;
     const yMaxValue = (colorChannel === 'hue' ? 360 : 100);
     const color = (isBackgroundColor ? backgroundColor: textColor);
     const otherColor = (isBackgroundColor ? textColor: backgroundColor);
     const yValue = parseFloat(color[colorChannel]);
+    const currentValueStyle = {
+      top: 100 * (1 - yValue / yMaxValue) + '%',
+      backgroundColor: str2sixDigitHex(color.value)
+    };
 
     let data = [];
 
@@ -46,32 +54,41 @@ export default class Color extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.coordinates}>
-          <div className={styles.notAccessibleArea}
-               style={{ width: 5 * (accessibleContrast - 1) + '%' }} />
-          <div className={styles.accessibleArea}
-               style={{ left: 5 * (accessibleContrast - 1) + '%',
-                        width: (100 - 5 * (accessibleContrast - 1)) + '%' }} />
+          <div
+            className={styles.notAccessibleArea}
+            style={{ width: 5 * (accessibleContrast - 1) + '%' }}
+          />
+          <div
+            className={styles.accessibleArea}
+            style={accessibleAreaStyle}
+          />
           <div className={styles.xAxis} />
           <div className={styles.xAxisArrow} />
           <div className={styles.xAxisName}>Contrast</div>
           <div className={styles.xAxisMinValue}>1</div>
-          <div className={styles.xAxisAccessibleContrast}
-               style={{ left: 5 * (accessibleContrast - 1) - 1 + '%' }}>{accessibleContrast}</div>
+          <div
+            className={styles.xAxisAccessibleContrast}
+            style={{ left: 5 * (accessibleContrast - 1) - 1 + '%' }}
+          >
+            {accessibleContrast}
+          </div>
           <div className={styles.xAxisMaxValue}>21</div>
           <div className={styles.yAxis} />
           <div className={styles.yAxisArrow} />
           <div className={styles.yAxisName}>{yAxisName}</div>
           <div className={styles.yAxisMinValue}>0</div>
           <div className={styles.yAxisMaxValue}>{yMaxValue}</div>
-          <div className={styles.currentValue}
-               style={{ top: 100 * (1 - yValue / yMaxValue) + '%',
-                        backgroundColor: str2sixDigitHex(color.value) }} />
+          <div
+            className={styles.currentValue}
+            style={currentValueStyle}
+          />
           {
             data.map(({ x, y }) =>
-              <div className={styles.dataPoint}
-                   style={{ left: 5 * (x - 1) + '%',
-                            top: 100 * (1 - y / yMaxValue) + '%' }}
-                   key={x + ' ' + y} />
+              <div
+                className={styles.dataPoint}
+                style={{ left: 5 * (x - 1) + '%', top: 100 * (1 - y / yMaxValue) + '%' }}
+                key={x + ' ' + y}
+              />
             )
           }
         </div>

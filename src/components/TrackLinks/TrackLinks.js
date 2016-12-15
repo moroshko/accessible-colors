@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 
 export default class TrackLinks extends Component {
+  static propTypes = {
+    children: PropTypes.node
+  };
+
   componentDidMount() {
-    if (typeof analytics !== 'object') {
+    if (typeof window.analytics !== 'object') {
       return;
     }
 
-    const links = this.refs.children.querySelectorAll('a');
+    const links = this.container.querySelectorAll('a');
     const linksCount = links.length;
 
     for (let i = 0; i < linksCount; i++) {
@@ -14,15 +18,21 @@ export default class TrackLinks extends Component {
       const linkName = link.dataset.linkName;
       const event = `Clicked [${linkName}] link`;
 
-      analytics.trackLink(link, event);
+      window.analytics.trackLink(link, event);
     }
   }
+
+  storeContainerElement = element => {
+    if (element !== null) {
+      this.container = element;
+    }
+  };
 
   render() {
     const { children } = this.props;
 
     return (
-      <div ref="children">
+      <div ref={this.storeContainerElement}>
         {children}
       </div>
     );

@@ -11,21 +11,33 @@ export default class SocialButton extends Component {
     hoverColor: PropTypes.string.isRequired
   };
 
-  setColor(color) {
-    this.refs.link.style.color = color;
-  }
+  storeLinkElement = element => {
+    if (element !== null) {
+      this.link = element;
+    }
+  };
+
+  onMouseEnter = () => {
+    this.link.style.color = this.props.hoverColor;
+  };
+
+  onMouseLeave = () => {
+    this.link.style.color = this.props.color;
+  };
 
   render() {
-    const { linkProps, icon, count, color, hoverColor } = this.props;
+    const { linkProps, icon, count, color } = this.props;
     const className = (linkProps.className || '') + ' ' + styles.container;
 
     return (
-      <a {...linkProps}
-         className={className}
-         style={{ color }}
-         onMouseEnter={() => this.setColor(hoverColor)}
-         onMouseLeave={() => this.setColor(color)}
-         ref="link">
+      <a
+        {...linkProps}
+        className={className}
+        style={{ color }}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+        ref={this.storeLinkElement}
+      >
         <span className={styles.icon + ' ' + icon} />
         <span className={styles.count}>{count}</span>
       </a>

@@ -68,9 +68,11 @@ function Preview(props) {
   };
   const linesToShow = calcLinesToShow(previewContentStyle.fontSize);
   const multilineEllipsis = (
-    <MultilineEllipsis text={loremIpsum}
-                       fontSize={previewContentStyle.fontSize}
-                       linesToShow={linesToShow} />
+    <MultilineEllipsis
+      text={loremIpsum}
+      fontSize={previewContentStyle.fontSize}
+      linesToShow={linesToShow}
+    />
   );
 
   return (

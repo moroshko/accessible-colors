@@ -18,9 +18,13 @@ export default function ComingSoon() {
           <p>
             To find out more, or if you have any feedback, get in touch with
             us on&nbsp;
-            <a className={styles.link} target="_blank"
-               href="https://accessible-colors.herokuapp.com"
-               data-link-name="Coming soon - Slack">
+            <a
+              className={styles.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://accessible-colors.herokuapp.com"
+              data-link-name="Coming soon - Slack"
+            >
               Slack
             </a>.
           </p>

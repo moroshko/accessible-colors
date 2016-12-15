@@ -22,9 +22,15 @@ export default class Editable extends Component {
     this.onKeyUp = ::this.onKeyUp;
   }
 
+  storeInputElement = element => {
+    if (element !== null) {
+      this.input = element;
+    }
+  };
+
   onFocus(event) {
     this.valueBeforeEdit = event.target.value;
-    setTimeout(() => this.refs.input.select());
+    setTimeout(() => this.input.select());
   }
 
   onKeyUp(event) {
@@ -43,16 +49,23 @@ export default class Editable extends Component {
     }
   }
 
+  onChange = event => {
+    this.props.onChange(event.target.value);
+  };
+
   render() {
-    const { isValid, onChange, inputProps } = this.props;
+    const { isValid, inputProps } = this.props;
 
     return (
-      <input {...inputProps}
-             className={isValid ? styles.validInput : styles.invalidInput}
-             aria-invalid={!isValid}
-             onFocus={this.onFocus} onKeyUp={this.onKeyUp}
-             onChange={event => onChange(event.target.value)}
-             ref="input" />
+      <input
+        {...inputProps}
+        className={isValid ? styles.validInput : styles.invalidInput}
+        aria-invalid={!isValid}
+        onFocus={this.onFocus}
+        onKeyUp={this.onKeyUp}
+        onChange={this.onChange}
+        ref={this.storeInputElement}
+      />
     );
   }
 }

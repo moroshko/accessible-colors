@@ -50,22 +50,30 @@ class Header extends Component {
             Accessible colors
           </h1>
           <div className={styles.socialButtons}>
-            <SocialButton icon="icon-circle-github" count={githubStars}
-                          color="#212121" hoverColor="#4078c0"
-                          linkProps={{
-                            href: GITHUB_HREF,
-                            target: '_blank',
-                            ariaLabel: `Star ${REPO} on GitHub`,
-                            'data-link-name': 'Header - GitHub'
-                          }} />
-            <SocialButton icon="icon-circle-twitter" count={twitterCount}
-                          color="#212121" hoverColor="#55acee"
-                          linkProps={{
-                            className: styles.twitterButton,
-                            href: TWITTER_HREF,
-                            ariaLabel: `Share ${DOMAIN} on Twitter`,
-                            'data-link-name': 'Header - Twitter'
-                          }} />
+            <SocialButton
+              icon="icon-circle-github"
+              count={githubStars}
+              color="#212121"
+              hoverColor="#4078c0"
+              linkProps={{
+                href: GITHUB_HREF,
+                target: '_blank',
+                'aria-label': `Star ${REPO} on GitHub`,
+                'data-link-name': 'Header - GitHub'
+              }}
+            />
+            <SocialButton
+              icon="icon-circle-twitter"
+              count={twitterCount}
+              color="#212121"
+              hoverColor="#55acee"
+              linkProps={{
+                className: styles.twitterButton,
+                href: TWITTER_HREF,
+                'aria-label': `Share ${DOMAIN} on Twitter`,
+                'data-link-name': 'Header - Twitter'
+              }}
+            />
           </div>
         </div>
       </header>

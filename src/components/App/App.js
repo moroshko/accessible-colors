@@ -40,9 +40,11 @@ function App(props) {
       <div className={styles.previewContainer}>
         {
           isUserInputValid &&
-            <Preview accessibilityLevel={accessibilityLevel}
-                     accessibleContrast={accessibleContrastRatio}
-                     isAccessible={isAccessible} />
+            <Preview
+              accessibilityLevel={accessibilityLevel}
+              accessibleContrast={accessibleContrastRatio}
+              isAccessible={isAccessible}
+            />
         }
       </div>
       <HowItWorks />
