@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { MAX_FONT_SIZE } from 'constants';
 import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
 import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
+import { fontSizeInPx } from 'utils/accessibility/accessibility';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, ut pri essent facilis constituto, etiam assueverit
@@ -26,23 +27,28 @@ function calcLinesToShow(fontSize) {
     return 4;
   }
 
-  return 3;
+  if (fontSize <= 21) {
+    return 3;
+  }
+
+  return 2;
 }
 
 function mapStateToProps(state) {
   return {
     textColor: state.textColor,
     fontSize: state.fontSize,
+    fontUnitOfMeasure: state.fontUnitOfMeasure,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor
   };
 }
 
 function Preview(props) {
-  const { textColor, fontSize, isFontBold, backgroundColor,
+  const { textColor, fontSize, fontUnitOfMeasure, isFontBold, backgroundColor,
           accessibilityLevel, accessibleContrast, isAccessible } = props;
   const previewContentStyle = {
-    fontSize: Math.min(parseInt(fontSize.value, 10), MAX_FONT_SIZE),
+    fontSize: Math.min(fontSizeInPx(parseInt(fontSize.value, 10),fontUnitOfMeasure), MAX_FONT_SIZE),
     fontWeight: isFontBold ? '500' : '300'
   };
   const originalTextColor = str2sixDigitHex(textColor.value);

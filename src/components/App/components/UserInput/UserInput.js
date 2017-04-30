@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { MIN_FONT_SIZE, MAX_FONT_SIZE } from 'constants';
 import { updateTextColor, blurTextColor, updateFontSize, blurFontSize,
-         toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
+         updateFontUnitOfMeasure, toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
          updateAccessibilityLevel } from 'actions/app';
 import Editable from 'Editable/Editable';
 import Toggle from 'Toggle/Toggle';
@@ -13,6 +13,7 @@ function mapStateToProps(state) {
   return {
     textColor: state.textColor,
     fontSize: state.fontSize,
+    fontUnitOfMeasure: state.fontUnitOfMeasure,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor,
     accessibilityLevel: state.accessibilityLevel
@@ -25,6 +26,7 @@ function mapDispatchToProps(dispatch) {
     blurTextColor: () => dispatch(blurTextColor()),
     updateFontSize: value => dispatch(updateFontSize(value)),
     blurFontSize: () => dispatch(blurFontSize()),
+    updateFontUnitOfMeasure: value => dispatch(updateFontUnitOfMeasure(value)),
     toggleFontWeight: () => dispatch(toggleFontWeight()),
     updateBackgroundColor: value => dispatch(updateBackgroundColor('value', value)),
     blurBackgroundColor: () => dispatch(blurBackgroundColor()),
@@ -33,10 +35,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function UserInput(props) {
-  const { textColor, fontSize, isFontBold, backgroundColor,
+  const { textColor, fontSize, fontUnitOfMeasure, isFontBold, backgroundColor,
           accessibilityLevel, updateTextColor,
           blurTextColor, updateFontSize, blurFontSize,
-          toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
+          updateFontUnitOfMeasure, toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
           updateAccessibilityLevel } = props;
 
   return (
@@ -76,7 +78,14 @@ function UserInput(props) {
                 }}
               />
             </span>
-            pt and
+            <span className={styles.fontUnitOfMeasureContainer}>
+              <Toggle
+                values={['pt', 'px']}
+                currentValue={fontUnitOfMeasure}
+                onChange={updateFontUnitOfMeasure}
+              />
+            </span>
+            and
             <span className={styles.fontWeightContainer}>
               <Toggle
                 values={['regular', 'bold']}
@@ -136,6 +145,7 @@ function UserInput(props) {
 UserInput.propTypes = {
   textColor: PropTypes.object.isRequired,
   fontSize: PropTypes.object.isRequired,
+  fontUnitOfMeasure: PropTypes.string.isRequired,
   isFontBold: PropTypes.bool.isRequired,
   backgroundColor: PropTypes.object.isRequired,
   accessibilityLevel: PropTypes.string.isRequired,
@@ -144,6 +154,7 @@ UserInput.propTypes = {
   blurTextColor: PropTypes.func.isRequired,
   updateFontSize: PropTypes.func.isRequired,
   blurFontSize: PropTypes.func.isRequired,
+  updateFontUnitOfMeasure: PropTypes.func.isRequired,
   toggleFontWeight: PropTypes.func.isRequired,
   updateBackgroundColor: PropTypes.func.isRequired,
   blurBackgroundColor: PropTypes.func.isRequired,
