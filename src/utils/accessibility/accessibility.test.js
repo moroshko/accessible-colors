@@ -36,18 +36,16 @@ describe('Accessibility Utils', () => {
     });
 
     describe('fontSizeInPx()', () => {
-      describe('Should', () => {
-        it('rounded up', () => {
-          expect(fontSizeInPx(14, 'pt')).to.equal(19);
-        });
+      it('Should round up', () => {
+        expect(fontSizeInPx(14, 'pt')).to.equal(19);
+      });
 
-        it('rounded down', () => {
-          expect(fontSizeInPx(10, 'pt')).to.equal(13);
-        });
+      it('Should round down', () => {
+        expect(fontSizeInPx(10, 'pt')).to.equal(13);
+      });
 
-        it('return number unchanged', () => {
-          expect(fontSizeInPx(10, 'px')).to.equal(10);
-        });
+      it('Should return number unchanged', () => {
+        expect(fontSizeInPx(10, 'px')).to.equal(10);
       });
     });
   });
