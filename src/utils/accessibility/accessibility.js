@@ -8,7 +8,6 @@ function isLargeScale(fontSize, isFontBold) {
 
 function fontSizeInPt(fontSize, fontSizeUnit) {
   // http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html#visual-audio-contrast-contrast-73-head
-  console.log('size: '+ fontSize + ' unit: ' + fontSizeUnit);
   return (fontSizeUnit === 'pt') ? fontSize : Math.round(fontSize / PIXELS_IN_POINT);
 }
 
