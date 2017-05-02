@@ -34,19 +34,19 @@ describe('Accessibility Utils', () => {
         expect(accessibleContrast('AAA', 24, 'px', false)).to.equal(4.5);
       });
     });
+  });
 
-    describe('fontSizeInPx()', () => {
-      it('Should round up', () => {
-        expect(fontSizeInPx(14, 'pt')).to.equal(19);
-      });
+  describe('fontSizeInPx()', () => {
+    it('Should round up', () => {
+      expect(fontSizeInPx(14, 'pt')).to.equal(19);
+    });
 
-      it('Should round down', () => {
-        expect(fontSizeInPx(10, 'pt')).to.equal(13);
-      });
+    it('Should round down', () => {
+      expect(fontSizeInPx(10, 'pt')).to.equal(13);
+    });
 
-      it('Should return number unchanged', () => {
-        expect(fontSizeInPx(10, 'px')).to.equal(10);
-      });
+    it('Should return number unchanged', () => {
+      expect(fontSizeInPx(10, 'px')).to.equal(10);
     });
   });
 });
