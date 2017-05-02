@@ -1,9 +1,9 @@
-import { MIN_FONT_SIZE } from 'constants';
+import { MIN_FONT_SIZE_IN_PX } from 'constants';
 import { str2hsl } from 'utils/color/color';
 import { isIntegerInRange, correctInteger } from 'utils/number/number';
 import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
          UPDATE_FONT_SIZE, BLUR_FONT_SIZE,
-         UPDATE_FONT_UNIT_OF_MEASURE, TOGGLE_FONT_WEIGHT,
+         UPDATE_FONT_SIZE_UNIT, TOGGLE_FONT_WEIGHT,
          UPDATE_BACKGROUND_COLOR, BLUR_BACKGROUND_COLOR,
          UPDATE_ACCESSIBILITY_LEVEL,
          LOAD_GITHUB_STARS_SUCCESS, LOAD_TWITTER_COUNT_SUCCESS } from 'actions/app';
@@ -31,7 +31,7 @@ const initialState = {
     isValid: true,
     value: '18'
   },
-  fontUnitOfMeasure: 'px',
+  fontSizeUnit: 'px',
   isFontBold: false,
   backgroundColor: {
     isValueValid: true,
@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fontSize: {
-          isValid: isIntegerInRange(action.value, MIN_FONT_SIZE),
+          isValid: isIntegerInRange(action.value, MIN_FONT_SIZE_IN_PX),
           value: action.value
         }
       };
@@ -84,10 +84,10 @@ export default (state = initialState, action) => {
         }
       } : state;
 
-    case UPDATE_FONT_UNIT_OF_MEASURE:
+    case UPDATE_FONT_SIZE_UNIT:
       return {
         ...state,
-        fontUnitOfMeasure: action.value
+        fontSizeUnit: action.value
       };
 
     case TOGGLE_FONT_WEIGHT:

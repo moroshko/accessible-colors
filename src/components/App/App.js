@@ -15,7 +15,7 @@ function mapStateToProps(state) {
   return {
     textColor: state.textColor,
     fontSize: state.fontSize,
-    fontUnitOfMeasure: state.fontUnitOfMeasure,
+    fontSizeUnit: state.fontSizeUnit,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor,
     accessibilityLevel: state.accessibilityLevel
@@ -23,14 +23,14 @@ function mapStateToProps(state) {
 }
 
 function App(props) {
-  const { textColor, fontSize, fontUnitOfMeasure, isFontBold,
+  const { textColor, fontSize, fontSizeUnit, isFontBold,
           backgroundColor, accessibilityLevel } = props;
   const isUserInputValid = textColor.isValueValid &&
                            backgroundColor.isValueValid &&
                            fontSize.isValid;
   const fontSizeValue = parseInt(fontSize.value, 10);
   const accessibleContrastRatio = isUserInputValid ?
-    accessibleContrast(accessibilityLevel, fontSizeValue, isFontBold, fontUnitOfMeasure) : null;
+    accessibleContrast(accessibilityLevel, fontSizeValue, fontSizeUnit, isFontBold) : null;
   const isAccessible = isUserInputValid ?
     (contrast(textColor.value, backgroundColor.value) >= accessibleContrastRatio) : null;
 
@@ -58,7 +58,7 @@ function App(props) {
 App.propTypes = {
   textColor: PropTypes.object.isRequired,
   fontSize: PropTypes.object.isRequired,
-  fontUnitOfMeasure: PropTypes.string.isRequired,
+  fontSizeUnit: PropTypes.string.isRequired,
   isFontBold: PropTypes.bool.isRequired,
   backgroundColor: PropTypes.object.isRequired,
   accessibilityLevel: PropTypes.string.isRequired

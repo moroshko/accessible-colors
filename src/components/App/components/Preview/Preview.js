@@ -2,7 +2,7 @@ import styles from './Preview.less';
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { MAX_FONT_SIZE } from 'constants';
+import { MAX_FONT_SIZE_IN_PX } from 'constants';
 import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
 import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
 import { fontSizeInPx } from 'utils/accessibility/accessibility';
@@ -38,17 +38,17 @@ function mapStateToProps(state) {
   return {
     textColor: state.textColor,
     fontSize: state.fontSize,
-    fontUnitOfMeasure: state.fontUnitOfMeasure,
+    fontSizeUnit: state.fontSizeUnit,
     isFontBold: state.isFontBold,
     backgroundColor: state.backgroundColor
   };
 }
 
 function Preview(props) {
-  const { textColor, fontSize, fontUnitOfMeasure, isFontBold, backgroundColor,
+  const { textColor, fontSize, fontSizeUnit, isFontBold, backgroundColor,
           accessibilityLevel, accessibleContrast, isAccessible } = props;
   const previewContentStyle = {
-    fontSize: Math.min(fontSizeInPx(parseInt(fontSize.value, 10),fontUnitOfMeasure), MAX_FONT_SIZE),
+    fontSize: Math.min(fontSizeInPx(parseInt(fontSize.value, 10),fontSizeUnit), MAX_FONT_SIZE_IN_PX),
     fontWeight: isFontBold ? '500' : '300'
   };
   const originalTextColor = str2sixDigitHex(textColor.value);
@@ -179,9 +179,9 @@ function Preview(props) {
 Preview.propTypes = {
   textColor: PropTypes.object.isRequired,
   fontSize: PropTypes.object.isRequired,
+  fontSizeUnit: PropTypes.string.isRequired,
   isFontBold: PropTypes.bool.isRequired,
   backgroundColor: PropTypes.object.isRequired,
-
   accessibilityLevel: PropTypes.string.isRequired,
   accessibleContrast: PropTypes.number.isRequired,
   isAccessible: PropTypes.bool.isRequired
