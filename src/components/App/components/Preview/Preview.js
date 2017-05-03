@@ -2,16 +2,12 @@ import styles from './Preview.less';
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { MAX_FONT_SIZE_IN_PX } from 'constants';
 import { str2sixDigitHex, contrast, findClosestAccessibleColor } from 'utils/color/color';
 import MultilineEllipsis from 'MultilineEllipsis/MultilineEllipsis';
 import { fontSizeInPx } from 'utils/accessibility/accessibility';
 
 const loremIpsum = `
-  Lorem ipsum dolor sit amet, ut pri essent facilis constituto, etiam assueverit
-  signiferumque ex ius. Quas quaestio ea duo. Purto magna aperiam no pri. Pri
-  prompta partiendo efficiendi ne, sed tritani deterruisset necessitatibus id,
-  ad est sint noluisse.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 `;
 
 function calcContrast(color1, color2) {
@@ -19,6 +15,14 @@ function calcContrast(color1, color2) {
 }
 
 function calcLinesToShow(fontSize) {
+  if (fontSize <= 8) {
+    return 7;
+  }
+
+  if (fontSize <= 10) {
+    return 6;
+  }
+
   if (fontSize <= 12) {
     return 5;
   }
@@ -31,7 +35,11 @@ function calcLinesToShow(fontSize) {
     return 3;
   }
 
-  return 2;
+  if (fontSize <= 36) {
+    return 2;
+  }
+
+  return 1;
 }
 
 function mapStateToProps(state) {
@@ -48,7 +56,7 @@ function Preview(props) {
   const { textColor, fontSize, fontSizeUnit, isFontBold, backgroundColor,
           accessibilityLevel, accessibleContrast, isAccessible } = props;
   const previewContentStyle = {
-    fontSize: Math.min(fontSizeInPx(parseInt(fontSize.value, 10),fontSizeUnit), MAX_FONT_SIZE_IN_PX),
+    fontSize: fontSizeInPx(parseInt(fontSize.value, 10),fontSizeUnit),
     fontWeight: isFontBold ? '500' : '300'
   };
   const originalTextColor = str2sixDigitHex(textColor.value);

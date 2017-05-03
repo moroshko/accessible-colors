@@ -2,7 +2,7 @@ import styles from './UserInput.less';
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { MIN_FONT_SIZE_IN_PX, MAX_FONT_SIZE_IN_PX } from 'constants';
+import { MIN_FONT_SIZE_IN_PX } from 'constants';
 import { updateTextColor, blurTextColor, updateFontSize, blurFontSize,
          updateFontSizeUnit, toggleFontWeight, updateBackgroundColor, blurBackgroundColor,
          updateAccessibilityLevel } from 'actions/app';
@@ -71,7 +71,6 @@ function UserInput(props) {
                   id: 'font-size',
                   type: 'number',
                   min: MIN_FONT_SIZE_IN_PX,
-                  max: MAX_FONT_SIZE_IN_PX,
                   step: '1',
                   value: fontSize.value,
                   onBlur: blurFontSize
