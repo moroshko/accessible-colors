@@ -2,6 +2,7 @@ export const UPDATE_TEXT_COLOR = 'UPDATE_TEXT_COLOR';
 export const BLUR_TEXT_COLOR = 'BLUR_TEXT_COLOR';
 export const UPDATE_FONT_SIZE = 'UPDATE_FONT_SIZE';
 export const BLUR_FONT_SIZE = 'BLUR_FONT_SIZE';
+export const UPDATE_FONT_SIZE_UNIT = 'UPDATE_FONT_SIZE_UNIT';
 export const TOGGLE_FONT_WEIGHT = 'TOGGLE_FONT_WEIGHT';
 export const UPDATE_BACKGROUND_COLOR = 'UPDATE_BACKGROUND_COLOR';
 export const BLUR_BACKGROUND_COLOR = 'BLUR_BACKGROUND_COLOR';
@@ -41,6 +42,13 @@ export function updateFontSize(value) {
 export function blurFontSize() {
   return {
     type: BLUR_FONT_SIZE
+  };
+}
+
+export function updateFontSizeUnit(value) {
+  return {
+    type: UPDATE_FONT_SIZE_UNIT,
+    value
   };
 }
 
