@@ -4,6 +4,7 @@ const PIXELS_IN_POINT = 1.333;
 // http://www.w3.org/TR/2008/REC-WCAG20-20081211/#larger-scaledef
 function isLargeScale(fontSize, fontSizeUnit, isFontBold) {
   const points = fontSizeInPt(fontSize, fontSizeUnit);
+
   return isFontBold ? (points >= 14) : (points >= 18);
 }
 

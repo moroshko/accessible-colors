@@ -1,4 +1,4 @@
-import { MIN_FONT_SIZE_IN_PX } from 'constants';
+import { MIN_FONT_SIZE } from 'constants';
 import { str2hsl } from 'utils/color/color';
 import { isIntegerInRange, correctInteger } from 'utils/number/number';
 import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fontSize: {
-          isValid: isIntegerInRange(action.value, MIN_FONT_SIZE_IN_PX),
+          isValid: isIntegerInRange(action.value, MIN_FONT_SIZE),
           value: action.value
         }
       };

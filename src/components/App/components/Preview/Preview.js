@@ -14,32 +14,28 @@ function calcContrast(color1, color2) {
   return Math.round(100 * contrast(color1, color2)) / 100;
 }
 
-function calcLinesToShow(fontSize) {
-  if (fontSize <= 8) {
+function calcLinesToShow(fontSizeInPx) {
+  if (fontSizeInPx <= 8) {
     return 7;
   }
 
-  if (fontSize <= 10) {
+  if (fontSizeInPx <= 10) {
     return 6;
   }
 
-  if (fontSize <= 12) {
+  if (fontSizeInPx <= 12) {
     return 5;
   }
 
-  if (fontSize <= 16) {
+  if (fontSizeInPx <= 16) {
     return 4;
   }
 
-  if (fontSize <= 21) {
+  if (fontSizeInPx <= 21) {
     return 3;
   }
 
-  if (fontSize <= 36) {
-    return 2;
-  }
-
-  return 1;
+  return 2;
 }
 
 function mapStateToProps(state) {
