@@ -10,8 +10,24 @@ import { UPDATE_TEXT_COLOR, BLUR_TEXT_COLOR,
 import { UPDATE_COLOR, CORRECT_COLOR } from 'actions/color';
 import colorReducer from 'reducers/color';
 
-const initialBackgroundColor = '#EEEEEE';
-const initialTextColor = '#747474';
+
+const defaults = {
+  bg: 'EEEEEE',
+  color: '747474',
+  size: '18',
+  format: 'px',
+  weight: 'regular',
+  design: 'aa'
+};
+const polyfilledParams = {
+  get(key) {
+    return defaults[key];
+  }
+};
+// either use the URL or just ignore it since we cant parse it easily
+const urlParams = typeof URLSearchParams === 'function' ? new URLSearchParams(window.location.search) : polyfilledParams;
+const initialBackgroundColor = `#${urlParams.get('bg') || defaults['bg']}`;
+const initialTextColor = `#${urlParams.get('color') || defaults['color']}`;
 const initialBackgroundColorHSL = str2hsl(initialBackgroundColor);
 const initialTextColorHSL = str2hsl(initialTextColor);
 const initialState = {
@@ -29,10 +45,10 @@ const initialState = {
   },
   fontSize: {
     isValid: true,
-    value: '18'
+    value: urlParams.get('size') || defaults['size']
   },
-  fontSizeUnit: 'px',
-  isFontBold: false,
+  fontSizeUnit: urlParams.get('format') || defaults['format'],
+  isFontBold: (urlParams.get('weight') || defaults['weight']) === 'bold',
   backgroundColor: {
     isValueValid: true,
     value: initialBackgroundColor,
@@ -43,12 +59,23 @@ const initialState = {
     isLightnessValid: true,
     lightness: initialBackgroundColorHSL.l.toString()
   },
-  accessibilityLevel: 'AA'
+  accessibilityLevel: (urlParams.get('design') || defaults['design']).toUpperCase()
 };
+
+function updateUrl(key, value) {
+  if (history.pushState && typeof URLSearchParams === 'function') {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set(key, value);
+
+    const path = window.location.protocol + '//' + window.location.host + window.location.pathname + '?' + searchParams.toString();
+    window.history.pushState({ path }, '', path);
+  }
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_TEXT_COLOR:
+      updateUrl('color', action.value.slice(1));
       return {
         ...state,
         textColor: colorReducer(state.textColor, {
@@ -67,6 +94,7 @@ export default (state = initialState, action) => {
       };
 
     case UPDATE_FONT_SIZE:
+      updateUrl('size', action.value);
       return {
         ...state,
         fontSize: {
@@ -85,18 +113,21 @@ export default (state = initialState, action) => {
       } : state;
 
     case UPDATE_FONT_SIZE_UNIT:
+      updateUrl('format', action.value);
       return {
         ...state,
         fontSizeUnit: action.value
       };
 
     case TOGGLE_FONT_WEIGHT:
+      updateUrl('weight', state.isFontBold ? 'regular' : 'bold');
       return {
         ...state,
         isFontBold: !state.isFontBold
       };
 
     case UPDATE_BACKGROUND_COLOR:
+      updateUrl('bg', action.value.slice(1));
       return {
         ...state,
         backgroundColor: colorReducer(state.backgroundColor, {
@@ -115,6 +146,7 @@ export default (state = initialState, action) => {
       };
 
     case UPDATE_ACCESSIBILITY_LEVEL:
+      updateUrl('design', action.value);
       return {
         ...state,
         accessibilityLevel: action.value
