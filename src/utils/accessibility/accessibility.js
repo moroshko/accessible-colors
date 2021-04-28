@@ -9,11 +9,11 @@ function isLargeScale(fontSize, fontSizeUnit, isFontBold) {
 }
 
 function fontSizeInPt(fontSize, fontSizeUnit) {
-  return (fontSizeUnit === 'pt') ? fontSize : Math.round(fontSize / PIXELS_IN_POINT);
+  return (fontSizeUnit === 'pt') ? fontSize : Math.floor(fontSize / PIXELS_IN_POINT);
 }
 
 function fontSizeInPx(fontSize, fontSizeUnit) {
-  return (fontSizeUnit === 'px') ? fontSize : Math.round(fontSize * PIXELS_IN_POINT);
+  return (fontSizeUnit === 'px') ? fontSize : Math.floor(fontSize * PIXELS_IN_POINT);
 }
 
 function accessibleContrast(accessibilityLevel, fontSize, fontSizeUnit, isFontBold) {

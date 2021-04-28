@@ -16,6 +16,7 @@ describe('Accessibility Utils', () => {
         expect(accessibleContrast('AA', 18, 'pt', false)).to.equal(3);
         expect(accessibleContrast('AA', 18, 'pt', true)).to.equal(3);
         expect(accessibleContrast('AA', 24, 'pt', false)).to.equal(3);
+        expect(accessibleContrast('AA', 19, 'px', true)).to.equal(3);
       });
     });
 
@@ -30,19 +31,16 @@ describe('Accessibility Utils', () => {
       it('should be 4.5 for large scale', () => {
         expect(accessibleContrast('AAA', 14, 'pt', true)).to.equal(4.5);
         expect(accessibleContrast('AAA', 18, 'pt', false)).to.equal(4.5);
-        expect(accessibleContrast('AAA', 18, 'px', true)).to.equal(4.5);
+        expect(accessibleContrast('AAA', 19, 'px', true)).to.equal(4.5);
         expect(accessibleContrast('AAA', 24, 'px', false)).to.equal(4.5);
       });
     });
   });
 
   describe('fontSizeInPx()', () => {
-    it('Should round up', () => {
-      expect(fontSizeInPx(14, 'pt')).to.equal(19);
-    });
-
     it('Should round down', () => {
       expect(fontSizeInPx(10, 'pt')).to.equal(13);
+      expect(fontSizeInPx(18, 'pt')).to.equal(23);
     });
 
     it('Should return number unchanged', () => {
